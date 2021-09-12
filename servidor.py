@@ -1,10 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request,  render_template
 from Servicios.autenticacion import autenticacion
 
 app = Flask(__name__)
 
 @app.route('/usuarios', methods=['POST'])
-
 def crear_usuario():
     datos_usuario = request.get_json()
     if 'nombre' not in datos_usuario:
@@ -18,6 +17,32 @@ def crear_usuario():
     autenticacion.crear_usuario(datos_usuario['nombre'], datos_usuario['correo'], datos_usuario['usuario'], datos_usuario['clave'])
     return 'OK', 200
 
+@app.route('/casos', methods=['POST'])
+def crear_caso():
+    datos_casos =  request.get_json()
+    autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], datos_casos['recomendaciones'])
+    return 'OK', 200
+
+@app.route('/cultivos', methods=['POST'])
+def crear_cultivo():
+    datos_cultivo =  request.get_json()
+    autenticacion.crear_cultivo(datos_cultivo['nombrecientifco'], datos_cultivo['tipoCultivo'], datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
+    return 'OK', 200
+
+
+@app.route('/rol', methods=['POST'])
+def crear_tipo():
+    datos_tipo = request.get_json()
+    autenticacion.crear_rol(datos_tipo['tipoRol'])
+    return 'OK', 200
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route("/home")
+def ver_home():
+    return "Home"
 
 if __name__ == '__main__':
     app.debug = True
