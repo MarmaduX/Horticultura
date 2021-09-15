@@ -11,18 +11,18 @@ sql_valores_rol = '''INSERT INTO Rol (tipoRol) VALUES ("Usuario Común");
 
 sql_tabla_usuario = '''CREATE TABLE Usuario (
         idUsuario INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombreCompleto varchar(50),
-        correo varchar(50),
-        nombreUsuario varchar(50),
-        contraseña varchar(50)
+        nombreCompleto varchar(50) NOT NULL,
+        correo varchar(50) NOT NULL UNIQUE,
+        nombreUsuario varchar(50) NOT NULL,
+        contraseña varchar(50) NOT NULL
     );'''
 
 sql_tabla_caso = '''CREATE TABLE Caso (
         idCaso INTEGER PRIMARY KEY AUTOINCREMENT,
         tipoCultivo varchar(50),
-        nombrePlanta varchar(50),
-        foto VARBINARY(200),
-        descripcionCaso varchar(200),
+        nombrePlanta varchar(50) NOT NULL,
+        foto varchar(200) NOT NULL,
+        descripcionCaso varchar(200) NOT NULL,
         estado varchar(50),
         evolucionCaso varchar(50),
         fechaActualizacion SmallDateTime, 
@@ -31,10 +31,10 @@ sql_tabla_caso = '''CREATE TABLE Caso (
 
 sql_tabla_cultivo = '''CREATE TABLE Cultivo (
         idPlanta INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombreCientifico varchar(50), 
-        tipoCultivo varchar(50),
-        foto VARBINARY (200), 
-        descripcionCultivo varchar(200),
+        nombreCientifico varchar(50) NOT NULL, 
+        tipoCultivo varchar(50) NOT NULL,
+        foto varchar(200) NOT NULL, 
+        descripcionCultivo varchar(200) NOT NULL,
         plagas varchar(200),
         enfermedades varchar(200)
     );'''
