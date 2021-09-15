@@ -1,4 +1,4 @@
-from flask import Flask, request,  render_template
+from flask import Flask, request,  render_template, jsonify
 from Servicios.autenticacion import autenticacion
 
 app = Flask(__name__)
@@ -29,6 +29,31 @@ def crear_cultivo():
     autenticacion.crear_cultivo(datos_cultivo['nombrecientifco'], datos_cultivo['tipoCultivo'], datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
     return 'OK', 200
 
+@app.route('/cultivos/<idPlanta>', methods=['PUT'])
+def editar_cultivo(idPlanta):
+    datos_cultivo =  request.get_json()
+    autenticacion.editar_cultivo(idPlanta, datos_cultivo['nombrecientifco'], datos_cultivo['tipoCultivo'], datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
+    return "OK", 200
+
+@app.route('/cultivos', methods=['GET'])
+def listar_cultivos():
+    lista = autenticacion.listar_cultivos()
+    return jsonify(lista), 200
+
+@app.route('/cultivos/<idPlanta>', methods=['GET'])
+def mostrar_cultivo(idPlanta):
+    lista = autenticacion.mostar_cultivo(idPlanta)
+    return jsonify(lista), 200
+
+@app.route('/cultivos/<idPlanta>', methods=['DELETE'])
+def eliminar_cultivo(idPlanta):
+    autenticacion.eliminar_cultivo(idPlanta)
+    return "OK", 200
+
+@app.route('/cultivo/<tipoCultivo>', methods=['GET'])
+def mostar_cultivo_por(tipoCultivo):
+    lista = autenticacion.mostar_cultivo_por(tipoCultivo)
+    return jsonify(lista) , 200
 
 @app.route('/rol', methods=['POST'])
 def crear_tipo():
