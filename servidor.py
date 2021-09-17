@@ -17,10 +17,50 @@ def crear_usuario():
     autenticacion.crear_usuario(datos_usuario['nombre'], datos_usuario['correo'], datos_usuario['usuario'], datos_usuario['clave'])
     return 'OK', 200
 
-@app.route('/casos', methods=['POST'])
-def crear_caso():
+@app.route('/casos/<idUsuario>', methods=['POST'])
+def crear_caso(idUsuario):
     datos_casos =  request.get_json()
-    autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], datos_casos['recomendaciones'])
+    autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], datos_casos['recomendaciones'], idUsuario)
+    return 'OK', 200
+
+@app.route('/casos/<idCaso>', methods=['PUT'])
+def modificar_caso(idCaso):
+    datos_casos = request.get_json()
+    autenticacion.modificar_caso(idCaso, datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], datos_casos['recomendaciones'], datos_casos['especialsita'])
+    return 'OK', 200
+
+@app.route('/casos/<idCaso>', methods=['DELETE'])
+def eliminar_caso(idCaso):
+    autenticacion.eliminar_caso(idCaso)
+    return 'OK', 200
+
+@app.route('/casos', methods=['GET'])
+def mostrar_casos():
+    return jsonify(autenticacion.mostrar_casos()), 200
+
+
+@app.route('/casos/<idCaso>', methods=['GET'])
+def mostrar_casos(idCaso):
+    return jsonify(autenticacion.ver_caso(idCaso)), 200
+
+@app.route('/casos/<idUsuario>', methods=['GET'])
+def mostrar_caso_por(idUsuario):
+    return jsonify(autenticacion.mostrar_casos_usuario(idUsuario)), 200
+
+@app.route('/casos/<tipoCultivo>', methods=['GET'])
+def mostrar_casos_por(tipoCultivo):
+    return jsonify(autenticacion.mostrar_casos_por(tipoCultivo)), 200
+
+@app.route('/casos/editarCaso/<idCaso>', methods=['PUT'])
+def registrar_recomendacion(idCaso):
+    datos_casos = request.get_json()
+    autenticacion.registrar_recomendacion(idCaso, datos_casos['recomendaciones'], datos_casos['estado'], datos_casos['fechaActualizacion'])
+    return 'OK', 200
+
+@app.route('/casos/finalizar/<idCaso>', methods=['PUT'])
+def pasar_a_resuelto_un_caso(idCaso):
+    datos_casos = request.get_json()
+    autenticacion.pasar_a_resuelto_un_caso(idCaso, datos_casos['estado'], datos_casos['fecaActualizacion'])
     return 'OK', 200
 
 @app.route('/cultivos', methods=['POST'])
@@ -68,6 +108,9 @@ def index():
 @app.route("/home")
 def ver_home():
     return "Home"
+
+
+
 
 if __name__ == '__main__':
     app.debug = True
