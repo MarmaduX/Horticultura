@@ -13,7 +13,7 @@ sql_tabla_usuario = '''CREATE TABLE Usuario (
         idUsuario INTEGER PRIMARY KEY AUTOINCREMENT,
         nombreCompleto varchar(50) NOT NULL,
         correo varchar(50) NOT NULL UNIQUE,
-        nombreUsuario varchar(50) NOT NULL,
+        nombreUsuario varchar(50) NOT NULL UNIQUE,
         contraseña varchar(50) NOT NULL
     );'''
 

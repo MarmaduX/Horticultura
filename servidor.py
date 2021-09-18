@@ -40,7 +40,6 @@ def login():
         return "Usuario y/o Clave invalida", 412
     return "Tienes Acceso", 200
 
-
 @app.route('/casos/<idUsuario>', methods=['POST'])
 def crear_caso(idUsuario):
     datos_casos =  request.get_json()
@@ -50,13 +49,13 @@ def crear_caso(idUsuario):
         return 'La descripcion del caso es necesaria', 412
     if 'foto' not in datos_casos:
         return 'La foto del caso es necesaria', 412
-    autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], datos_casos['recomendaciones'], idUsuario)
+    autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
     return 'OK', 200
 
 @app.route('/casos/<idCaso>', methods=['PUT'])
 def modificar_caso(idCaso):
     datos_casos = request.get_json()
-    autenticacion.modificar_caso(idCaso, datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], datos_casos['recomendaciones'], datos_casos['especialsita'])
+    autenticacion.modificar_caso(idCaso, datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'])
     return 'OK', 200
 
 @app.route('/casos/<idCaso>', methods=['DELETE'])
@@ -68,8 +67,7 @@ def eliminar_caso(idCaso):
 def mostrar_casos():
     return jsonify(autenticacion.mostrar_casos()), 200
 
-
-@app.route('/casos/<idCaso>', methods=['GET'])
+@app.route('/caso/<idCaso>', methods=['GET'])
 def mostrar_caso(idCaso):
     return jsonify(autenticacion.ver_caso(idCaso)), 200
 
@@ -77,14 +75,14 @@ def mostrar_caso(idCaso):
 def mostrar_caso_por(idUsuario):
     return jsonify(autenticacion.mostrar_casos_usuario(idUsuario)), 200
 
-@app.route('/casos/<tipoCultivo>', methods=['GET'])
+@app.route('/casos/tipo/<tipoCultivo>', methods=['GET'])
 def mostrar_casos_por(tipoCultivo):
     return jsonify(autenticacion.mostrar_casos_por(tipoCultivo)), 200
 
 @app.route('/casos/editarCaso/<idCaso>', methods=['PUT'])
 def registrar_recomendacion(idCaso):
     datos_casos = request.get_json()
-    autenticacion.registrar_recomendacion(idCaso, datos_casos['recomendaciones'], datos_casos['estado'], datos_casos['fechaActualizacion'])
+    autenticacion.registrar_recomendacion(idCaso, datos_casos['recomendaciones'], datos_casos['estado'], datos_casos['fechaActualizacion'], datos_casos['especialista'])
     return 'OK', 200
 
 @app.route('/casos/finalizar/<idCaso>', methods=['PUT'])
@@ -125,12 +123,6 @@ def mostar_cultivo_por(tipoCultivo):
     lista = autenticacion.mostar_cultivo_por(tipoCultivo)
     return jsonify(lista) , 200
 
-@app.route('/rol', methods=['POST'])
-def crear_tipo():
-    datos_tipo = request.get_json()
-    autenticacion.crear_rol(datos_tipo['tipoRol'])
-    return 'OK', 200
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -138,9 +130,6 @@ def index():
 @app.route("/home")
 def ver_home():
     return "Home"
-
-
-
 
 if __name__ == '__main__':
     app.debug = True

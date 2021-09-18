@@ -12,11 +12,11 @@ def eliminar_usuario(idUsuario):
 def login(usuario, clave):
     return modelo_usuario.login(usuario, clave)
     
-def crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, recomendaciones, idUs):
-    modelo_caso.crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, recomendaciones, idUs)
+def crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, idUs):
+    modelo_caso.crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, idUs)
 
-def modificar_caso(idCaso, tipoCultivo, nombrePlanta, foto, caso, estado, evolucionCaso, fechaActualizacion, recomendaciones, especialsita):
-    modelo_caso.modificar_caso(idCaso, tipoCultivo, nombrePlanta, foto, caso, estado, evolucionCaso, fechaActualizacion, recomendaciones, especialsita)
+def modificar_caso(idCaso, tipoCultivo, nombrePlanta, foto, caso, estado, evolucionCaso, fechaActualizacion):
+    modelo_caso.modificar_caso(idCaso, tipoCultivo, nombrePlanta, foto, caso, estado, evolucionCaso, fechaActualizacion)
 
 def eliminar_caso(idCaso):
     modelo_caso.eliminar_caso(idCaso)
@@ -33,12 +33,11 @@ def mostrar_casos_usuario(idUsuario):
 def mostrar_casos_por(tipoCultivo):
     return modelo_caso.mostrar_casos_por(tipoCultivo)
 
-def registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion):
-    modelo_caso.registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion)
+def registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion, especialista):
+    modelo_caso.registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion, especialista)
 
 def pasar_a_resuelto_un_caso(idCaso, estado, fechaActualizacion):
     modelo_caso.pasar_a_resuelto_un_caso(idCaso, estado, fechaActualizacion)
-
 
 def crear_cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades):
     modelo_cultivo.crear_cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades)
