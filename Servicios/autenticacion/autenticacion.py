@@ -1,5 +1,17 @@
 from Datos.Modelos import usuarios as modelo_usuario, cultivo as modelo_cultivo, caso as modelo_caso, rol as modelo_rol
 
+def crear_usuario(nombre, email, usuario, clave):
+    modelo_usuario.crear_usuario(nombre, email, usuario, clave)
+
+def modificar_usuario(idUsuario, nombre, usuario, correo, contraseña):
+    modelo_usuario.modificar_usuario(idUsuario, nombre, usuario, correo, contraseña)
+
+def eliminar_usuario(idUsuario):
+    modelo_usuario.eliminar_usuario(idUsuario)
+
+def login(usuario, clave):
+    return modelo_usuario.login(usuario, clave)
+    
 def crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, recomendaciones, idUs):
     modelo_caso.crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, recomendaciones, idUs)
 
@@ -27,8 +39,6 @@ def registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion)
 def pasar_a_resuelto_un_caso(idCaso, estado, fechaActualizacion):
     modelo_caso.pasar_a_resuelto_un_caso(idCaso, estado, fechaActualizacion)
 
-def crear_usuario(nombre, email, usuario, clave):
-    modelo_usuario.crear_usuario(nombre, email, usuario, clave)
 
 def crear_cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades):
     modelo_cultivo.crear_cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades)
