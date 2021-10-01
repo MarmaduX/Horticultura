@@ -1,5 +1,4 @@
 from flask import Flask, request,  render_template, jsonify, json
-from flask.sessions import NullSession
 from Servicios.autenticacion import autenticacion
 
 app = Flask(__name__)
