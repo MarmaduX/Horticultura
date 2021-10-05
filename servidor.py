@@ -1,43 +1,47 @@
-from flask import Flask, request,  render_template, jsonify, json
+from flask import Flask, request,  render_template, jsonify, json, url_for
 from Servicios.autenticacion import autenticacion
 
 app = Flask(__name__)
 
-@app.route('/usuarios', methods=['POST'])
+@app.route('/usuarios', methods=['POST', 'GET'])
 def crear_usuario():
-    datos_usuario = request.get_json()
-    if 'nombre' not in datos_usuario:
-        return 'El nombre de usuario es requerido', 412
-    if 'correo' not in datos_usuario:
-        return 'El correo es requerido', 412
-    if 'correo' not in datos_usuario:
-        return 'El correo es requerido', 409
-    if 'usuario' not in datos_usuario:
-        return 'El Nombre de Usuario es requerido', 412
-    if 'clave' not in datos_usuario:
-        return 'La clave es requerida', 412
-    autenticacion.crear_usuario(datos_usuario['nombre'], datos_usuario['correo'], datos_usuario['usuario'], datos_usuario['clave'])
-    return 'OK', 200
+    if request.method == 'POST':
+        datos_usuario = request.get_json()
+        if 'nombre' not in datos_usuario:
+            return 'El nombre de usuario es requerido', 412
+        if 'correo' not in datos_usuario:
+            return 'El correo es requerido', 412
+        if 'usuario' not in datos_usuario:
+            return 'El Nombre de Usuario es requerido', 412
+        if 'clave' not in datos_usuario:
+            return 'La clave es requerida', 412
+        autenticacion.crear_usuario(datos_usuario['nombre'], datos_usuario['correo'], datos_usuario['usuario'], datos_usuario['clave'])
+        return 'Ok', 200
+    return render_template("signup.html"), 200
 
-@app.route('/usuario/<idUsuario>', methods=['PUT'])
+@app.route('/usuario/<idUsuario>', methods=['PUT', "GET"])
 def modificar_usuario(idUsuario):
-    datos_usuario = request.get_json()
-    autenticacion.modificar_usuario(idUsuario, datos_usuario['nombre'], datos_usuario['usuario'], datos_usuario['correo'], datos_usuario['clave'])
-    return 'OK', 200
+    if request.method == 'PUT':
+        datos_usuario = request.get_json()
+        autenticacion.modificar_usuario(idUsuario, datos_usuario['nombre'], datos_usuario['usuario'], datos_usuario['correo'], datos_usuario['clave'])
+        return 'OK', 200
+    return render_template("editar_usuario.html"), 200
 
 @app.route('/usuario/<idUsuario>', methods=['DELETE'])
 def eliminar_usuario(idUsuario):
     datos_usuario = request.get_json()
     autenticacion.eliminar_usuario(idUsuario)
-    return 'OK', 200
+    return ver_home(), 200
 
-@app.route('/login', methods = ['POST'])
+@app.route('/login', methods = ['POST', "GET"])
 def login():
-    datos_usuario = request.get_json()
-    datos = len(autenticacion.login(datos_usuario['usuario'], datos_usuario['clave']))
-    if datos == 0:
-        return "Usuario y/o Clave invalida", 412
-    return "Tienes Acceso", 200
+    if request.method == 'POST':
+        datos_usuario = request.get_json()
+        datos = len(autenticacion.login(datos_usuario['usuario'], datos_usuario['clave']))
+        if datos == 0:
+            return "Usuario y/o Clave invalida", 412
+        return "Tienes Acceso", 200
+    return render_template("login.html"), 200
 
 @app.route('/casos/<idUsuario>', methods=['POST'])
 def crear_caso(idUsuario):
@@ -123,12 +127,13 @@ def mostar_cultivo_por(tipoCultivo):
     return jsonify(lista) , 200
 
 @app.route('/')
+@app.route('/index')
 def index():
     return render_template('index.html')
 
 @app.route("/home")
 def ver_home():
-    return "Home"
+    return render_template("home.html")
 
 if __name__ == '__main__':
     app.debug = True

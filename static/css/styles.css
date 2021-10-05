@@ -1,0 +1,111 @@
+.jumbotron {
+  background-color: #00eeff;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  color: #000000;
+  background-image: url('../imagenes/fondo.jpg');
+  background-size: cover; 
+  height: 125px;
+}
+
+.card-img-top {
+  max-width: 100%; }
+
+.centrar {
+  vertical-align: middle;
+  margin: 10px; }
+
+.card-item {
+  flex: 1 30%;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem; }
+
+.btn-reserva {
+  background-color: #0000ff;
+  color: #ffffff;
+  width: 100%;
+  border-radius: 0px; }
+
+.text-lugar {
+  font-size: 20px; }
+
+.sangria {
+  text-indent: 50px; }
+
+.btn-icon {
+  padding: 0px 10px 0px 0px; }
+
+@media screen and (max-width: 576px) {
+  .foot-sm {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: flex-start; }
+  .card {
+    width: 100%; } }
+
+.footer {
+  padding: 10px 10px 0px 10px;
+  background-color: #000000;
+  color: #ffffff;
+  margin-top: 30px;
+  margin-bottom: 0px; }
+
+.footer-links-icon {
+  padding: 0px 0px 0px 20px;
+  color: #ffffff; }
+
+.producto {
+  height: 100%;
+  width: 100%; }
+
+.footer-addres-icon {
+  padding: 10px; }
+
+.map-container {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0; }
+
+.map-container iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute; }
+
+.formulario {
+  height: 100%;
+  width: 100%;
+  position: relative; }
+
+.map-container-6 {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0; }
+
+.map-container-6 iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute; }
+
+.iconos-de-barra {
+  padding: 0px 5px 0px 0px; }
+
+.nav-pills {
+  padding-bottom: 10px; }
+
+.card-aux {
+  padding-top: 10px; }
+
+.texto{
+  padding: 40px 5px;
+}
+.borde{
+  padding: 0px 5px;
+}
+.flechita {
+  color: black; }
