@@ -1,11 +1,8 @@
 .jumbotron {
-  background-color: #00eeff;
-  margin-top: 50px;
-  margin-bottom: 30px;
-  color: #000000;
-  background-image: url('../imagenes/fondo.jpg');
-  background-size: cover; 
-  height: 125px;
+  color: #ffffff;
+  background-image: url('../imagenes/background.png');
+  background-size: cover;
+  margin: 50px 0px 30px 0px;
 }
 
 .card-img-top {

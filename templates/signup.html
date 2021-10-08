@@ -17,21 +17,16 @@
         })
     </script>
     <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet">
+    <link href="../static/js/profile.js">
 </head>
 
 <body>
     <nav class="">
         <a href="#">Registar</a>
         <div>
-            <div>
-                <a class="" href="/index">Inicio</a>
-                <a class="" href="/home">Home</a>
-                <a class="" href="/login">Ingresar</a>
-                <a class="active" href="/usuarios">Registrarse</a>
-                <a class="" href="#">Ver Mis Casos</a>                
-                <a class="" href="#">Crear nuevo caso</a>
-                <a class="" href="#">Ver Cultivos</a>
-            </div>
+            <a class="" href="/index">Inicio</a>
+            <a class="" href="/login">Ingresar</a>
+            <a class="active" href="#">Registrarse</a>
         </div>
     </nav>
     <div class="jumbotron">
@@ -39,6 +34,7 @@
     </div>
     <div class="container ">
         <form action="signup" method="post" name="signup" onsubmit="return validateProfile(this)">
+            <ul class="errorMessages" style="display:none" id="errores_profile"></ul>
             <div>
                 <div>
                     <label for="nombre">Nombre Completo:</label>
@@ -62,7 +58,8 @@
                 </div>
                 <div>
                     <label for="confirm">Confirmar contraseña:</label>
-                    <input id="confirm" name="confirm" required placeholder="Ingrese nuevamente la contraseña..." size=" 80" type="password" value="" />
+                    <input id="confirm" name="confirm" required placeholder="Ingrese nuevamente la contraseña..."
+                        size=" 80" type="password" value="" />
                 </div>
             </div>
             <div class="inputs">

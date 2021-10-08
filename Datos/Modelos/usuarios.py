@@ -1,5 +1,23 @@
 from Datos.basededatos import BaseDeDatos
 
+def verificar_correo(email):
+    verificar_correo_sql = f"""
+        SELECT * FROM Usuario WHERE correo = "{email}" 
+    """
+    bd = BaseDeDatos()
+    existe = []
+    existe = bd.ejecutar_sql(verificar_correo_sql)
+    return existe
+
+def verificar_usuario(usuario):
+    verificar_usuario_sql = f"""
+        SELECT * FROM Usuario WHERE nombreUsuario = "{usuario}" 
+    """
+    bd = BaseDeDatos()
+    existe = []
+    existe = bd.ejecutar_sql(verificar_usuario_sql)
+    return existe
+
 def crear_usuario(nombreCompleto, correo, nombreUsuario, contraseña):
     crear_usuario_sql = f"""
         INSERT INTO Usuario(nombreCompleto, correo, nombreUsuario, contraseña)
@@ -28,6 +46,6 @@ def login(nombreUsuario, clave):
         SELECT * FROM Usuario WHERE nombreUsuario = '{nombreUsuario}' AND contraseña = '{clave}'
     """
     bd = BaseDeDatos()
-    juegos = []
-    juegos = bd.ejecutar_sql(ingresar_sql)
-    return juegos
+    existe = []
+    existe = bd.ejecutar_sql(ingresar_sql)
+    return existe

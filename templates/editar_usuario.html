@@ -13,22 +13,19 @@
     <nav class="">
         <a href="#">Editar Perfil</a>
         <div>
-            <div>
-                <a class="" href="/index">Inicio</a>
-                <a class="" href="/home">Home</a>
-                <a class="" href="/login">Ingresar</a>
-                <a class="active" href="/usuarios">Registrarse</a>
-                <a class="" href="#">Ver Mis Casos</a>                
-                <a class="" href="#">Crear nuevo caso</a>
-                <a class="" href="#">Ver Cultivos</a>
-            </div>
+            <a class="active" href="#">Inicio</a>
+            <a class="" href="#">Ver Cultivos</a>
+            <a class="" href="/casos">Ver Mis Casos</a>
+            <a class="" href="#">Crear nuevo caso</a>
+            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="#">Perfil</a>
         </div>
     </nav>
     <div class="jumbotron">
         <h1 class="texto">Horticultura</h1>
     </div>
     <div id="container">
-        <form action="/profile" method="post" name="profile" onsubmit="return validateProfileDHTML(this)">
+        <form action="/usuario/{{ userid }}" method="POST" name="profile" onsubmit="return validateProfileDHTML(this)">
             <div class="inputs">
                 <label for="nombre">Nombre Completo:</label>
                 <input id="nombre" maxlength="64" name="nombre" required placeholder="Ingrese su nombre y apellido..."
@@ -42,7 +39,7 @@
             <div class="inputs">
                 <label for="usuario">Usuario:</label>
                 <input id="usuario" name="usuario" required placeholder="Ingrese su usuario..." size="80" type="text"
-                    value="{{ usuario }}" />
+                    value="{{ nickname }}" />
             </div>
             <div class="inputs">
                 <label for="clave">Contraseña:</label>

@@ -3,6 +3,12 @@ from Datos.Modelos import usuarios as modelo_usuario, cultivo as modelo_cultivo,
 def crear_usuario(nombre, email, usuario, clave):
     modelo_usuario.crear_usuario(nombre, email, usuario, clave)
 
+def verificar_correo(correo):
+    return modelo_usuario.verificar_correo(correo)
+    
+def verificar_usuario(usuario):
+    return modelo_usuario.verificar_usuario(usuario)
+
 def modificar_usuario(idUsuario, nombre, usuario, correo, contraseña):
     modelo_usuario.modificar_usuario(idUsuario, nombre, usuario, correo, contraseña)
 
