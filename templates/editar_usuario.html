@@ -6,23 +6,21 @@
     <title>
         Horticultura
     </title>
-    <link href="{{ url_for('static', filename='/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand borde" href="#">Editar Perfil</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/index">Inicio</a>
-                <a class="nav-item nav-link" href="/home">Home</a>
-                <a class="nav-item nav-link" href="/login">Ingresar</a>
-                <a class="nav-item nav-link" href="/usuarios">Registrarse</a>
+    <nav class="">
+        <a href="#">Editar Perfil</a>
+        <div>
+            <div>
+                <a class="" href="/index">Inicio</a>
+                <a class="" href="/home">Home</a>
+                <a class="" href="/login">Ingresar</a>
+                <a class="active" href="/usuarios">Registrarse</a>
+                <a class="" href="#">Ver Mis Casos</a>                
+                <a class="" href="#">Crear nuevo caso</a>
+                <a class="" href="#">Ver Cultivos</a>
             </div>
         </div>
     </nav>
@@ -31,44 +29,33 @@
     </div>
     <div id="container">
         <form action="/profile" method="post" name="profile" onsubmit="return validateProfileDHTML(this)">
-            <ul class="errorMessages" style="display:none" id="errores_profile"></ul>
-            <label for="nombre">
-                Nombre Completo:
-            </label>
             <div class="inputs">
+                <label for="nombre">Nombre Completo:</label>
                 <input id="nombre" maxlength="64" name="nombre" required placeholder="Ingrese su nombre y apellido..."
                     size="80" type="text" value="{{ nombre }}" />
             </div>
-            <label for="email">
-                Email:
-            </label>
             <div class="inputs">
+                <label for="email">Email:</label>
                 <input id="email" name="email" required placeholder="Ingrese su email..." size="80" type="text"
                     value="{{ email }}" />
             </div>
-            <label for="usuario">
-                Usuario:
-            </label>
             <div class="inputs">
+                <label for="usuario">Usuario:</label>
                 <input id="usuario" name="usuario" required placeholder="Ingrese su usuario..." size="80" type="text"
                     value="{{ usuario }}" />
             </div>
-            <label for="clave">
-                Contraseña:
-            </label>
             <div class="inputs">
+                <label for="clave">Contraseña:</label>
                 <input id="clave" name="clave" required placeholder="Ingrese una contraseña..." size="80"
                     type="password" value="{{ clave }}" />
             </div>
-            <label for="confirm">
-                Confirmar contraseña:
-            </label>
             <div class="inputs">
+                <label for="confirm">Confirmar contraseña:</label>
                 <input id="confirm" name="confirm" required placeholder="Ingrese nuevamente la contraseña..." size="80"
                     type="password" value="{{ clave }}" />
             </div>
             <div class="inputs">
-                <input id="accept_submit" name="accept_submit" type="submit" value="Accept" />
+                <button id="accept_submit" name="accept_submit" type="submit" value="">Confirmar</button>
             </div>
         </form>
     </div>
