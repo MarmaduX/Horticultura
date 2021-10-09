@@ -1,12 +1,7 @@
-import os
-from flask import Flask, request,  render_template, jsonify, json, session, redirect, url_for
+from flask import Flask, request,  render_template, jsonify, json, session, url_for
 from Servicios.autenticacion import autenticacion
 
 app = Flask(__name__)
-
-
-SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-
 
 @app.route('/')
 @app.route('/index')
@@ -69,25 +64,27 @@ def login():
             if value is None or value == '':
                 missing.append(field)
         if missing:
-            return render_template('missingFields.html', inputs=missing, next=url_for("login"))
+            return render_template('missingFields.html', inputs=missing)
 
         return load_user(request.form['email'], request.form['clave'])
 
     return render_template("login.html"), 200
 
 
-@app.route('/casos/<idUsuario>', methods=['POST'])
+@app.route('/caso/<idUsuario>', methods=['POST', 'GET'])
 def crear_caso(idUsuario):
-    datos_casos = request.get_json()
-    if 'nombrePlanta' not in datos_casos:
-        return 'El nombre de la planta es requerido', 412
-    if 'descripcionCaso' not in datos_casos:
-        return 'La descripcion del caso es necesaria', 412
-    if 'foto' not in datos_casos:
-        return 'La foto del caso es necesaria', 412
-    autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
-                             datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
-    return 'OK', 200
+    if request.method == 'POST':
+        datos_casos = request.get_json()
+        if 'nombrePlanta' not in datos_casos:
+            return 'El nombre de la planta es requerido', 412
+        if 'descripcionCaso' not in datos_casos:
+            return 'La descripcion del caso es necesaria', 412
+        if 'foto' not in datos_casos:
+            return 'La foto del caso es necesaria', 412
+        autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
+                                datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
+        return 'OK', 200
+    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session["user_name"])
 
 
 @app.route('/casos/<idCaso>', methods=['PUT'])
@@ -117,7 +114,8 @@ def mostrar_caso(idCaso):
 
 @app.route('/casos/<idUsuario>', methods=['GET'])
 def mostrar_caso_por(idUsuario):
-    return jsonify(autenticacion.mostrar_casos_usuario(idUsuario)), 200
+    casos_a_mostrar = jsonify(autenticacion.mostrar_casos_usuario(idUsuario))
+    return render_template("casos_usuario.html", userid = idUsuario, nickname = session["user_name"])
 
 
 @app.route('/casos/tipo/<tipoCultivo>', methods=['GET'])

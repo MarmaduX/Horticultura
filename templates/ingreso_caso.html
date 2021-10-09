@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="">
+            <a href="#">Casos</a>
+            <br>
+            <a class="" href="/index">Inicio</a>
+            <a class="" href="#">Ver Cultivos</a>
+            <a class="" href="/casos/{{userid}}">Ver Mis Casos</a>
+            <a class="" href="#">Crear nuevo caso</a>
+            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="/usuario/{{ userid }}">Perfil</a>
+        </nav>
+        <article class="jumbotron">
+            <h1 class="texto">Horticultura</h1>
+        </article>
+    </header>
+    <section>
+        <form action="ingreso_caso" method="post" name="signup">
+            <label for="nombre">Nombre de la planta</label>
+            <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..." type="text" size="50">
+            <br>
+            <label for="tipo">Ingrese el tipo del cultivo</label>
+            <input id="tipo" name="tipo" required placeholder="Ingrese el tipo del cultivo..." type="text" size="50">
+            <br>
+            <label for="foto">foto de la enfermedad o plaga</label>
+            <input id="foto" name="foto" required type="file">
+            <br>
+            <label for="desc">Ingrese una descripcion del problema</label>
+            <textarea id="desc" name="desc" required placeholder="Ingrese descripcion..."></textarea>
+            <br>
+            <label for="estado">Estado</label>
+            <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50">
+            <br>
+            <label for="evolucion">Evolucion del caso</label>
+            <input id="evolucion" name="evolucion" required placeholder="Evolucion del caso..." type="text" size="50">
+            <br>
+            <label for="date">Fecha de creacion</label>
+            <input id="date" name="date" required type="date" size="50"><input type="time">
+            <br>
+            <button id="crear_submit" name="crear_submit" type="submit">Crear</button>
+        </form>
+    </section>
+    <footer>
+    </footer>
+</body>
+
+</html>

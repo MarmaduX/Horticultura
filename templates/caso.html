@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="">
+            <a href="#">Casos</a>
+            <br>
+            <a class="" href="/index">Inicio</a>
+            <a class="" href="#">Ver Cultivos</a>
+            <a class="" href="/casos/{{userid}}">Ver Mis Casos</a>
+            <a class="" href="/caso/{{ userid }}">Crear nuevo caso</a>
+            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="/usuario/{{ userid }}">Perfil</a>
+        </nav>
+        <article class="jumbotron">
+            <h1 class="texto">Horticultura</h1>
+        </article>
+    </header>
+    <section>
+        <article>
+            <h3>Nombre de la planta</h3>
+            <img src="">
+            <p><span style="color: red;">Tipo de planta:</span>este es el tipo de la planta</p>
+            <p>Descripcion del caso</p>
+            <p>Estado delcaso: en progreso</p>
+            <p>Evolucion del Caso</p>
+            <p>Recomendaciones</p>
+            <p>Especialista a cargo: Juan</p>
+            <p>ultima actualizacion. xx/xx/xx</p>
+        </article>
+    </section>
+    <footer>
+    </footer>
+</body>
+
+</html>

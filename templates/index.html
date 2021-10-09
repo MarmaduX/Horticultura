@@ -10,13 +10,13 @@
 
 <body>
     <nav class="">
-        <a href="#">Index</a>
+        <a href="#">Inicio</a>
         <div>
             {% if logged %}
             <a class="active" href="#">Inicio</a>
             <a class="" href="#">Ver Cultivos</a>
-            <a class="" href="/casos">Ver Mis Casos</a>
-            <a class="" href="#">Crear nuevo caso</a>
+            <a class="" href="/casos/{{ userid }}">Ver Mis Casos</a>
+            <a class="" href="/caso/{{ userid }}">Crear nuevo caso</a>
             <a class="" href="/logout">Log Out ({{ nickname }})</a>
             <a class="" href="/usuario/{{ userid }}">Perfil</a>
             {% else %}
