@@ -14,32 +14,25 @@
         <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
         <a class="titulo" href="#">Horticultura Virtual</a>
         <nav>
-            {% if logged %}
-            <a class="active" href="#">Inicio</a>
+            <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
             <a class="" href="/casos/{{ userid }}">Mis Casos</a>
-            {% if rol == 1 %}
-            <a class="" href="/caso/{{ userid }}">Crear caso</a>
-            {% else %}
-            <a class="" href="/todosloscasos">Todos los casos</a>
-            {% endif %}
-            <a class="" href="/logout">Log Out ({{ nickname }}) </a>
+            <a class="active" href="/todosloscasos">Todos los casos</a>
+            <a class="" href="/logout">Log Out ({{ nickname }})</a>
             <a class="" href="/usuario/{{ userid }}">Perfil</a>
-            {% else %}
-            <a class="active" href="/index">Inicio</a>
-            <a class="" href="/login">Ingresar</a>
-            <a class="" href="/signup">Registrarse</a>
-            {% endif %}
         </nav>
     </header>
     <section>
-        <div class="slider">
-            <ul>
-                <li><img src="../static/imagenes/fertilizantes.jpg" class="d-block w-100" alt="...">Fertilizantes</li>
-                <li><img src="../static/imagenes/maquinaria.jpg" class="d-block w-100" alt="...">Maquinaria</li>
-                <li><img src="../static/imagenes/semillas.jpg" class="d-block w-100" alt="...">Semillas</li>
-            </ul>
-        </div>
+        <button>Ordenar por tipo de cultivo</button>
+        <article>
+            <h3>Nombre de la planta</h3>
+            <img src="">
+            <p><span style="color: red;">Tipo de planta:</span>este es el tipo de la planta</p>
+            <p>Descripcion del caso</p>
+            <p>Estado delcaso: en progreso</p>
+            <p>ultima actualizacion. xx/xx/xx</p>
+            <button>Ver caso</button>
+        </article>
     </section>
     <footer>
         <div class="copyright">
@@ -56,7 +49,6 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
-    <script src="../static/js/index.js"></script>
 </body>
 
 </html>

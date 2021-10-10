@@ -10,11 +10,13 @@ def index():
         logged = True
         nickname = session['user_name']
         userid = session['user_id']
+        rol = session['user_rol']
     else:
         logged = False
         nickname = ''
         userid = ''
-    return render_template('index.html', logged=logged, nickname=nickname, userid=userid)
+        rol = ''
+    return render_template('index.html', logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -38,8 +40,8 @@ def crear_usuario():
 def modificar_usuario(idUsuario):
     if request.method == 'POST':
         autenticacion.modificar_usuario(idUsuario, request.form['nombre'], request.form['usuario'], request.form['email'], request.form['clave'])
-        return render_template("editar_usuario.html", nickname=session['user_name'], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre']), 200
-    return render_template("editar_usuario.html", nickname=session['user_name'], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'] ), 200
+        return render_template("editar_usuario.html", nickname=session['user_name'], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'], rol = session['user_rol']), 200
+    return render_template("editar_usuario.html", nickname=session['user_name'], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'],  rol = session['user_rol']), 200
 
 @app.route('/usuario/<idUsuario>', methods=['DELETE'])
 def eliminar_usuario(idUsuario):
@@ -84,8 +86,7 @@ def crear_caso(idUsuario):
         autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
                                 datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
         return 'OK', 200
-    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session["user_name"])
-
+    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session["user_name"],  rol = session['user_rol'])
 
 @app.route('/casos/<idCaso>', methods=['PUT'])
 def modificar_caso(idCaso):
@@ -197,6 +198,7 @@ def load_user(email, passwd):
     session['email'] = email
     session['user_id'] = datos[0][0]
     session['nombre'] = datos[0][1]
+    session['user_rol'] = datos[0][5]
     return index()
 
 def process_error(message):
@@ -228,6 +230,7 @@ def create_user_file(name, email, nick, clave, clave_confirm):
     session['nombre'] = name
     session['email'] = email
     session['user_id'] = datos[0][0]
+    session['user_rol'] = datos[0][5]
     return index()
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for security reasons (see CSRF)

@@ -2,29 +2,55 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
-    <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet">
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <nav class="">
-            <a href="#">Casos</a>
-            <a class="" href="#">Ver Cultivos</a>
-            <a class="active" href="#">Ver Mis Casos</a>
-            <a class="" href="#">Crear nuevo caso</a>
-            <a class="" href="#">Log Out ({{ nickname }})</a>
-            <a class="" href="#">Perfil</a>
+        <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        <a class="titulo" href="#">Horticultura Virtual</a>
+        <nav>
+            <a class="" href="/index">Inicio</a>
+            <a class="" href="#">Cultivos</a>
+            <a class="active" href="#">Mis Casos</a>
+            {% if rol == 1 %}
+            <a class="" href="/caso/{{ userid }}">Crear caso</a>
+            {% else %}
+            <a class="" href="/todosloscasos">Todos los casos</a>
+            {% endif %}
+            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="/usuario/{{ userid }}">Perfil</a>
         </nav>
-        <article class="jumbotron">
-            <h1 class="texto">Horticultura</h1>
-        </article>
     </header>
     <section>
-
+        <article>
+            <h3>Nombre de la planta</h3>
+            <img src="">
+            <p><span style="color: red;">Tipo de planta:</span>este es el tipo de la planta</p>
+            <p>Descripcion del caso</p>
+            <p>Estado delcaso: en progreso</p>
+            <p>ultima actualizacion. xx/xx/xx</p>
+            <button>Ver caso</button>
+        </article>
     </section>
     <footer>
-
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
+                <span class="material-icons">
+                    email
+                </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
+        </div>
     </footer>
 </body>
 

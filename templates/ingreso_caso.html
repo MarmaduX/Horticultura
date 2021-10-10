@@ -2,25 +2,25 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
-    <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet">
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <nav class="">
-            <a href="#">Casos</a>
-            <br>
+        <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        <a class="titulo" href="#">Horticultura Virtual</a>
+        <nav>
             <a class="" href="/index">Inicio</a>
-            <a class="" href="#">Ver Cultivos</a>
-            <a class="" href="/casos/{{userid}}">Ver Mis Casos</a>
-            <a class="" href="#">Crear nuevo caso</a>
+            <a class="" href="#">Cultivos</a>
+            <a class="" href="/casos/{{userid}}">Mis Casos</a>
+            <a class="active" href="#">Crear caso</a>
             <a class="" href="/logout">Log Out ({{ nickname }})</a>
             <a class="" href="/usuario/{{ userid }}">Perfil</a>
         </nav>
-        <article class="jumbotron">
-            <h1 class="texto">Horticultura</h1>
-        </article>
     </header>
     <section>
         <form action="ingreso_caso" method="post" name="signup">
@@ -49,6 +49,19 @@
         </form>
     </section>
     <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
+                <span class="material-icons">
+                    email
+                </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
+        </div>
     </footer>
 </body>
 

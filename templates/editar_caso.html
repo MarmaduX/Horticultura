@@ -27,19 +27,30 @@
         </nav>
     </header>
     <section>
-        <article>
-            <h3>Nombre de la planta</h3>
-            <img src="">
-            <p><span style="color: red;">Tipo de planta:</span>este es el tipo de la planta</p>
-            <p>Descripcion del caso</p>
-            <p>Estado delcaso: en progreso</p>
-            <p>Evolucion del Caso</p>
-            <p>Recomendaciones</p>
-            <p>Especialista a cargo: Juan</p>
-            <p>ultima actualizacion. xx/xx/xx</p>
-            <button>Editar caso</button>
-            <button>Eliminar caso</button>
-        </article>
+        <form action="editar_caso" method="post" name="signup">
+            <label for="nombre">Nombre de la planta</label>
+            <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..." type="text" size="50">
+            <br>
+            <label for="tipo">Ingrese el tipo del cultivo</label>
+            <input id="tipo" name="tipo" required placeholder="Ingrese el tipo del cultivo..." type="text" size="50">
+            <br>
+            <label for="foto">foto de la enfermedad o plaga</label>
+            <input id="foto" name="foto" required type="file">
+            <br>
+            <label for="desc">Ingrese una descripcion del problema</label>
+            <textarea id="desc" name="desc" required placeholder="Ingrese descripcion..."></textarea>
+            <br>
+            <label for="estado">Estado</label>
+            <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50">
+            <br>
+            <label for="evolucion">Evolucion del caso</label>
+            <input id="evolucion" name="evolucion" required placeholder="Evolucion del caso..." type="text" size="50">
+            <br>
+            <label for="date">Fecha de creacion</label>
+            <input id="date" name="date" required type="date" size="50"><input type="time">
+            <br>
+            <button id="crear_submit" name="crear_submit" type="submit">Editar Caso</button>
+        </form>
     </section>
     <footer>
         <div class="copyright">

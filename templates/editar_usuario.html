@@ -2,29 +2,31 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <title>
-        Horticultura
-    </title>
-    <link href="{{ url_for('static', filename='/css/styles.css') }}" rel="stylesheet">
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="">
-        <a href="#">Editar Perfil</a>
-        <div>
+    <header>
+        <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        <a class="titulo" href="#">Horticultura Virtual</a>
+        <nav>
             <a class="" href="/index">Inicio</a>
-            <a class="" href="#">Ver Cultivos</a>
-            <a class="" href="/casos/{{ userid }}">Ver Mis Casos</a>
-            <a class="" href="/caso/{{ userid }}">Crear nuevo caso</a>
+            <a class="" href="#">Cultivos</a>
+            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+            {% if rol == 1 %}
+            <a class="" href="/caso/{{ userid }}">Crear caso</a>
+            {% else %}
+            <a class="" href="/todosloscasos">Todos los casos</a>
+            {% endif %}
             <a class="" href="/logout">Log Out ({{ nickname }})</a>
             <a class="active" href="#">Perfil</a>
-        </div>
-    </nav>
-    <div class="jumbotron">
-        <h1 class="texto">Horticultura</h1>
-    </div>
-    <div id="container">
+        </nav>
+    </header>
+    <section>
         <form action="/usuario/{{ userid }}" method="POST" name="profile" onsubmit="return validateProfileDHTML(this)">
             <div class="inputs">
                 <label for="nombre">Nombre Completo:</label>
@@ -55,7 +57,22 @@
                 <button id="accept_submit" name="accept_submit" type="submit" value="">Confirmar</button>
             </div>
         </form>
-    </div>
+    </section>
+    <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
+                <span class="material-icons">
+                    email
+                </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
+        </div>
+    </footer>
 </body>
 
 </html>
