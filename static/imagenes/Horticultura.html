@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!-- saved from url=(0028)http://127.0.0.1:5001/caso/1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Horticultura</title>
-    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <link href="./Horticultura_files/estilos.css" rel="stylesheet">
     <!-- Fuente del logo -->
-    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="./Horticultura_files/css2" rel="stylesheet">
+    <link href="./Horticultura_files/icon" rel="stylesheet">
+    <script src="./Horticultura_files/jquery.min.js.descarga"></script>
+    <link href="http://127.0.0.1:5001/static/js/fecha.js">
     <script>
         $(function () {
             $("input[required]").parent().prev().append($("<span>").text("*").addClass("required"));
@@ -21,7 +21,11 @@
 
             var hours = now.getHours();
             var minutes = now.getMinutes();
-            var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes);
+            var seconds = now.getSeconds();
+        
+            var ahora = (hours) + "-" + (minutes) + "-" (seconds);
+            $("#time").val(ahora);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
             $("#date").val(today);
         });
     </script>
@@ -30,45 +34,43 @@
 <body>
     <header>
         <div>
-            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="http://127.0.0.1:5001/caso/1#"><img class="logo" src="./Horticultura_files/logo.png"></a>
         </div>
-        <a class="titulo" href="#">Horticultura Virtual</a>
+        <a class="titulo" href="http://127.0.0.1:5001/caso/1#">Horticultura Virtual</a>
         <nav>
-            <a class="" href="/index">Inicio</a>
-            <a class="" href="#">Cultivos</a>
-            <a class="" href="/casos/{{userid}}">Mis Casos</a>
-            <a class="active" href="#">Crear caso</a>
-            <a class="" href="/logout">Log Out ({{ nickname }})</a>
-            <a class="" href="/usuario/{{ userid }}">Perfil</a>
+            <a class="" href="http://127.0.0.1:5001/index">Inicio</a>
+            <a class="" href="http://127.0.0.1:5001/caso/1#">Cultivos</a>
+            <a class="" href="http://127.0.0.1:5001/casos/1">Mis Casos</a>
+            <a class="active" href="http://127.0.0.1:5001/caso/1#">Crear caso</a>
+            <a class="" href="http://127.0.0.1:5001/logout">Log Out (MarmaduX)</a>
+            <a class="" href="http://127.0.0.1:5001/usuario/1">Perfil</a>
         </nav>
     </header>
     <section class="sector">
         <div class="container">
-            <form action="/caso/{{userid}}" method="post" name="ingreso_caso">
+            <form action="http://127.0.0.1:5001/caso/ingreso_caso" method="post" name="ingreso_caso">
                 <div class="row">
                     <div class="col-25">
                         <label for="nombre">Nombre de la planta:</label>
-                    </div>
+                    <span class="required">*</span></div>
                     <div class="col-75">
-                        <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..."
-                            type="text" size="50">
+                        <input id="nombre" name="nombre" required="" placeholder="Ingrese nombre del cultivo..." type="text" size="50">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-25">
                         <label for="tipo">Ingrese el tipo del cultivo:</label>
-                    </div>
+                    <span class="required">*</span></div>
                     <div class="col-75">
-                        <input id="tipo" name="tipo" required placeholder="Ingrese el tipo del cultivo..." type="text"
-                            size="50">
+                        <input id="tipo" name="tipo" required="" placeholder="Ingrese el tipo del cultivo..." type="text" size="50">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-pers">
                         <label for="foto">Captura de la planta:</label>
-                    </div>
+                    <span class="required">*</span></div>
                     <div class="col-pers2">
-                        <input id="foto" name="foto" required type="file" multiple>
+                        <input id="foto" name="foto" required="" type="file" multiple="">
                     </div>
                 </div>
                 <div class="row">
@@ -76,32 +78,31 @@
                         <label for="desc">Descripcion del problema:</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="desc" name="desc" required placeholder="Ingrese descripcion..."></textarea>
+                        <textarea id="desc" name="desc" required="" placeholder="Ingrese descripcion..."></textarea>
                     </div>
                 </div>
                 <div class="oculta">
                     <div class="col-25">
                         <label for="estado">Estado:</label>
-                    </div>
+                    <span class="required">*</span></div>
                     <div class="col-75">
-                        <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50">
+                        <input id="estado" name="estado" required="" placeholder="Ingrese estado" type="text" size="50">
                     </div>
                 </div>
                 <div class="oculta">
                     <div class="col-25">
-                        <label for="evolucion" >Evolucion del caso:</label>
-                    </div>
+                        <label for="evolucion">Evolucion del caso:</label>
+                    <span class="required">*</span></div>
                     <div class="col-75">
-                        <input id="evolucion" name="evolucion" placeholder="Evolucion del caso..." type="text"
-                            size="50">
+                        <input id="evolucion" name="evolucion" required="" placeholder="Evolucion del caso..." type="text" size="50">
                     </div>
                 </div>
-                <div class="oculta">
+                <div class="row">
                     <div class="col-25">
                         <label for="date">Fecha de creacion:</label>
                     </div>
                     <div class="col-pers2">
-                        <input id="date" name="date" type="datetime-local" >
+                        <input id="date" type="date"><input id="time">
                     </div>
                 </div>
                 <div class="row">
@@ -122,9 +123,9 @@
             </div>
         </section>
         <div class="terminos">
-            <a href="#">Terminos y Condiciones</a>
+            <a href="http://127.0.0.1:5001/caso/1#">Terminos y Condiciones</a>
         </div>
     </footer>
-</body>
 
-</html>
+
+</body></html>

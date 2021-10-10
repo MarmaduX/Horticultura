@@ -3,12 +3,13 @@
 
 <head>
     <title>Horticultura</title>
+   
     <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
+     <script>
         $(function () {
             $("input[required]").parent().prev().append($("<span>").text("*").addClass("required"));
         })
@@ -18,7 +19,9 @@
 
 <body>
     <header>
-        <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        <div>
+            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        </div>
         <a class="titulo" href="#">Horticultura Virtual</a>
         <nav>
             <a class="" href="/index">Inicio</a>
@@ -26,40 +29,61 @@
             <a class="active" href="#">Registrarse</a>
         </nav>
     </header>
-    <section>
-        <form action="signup" method="post" name="signup" onsubmit="return validateProfile(this)">
-            <ul class="errorMessages" style="display:none" id="errores_profile"></ul>
-            <div>
-                <div>
-                    <label for="nombre">Nombre Completo:</label>
-                    <input id="nombre" maxlength="64" name="nombre" required
-                        placeholder="Ingrese su nombre y apellido..." size="80" type="text" value="" />
+    <section class="sector">
+        <div class="container">
+            <form action="signup" method="post" name="signup" onsubmit="return validateProfile(this)">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="nombre">Nombre Completo:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="nombre" maxlength="64" name="nombre" required
+                            placeholder="Ingrese su nombre y apellido..." size="50" type="text" value="" />
+                    </div>
                 </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input id="email" name="email" required placeholder="Ingrese su email..." size="50" type="text"
-                        value="" />
+                <div class="row">
+                    <div class="col-25">
+                        <label for="email">Email:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="email" name="email" required placeholder="Ingrese su email..." size="50" type="text"
+                            value="" />
+                    </div>
                 </div>
-                <div>
-                    <label for="usuario">Usuario:</label>
-                    <input id="usuario" name="usuario" required placeholder="Ingrese su usuario..." size="50"
-                        type="text" value="" />
+                <div class="row">
+                    <div class="col-25">
+                        <label for="usuario">Usuario:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="usuario" name="usuario" required placeholder="Ingrese su usuario..." size="50"
+                            type="text" value="" />
+                    </div>
                 </div>
-                <div>
-                    <label for="clave">Contraseña:</label>
-                    <input id="clave" name="clave" required placeholder="Ingrese una contraseña..." size="50"
-                        type="password" value="" />
+                <div class="row">
+                    <div class="col-25">
+                        <label for="clave">Contraseña:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="clave" name="clave" required placeholder="Ingrese una contraseña..." size="50"
+                            type="password" value="" />
+                    </div>
                 </div>
-                <div>
-                    <label for="confirm">Confirmar contraseña:</label>
-                    <input id="confirm" name="confirm" required placeholder="Ingrese nuevamente la contraseña..."
-                        size="50" type="password" value="" />
+                <div class="row">
+                    <div class="col-25">
+                        <label for="confirm">Confirmar:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="confirm" name="confirm" required placeholder="Ingrese nuevamente la contraseña..."
+                            size="50" type="password" value="" />
+                    </div>
+
                 </div>
-            </div>
-            <div class="inputs">
-                <button id="signup_submit" name="signup_submit" type="submit" value="Registrarse">Registrarse</button>
-            </div>
-        </form>
+                <div class="row">
+                    <button id="signup_submit" name="signup_submit" type="submit"
+                        value="Registrarse">Registrarse</button>
+                </div>
+            </form>
+        </div>
     </section>
     <footer>
         <div class="copyright">

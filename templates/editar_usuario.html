@@ -11,7 +11,9 @@
 
 <body>
     <header>
-        <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        <div>
+            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        </div>
         <a class="titulo" href="#">Horticultura Virtual</a>
         <nav>
             <a class="" href="/index">Inicio</a>
@@ -26,7 +28,7 @@
             <a class="active" href="#">Perfil</a>
         </nav>
     </header>
-    <section>
+    <section class="sector">
         <form action="/usuario/{{ userid }}" method="POST" name="profile" onsubmit="return validateProfileDHTML(this)">
             <div class="inputs">
                 <label for="nombre">Nombre Completo:</label>

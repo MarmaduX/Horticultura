@@ -76,16 +76,25 @@ def login():
 @app.route('/caso/<idUsuario>', methods=['POST', 'GET'])
 def crear_caso(idUsuario):
     if request.method == 'POST':
-        datos_casos = request.get_json()
-        if 'nombrePlanta' not in datos_casos:
-            return 'El nombre de la planta es requerido', 412
-        if 'descripcionCaso' not in datos_casos:
-            return 'La descripcion del caso es necesaria', 412
-        if 'foto' not in datos_casos:
-            return 'La foto del caso es necesaria', 412
-        autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
-                                datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
-        return 'OK', 200
+        # datos_casos = request.get_json()
+        # if 'nombrePlanta' not in datos_casos:
+        #     return 'El nombre de la planta es requerido', 412
+        # if 'descripcionCaso' not in datos_casos:
+        #     return 'La descripcion del caso es necesaria', 412
+        # if 'foto' not in datos_casos:
+        #     return 'La foto del caso es necesaria', 412
+        # autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
+        #                         datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
+        missing = []
+        fields = ['nombre', 'tipo', 'foto', 'desc','crear_submit',]
+        for field in fields:
+            value = request.form.get(field, None)
+            if value is None or value == '':
+                missing.append(field)
+        if missing:
+            return render_template('missingFields.html', inputs=missing)
+        return "ok", 200 #creacion_caso(request.form['email'], request.form['clave'])
+
     return render_template("ingreso_caso.html", userid=idUsuario, nickname=session["user_name"],  rol = session['user_rol'])
 
 @app.route('/casos/<idCaso>', methods=['PUT'])
@@ -231,6 +240,9 @@ def create_user_file(name, email, nick, clave, clave_confirm):
     session['email'] = email
     session['user_id'] = datos[0][0]
     session['user_rol'] = datos[0][5]
+    return index()
+
+def creacion_caso():
     return index()
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for security reasons (see CSRF)

@@ -23,7 +23,9 @@
 
 <body>
     <header>
-        <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        <div>
+            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+        </div>
         <a class="titulo" href="#">Horticultura Virtual</a>
         <nav class="">
             <a class="" href="/index">Inicio</a>
@@ -31,26 +33,39 @@
             <a class="" href="/signup">Registrarse</a>
         </nav>
     </header>
-    <section>
-        <form action="login" method="post" name="login">
-            <div>
-                <div>
-                    <label for="email">Email</label>
-                    <input id="email" name="email" required placeholder="Ingrese su email..." size="80" type="text"
-                        value="" />
+    <section class="sector">
+        <div class="container">
+            <form action="login" method="post" name="login">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="email">Email:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="email" name="email" required placeholder="Ingrese su email..." size="50" type="text"
+                            value="" />
+                    </div>
                 </div>
-                <div>
-                    <label for="clave">Password</label>
-                    <input id="clave" name="clave" required placeholder="Ingrese su contraseña..." size="80"
+                <div class="row">
+                    <div class="col-25">
+                        <label for="clave">Password</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="clave" name="clave" required placeholder="Ingrese su contraseña..." size="80"
                         type="password" value="" />
+                    </div>
                 </div>
-                <label for="remember_me">
+                <div class="col-25 recordar">
+                    <label for="remember_me">
                     <input id="remember_me" name="remember_me" type="checkbox" value="y" />
                     Recordarme
                 </label>
-                <button id="login_submit" name="login_submit" type="submit" value="Ingresar">Registrarse</button>
-            </div>
-        </form>
+                </div>
+                
+                <div class="row">
+                    <button id="login_submit" name="login_submit" type="submit" value="Ingresar">Registrarse</button>
+                </div>                
+            </form>
+        </div>
     </section>
     <footer>
         <div class="copyright">
