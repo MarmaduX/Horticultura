@@ -3,10 +3,12 @@
 
 <head>
     <title>Horticultura</title>
-    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -15,25 +17,41 @@
             <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="#">Horticultura Virtual</a>
-        <nav >
+        <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
             <a class="active" href="#">Mis Casos</a>
-            <a class="" href="/caso/{{ userid }}">Crear caso</a>
-            <a class="" href="/logout">Log Out ({{ nickname }})</a>
-            <a class="" href="/usuario/{{ userid }}">Perfil</a>
+            <a class="" href="/caso/{{ usuario[0] }}">Crear caso</a>
+            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
+            <a class="" href="/usuario/{{ usuario[0] }}">Perfil</a>
         </nav>
     </header>
     <section class="sector">
-        <article>
-            <h3>Nombre de la planta</h3>
-            <img src="">
-            <p><span style="color: red;">Tipo de planta:</span>este es el tipo de la planta</p>
-            <p>Descripcion del caso</p>
-            <p>Estado delcaso: en progreso</p>
-            <p>ultima actualizacion. xx/xx/xx</p>
-            <button>Ver caso</button>        
+        <article id="unic-article">
+            {% for caso in casos%}
+            <div class="container-fluid">
+                <div>
+                    <div class="media">
+                        <img class="imagen-small" src="{{ caso[3] }}" />
+                    </div>
+                    <div class="body">
+                        <h3 class="card-title text-center">{{ caso[2] }}</h3>
+                        <p class="card-subtitle">Tipo de planta:</p><span class="card-text">{{ caso[1] }}</span>
+                        <p class="card-subtitle">Estado del caso:</p><span class="card-text">{{ caso[5] }}</span>
+                        <p class="card-subtitle">Ultima revicion:</p><span class="card-text">{{ caso[7] }}</span>
+
+                    </div>
+                </div>
+                <button class="button card-btn" type="submit"><a class="btn" href='/vercaso/{{ caso[0] }}'>Ver caso</a></button>
+            </div>
+            {% endfor %}
+            {% if (casos == []) %}
+            <div class="marco">
+                <p class="text-center">Usted no tiene ningun caso registrado</p>
+            </div>
+            {% endif %}
         </article>
+        <div class="clearfix"></div>
     </section>
     <footer>
         <div class="copyright">
@@ -50,6 +68,41 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
+    <script>
+        var booleano = false;
+        var elemento = document.getElementsByClassName("container-fluid");
+        var articulo = document.getElementById("unic-article");
+        $(document).ready(function () {
+            $(window).resize(function () {
+                cambio();
+            });
+
+            cambio();
+
+            function cambio() {
+                if ($(window).width() < 1200) {
+                    for (var i = 0; i < elemento.length; i++) {
+                        elemento[i].style.float = "none";
+                        elemento[i].style.width = "auto";
+                    }
+                    articulo.className = "centrar_caso";
+                } else {
+                    for (var i = 0; i < elemento.length; i++) {
+                        if (booleano) {
+                            booleano = false;
+                            elemento[i].style.float = "right";
+                        } else {
+                            booleano = true;
+                            elemento[i].style.float = "left";
+                        }
+                        elemento[i].style.width = "44%";
+                    }
+                    articulo.className = " ";
+                }
+            }
+        });
+
+    </script>
 </body>
 
 </html>

@@ -19,7 +19,7 @@
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
-            <a class="" href="/casos/{{userid}}">Mis Casos</a>
+            <a class="active" href="/casos/{{userid}}">Mis Casos</a>
             {% if rol == 1 %}
             <a class="" href="/caso/{{ userid }}">Crear caso</a>
             {% else %}
@@ -60,9 +60,10 @@
                             <p class="flotante-left">Ultima Actualizacion:</p> <span class="info">{{date}}</span>
                         </div>
                     </div>
-                    <div class="contenedor-left">
+                    <div class="contenedor-left float-left">
                         <img id="imagen-caso" class="imagen-casos" src="{{fotos}}" width="500" />
                     </div>
+                    <div class="clearfix"></div>
                     <button id="boton1" class="alternador button" onclick="setImageDisplay('imagen-caso')">Ver Foto</button>
                 </div>
             </div>

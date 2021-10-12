@@ -6,11 +6,11 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    if 'user_name' in session:
+    if 'usuario' in session:
         logged = True
-        nickname = session['user_name']
-        userid = session['user_id']
-        rol = session['user_rol']
+        nickname = session['usuario'][3]
+        userid = session['usuario'][0]
+        rol = session['usuario'][5]
     else:
         logged = False
         nickname = ''
@@ -40,8 +40,8 @@ def crear_usuario():
 def modificar_usuario(idUsuario):
     if request.method == 'POST':
         autenticacion.modificar_usuario(idUsuario, request.form['nombre'], request.form['usuario'], request.form['email'], request.form['clave'])
-        return render_template("editar_usuario.html", nickname=session['user_name'], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'], rol = session['user_rol']), 200
-    return render_template("editar_usuario.html", nickname=session['user_name'], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'],  rol = session['user_rol']), 200
+        return render_template("editar_usuario.html",nickname=session['usuario'][3], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'], rol = session['user_rol']), 200
+    return render_template("editar_usuario.html", nickname=session['usuario'][3], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'],  rol = session['user_rol']), 200
 
 @app.route('/usuario/<idUsuario>', methods=['DELETE'])
 def eliminar_usuario(idUsuario):
@@ -95,7 +95,7 @@ def crear_caso(idUsuario):
             return render_template('missingFields.html', inputs=missing)
         return creacion_caso(request.form['nombre'], request.form['tipo'], request.form['show'], request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'], idUsuario)
         
-    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session["user_name"],  rol = session['user_rol'])
+    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session['usuario'][3],  rol =session['usuario'][0])
 
 @app.route('/casos/<idCaso>', methods=['PUT'])
 def modificar_caso(idCaso):
@@ -123,16 +123,16 @@ def mostrar_casos():
     return render_template("casos.html"), 200
 
 
-@app.route('/casoahr/<idCaso>', methods=['GET'])
+@app.route('/vercaso/<idCaso>', methods=['GET'])
 def mostrar_caso(idCaso):
     datos = autenticacion.ver_caso(idCaso)
-    return render_template("caso.html", rol=session["user_rol"], idcaso=idCaso, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=datos[0][10], nickname=session["user_name"]), 200
+    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=datos[0][10], nickname=session['usuario'][3]), 200
 
 
 @app.route('/casos/<idUsuario>', methods=['GET'])
 def mostrar_caso_por(idUsuario):
-    casos_a_mostrar = jsonify(autenticacion.mostrar_casos_usuario(idUsuario))
-    return render_template("casos_usuario.html", userid = idUsuario, nickname = session["user_name"])
+    casos_a_mostrar = autenticacion.mostrar_casos_usuario(idUsuario)
+    return render_template("casos_usuario.html", casos = casos_a_mostrar, usuario=session["usuario"])
 
 
 @app.route('/casos/tipo/<tipoCultivo>', methods=['GET'])
@@ -197,7 +197,7 @@ def mostar_cultivo_por(tipoCultivo):
 
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
-    session.pop('user_name', None)
+    session.pop('usuario', None)
     return index()
 
 
@@ -208,13 +208,7 @@ def load_user(email, passwd):
     if datos[0][4] != passwd:
         return process_error("Incorrect password / la clave no es correcta")
     
-    session['user_name'] = datos[0][3]
-    session['casos'] = []
-    session['password'] = passwd
-    session['email'] = email
-    session['user_id'] = datos[0][0]
-    session['nombre'] = datos[0][1]
-    session['user_rol'] = datos[0][5]
+    session['usuario'] = datos[0]
     return index()
 
 def process_error(message):
@@ -240,13 +234,7 @@ def create_user_file(name, email, nick, clave, clave_confirm):
         return process_error("Your password and confirmation password do not match / Las claves no coinciden")
     autenticacion.crear_usuario(name, email, nick, clave)
     datos = autenticacion.verificar_correo(email)
-    session['user_name'] = nick
-    session['password'] = clave
-    session['casos'] = []
-    session['nombre'] = name
-    session['email'] = email
-    session['user_id'] = datos[0][0]
-    session['user_rol'] = datos[0][5]
+    session['usuario'] = datos[0]
     return index()
 
 def creacion_caso(nombre, tipo, foto, desc, estado, evolucion, date, iduser):

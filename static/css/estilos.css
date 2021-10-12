@@ -140,6 +140,7 @@ label {
     padding: 20px;
     margin: auto;
     width: 50%;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
 }
   
 .col-25 {
@@ -153,8 +154,7 @@ label {
     width: 67%;
     margin-top: 6px;
   }
-  
-  /* Clear floats after the columns */
+
 .row:after {
     content: "";
     display: table;
@@ -183,7 +183,10 @@ label {
     .col-pers2{
         float: left;
     }
-    .col-25, .col-pers{
+    .col-25{
+        width: 100%;
+    }
+     .col-pers{
         width: 75%;
     }
     .recordar{
@@ -362,4 +365,71 @@ footer .terminos{
     .marco{
         min-height:  525px;
     }
+}
+
+.container-fluid {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin: 20px;
+    width: 44%;
+    box-shadow: 0 15px 30px 0 rgba(0,0,0,0.3);
+    height: 300px;
+    overflow: hidden;
+}
+.media{
+    float: left;
+    width: 40%;
+    height: 250px;
+}
+.body{
+    width: 55%;
+    float: right;
+}
+.imagen-small{
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.card-title{
+    font: bold;
+    margin-bottom: 10px;
+}
+.text-center{
+    text-align: center;
+}
+
+.card-subtitle{
+    font: bold;
+}
+.card-text{
+    text-align: justify;
+    font-style: oblique;
+}
+.card-btn{
+    width: 100%;
+}
+
+.centrar_caso{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.btn{
+    color: white;
+    text-decoration: none;
 }
