@@ -9,6 +9,15 @@ def crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evoluci
     bd = BaseDeDatos()
     bd.ejecutar_sql(crear_caso_sql)
 
+def obtener_recien(iduser, date):
+    obtener_recien_sql = f"""
+        SELECT * FROM Caso WHERE fechaActualizacion='{date}' AND usuarioPropietario = '{iduser}'
+    """
+    bd = BaseDeDatos()
+    devolver = []
+    devolver = bd.ejecutar_sql(obtener_recien_sql)
+    return devolver
+
 def modificar_caso(idCaso, tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fecha):
     modificar_caso_sql = f"""
         UPDATE Caso SET tipoCultivo = '{tipoCultivo}', nombrePlanta = '{nombrePlanta}', foto = '{foto}', descripcionCaso = '{descripcionCaso}', estado = '{estado}', evolucionCaso = '{evolucionCaso}', fechaActualizacion = '{fecha}'

@@ -21,7 +21,8 @@
 
             var hours = now.getHours();
             var minutes = now.getMinutes();
-            var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes);
+            var seconds = now.getSeconds();
+            var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes) + ":" + (seconds);
             $("#date").val(today);
         });
     </script>
@@ -44,13 +45,13 @@
     </header>
     <section class="sector">
         <div class="container">
-            <form action="/caso/{{userid}}" method="post" name="ingreso_caso">
+            <form action="/caso/{{userid}}" method="post" name="ingresar_caso">
                 <div class="row">
                     <div class="col-25">
                         <label for="nombre">Nombre de la planta:</label>
                     </div>
                     <div class="col-75">
-                        <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..."
+                        <input id="nombre" name="nombre" value="En espera" required placeholder="Ingrese nombre del cultivo..."
                             type="text" size="50">
                     </div>
                 </div>
@@ -68,8 +69,16 @@
                         <label for="foto">Captura de la planta:</label>
                     </div>
                     <div class="col-pers2">
-                        <input id="foto" name="foto" required type="file" multiple>
+                        <input id="foto" name="foto" required type="file" onchange = "load ()">
                     </div>
+                </div>
+                <div class="oculta">
+                    <img src=""/>
+                </div>
+                <div class="oculta">
+                    <p>
+                        Codificación Photo64: <textarea cols = "60" rows = "15" id = "show" name = "show"> </textarea>
+                    </p>
                 </div>
                 <div class="row">
                     <div class="col-25">
@@ -84,16 +93,15 @@
                         <label for="estado">Estado:</label>
                     </div>
                     <div class="col-75">
-                        <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50">
+                        <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50" value="En espera">
                     </div>
                 </div>
                 <div class="oculta">
                     <div class="col-25">
-                        <label for="evolucion" >Evolucion del caso:</label>
+                        <label for="evolucion">Evolucion del caso:</label>
                     </div>
                     <div class="col-75">
-                        <input id="evolucion" name="evolucion" placeholder="Evolucion del caso..." type="text"
-                            size="50">
+                        <input id="evolucion" name="evolucion" placeholder="Evolucion del caso..." type="text" value="Primera Actualizacion" size="50">
                     </div>
                 </div>
                 <div class="oculta">
@@ -101,11 +109,11 @@
                         <label for="date">Fecha de creacion:</label>
                     </div>
                     <div class="col-pers2">
-                        <input id="date" name="date" type="datetime-local" >
+                        <input id="date" name="date" type="text" >
                     </div>
                 </div>
                 <div class="row">
-                    <button id="crear_submit" name="crear_submit" type="submit">Crear</button>
+                    <button class="button-form" id="crear_submit" name="crear_submit" type="submit">Crear</button>
                 </div>
             </form>
         </div>
@@ -125,6 +133,8 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
+    
+    <script src="../static/js/codigo.js"></script>
 </body>
 
 </html>

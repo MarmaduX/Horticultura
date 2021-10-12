@@ -73,7 +73,7 @@ def login():
     return render_template("login.html"), 200
 
 
-@app.route('/caso/<idUsuario>', methods=['POST', 'GET'])
+@app.route('/caso/<idUsuario>', methods=['POST', "GET"])
 def crear_caso(idUsuario):
     if request.method == 'POST':
         # datos_casos = request.get_json()
@@ -86,30 +86,36 @@ def crear_caso(idUsuario):
         # autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
         #                         datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
         missing = []
-        fields = ['nombre', 'tipo', 'foto', 'desc','crear_submit',]
+        fields = ['nombre', 'tipo', 'foto', 'desc']
         for field in fields:
             value = request.form.get(field, None)
             if value is None or value == '':
                 missing.append(field)
         if missing:
             return render_template('missingFields.html', inputs=missing)
-        return "ok", 200 #creacion_caso(request.form['email'], request.form['clave'])
-
+        return creacion_caso(request.form['nombre'], request.form['tipo'], request.form['show'], request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'], idUsuario)
+        
     return render_template("ingreso_caso.html", userid=idUsuario, nickname=session["user_name"],  rol = session['user_rol'])
 
 @app.route('/casos/<idCaso>', methods=['PUT'])
 def modificar_caso(idCaso):
-    datos_casos = request.get_json()
-    autenticacion.modificar_caso(idCaso, datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'],
+    if request.method == 'PUT':
+        datos_casos = request.get_json()
+        autenticacion.modificar_caso(idCaso, datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'],
                                  datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'])
-    return 'OK', 200
-
+        return 'OK', 200
+    return render_template("home.html")
 
 @app.route('/casos/<idCaso>', methods=['DELETE'])
 def eliminar_caso(idCaso):
     autenticacion.eliminar_caso(idCaso)
     return 'OK', 200
 
+@app.route('/eliminar_caso', methods=['DELETE'])
+def eliminar_casoa():
+    idcaso = request.form.get("idcaso")
+    autenticacion.eliminar_caso(idcaso)
+    return render_template("index.html")
 
 @app.route('/casos', methods=['GET'])
 def mostrar_casos():
@@ -117,9 +123,10 @@ def mostrar_casos():
     return render_template("casos.html"), 200
 
 
-@app.route('/caso/<idCaso>', methods=['GET'])
+@app.route('/casoahr/<idCaso>', methods=['GET'])
 def mostrar_caso(idCaso):
-    return jsonify(autenticacion.ver_caso(idCaso)), 200
+    datos = autenticacion.ver_caso(idCaso)
+    return render_template("caso.html", rol=session["user_rol"], idcaso=idCaso, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=datos[0][10], nickname=session["user_name"]), 200
 
 
 @app.route('/casos/<idUsuario>', methods=['GET'])
@@ -242,8 +249,10 @@ def create_user_file(name, email, nick, clave, clave_confirm):
     session['user_rol'] = datos[0][5]
     return index()
 
-def creacion_caso():
-    return index()
+def creacion_caso(nombre, tipo, foto, desc, estado, evolucion, date, iduser):
+    autenticacion.crear_caso(tipo, nombre, foto, desc, estado, evolucion, date, iduser)
+    datos = autenticacion.obtener_recien(iduser, date)
+    return mostrar_caso(datos[0][0])
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for security reasons (see CSRF)
 

@@ -21,6 +21,9 @@ def login(usuario, clave):
 def crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, idUs):
     modelo_caso.crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, idUs)
 
+def obtener_recien(iduser, date):
+    return modelo_caso.obtener_recien(iduser, date)
+
 def modificar_caso(idCaso, tipoCultivo, nombrePlanta, foto, caso, estado, evolucionCaso, fechaActualizacion):
     modelo_caso.modificar_caso(idCaso, tipoCultivo, nombrePlanta, foto, caso, estado, evolucionCaso, fechaActualizacion)
 

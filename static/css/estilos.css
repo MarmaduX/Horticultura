@@ -96,7 +96,7 @@ section .slider img {
     70% { margin-left: -200%; }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 950px) {
 	header .logo, header .titulo{
         display: none;
     }
@@ -119,7 +119,7 @@ label {
     display: inline-block;
 }
   
-button[type=submit] {
+.button-form[type=submit] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -130,9 +130,9 @@ button[type=submit] {
     margin-top: 5px;
   }
   
-button[type=submit]:hover {
+.button-form[type=submit]:hover {
     background-color: #45a049;
-  }
+}
 
 .container {
     border-radius: 5px;
@@ -241,4 +241,125 @@ footer .terminos{
 
 .oculta{
     display: none;
+}
+
+.flotante-left {
+    float:left;
+    width: 30%;
+}
+
+.info {
+    text-align: center;
+    width: 70%;
+    font-weight: bold;
+    font-style: oblique;
+}
+
+.titulo-casos {
+    text-align: center;
+    font-size: xx-large;
+}
+
+.imagen-casos {
+    width: 100%;
+    height: auto; 
+    align-self: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+.float-left{
+    float:left;
+}
+
+.float-right {
+    float:right;
+}
+
+.button {
+    margin: 10px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #4CAF50;
+    border:none;
+}
+
+.button:hover{
+    background-color: #45a049;
+}
+
+.contenedor-left{
+    width: 40%;
+    margin-left: 10px;
+    padding-right: 10px;
+    align-self: center;
+}
+
+.contenedor-right{
+    width: 55%;
+    margin-right: 10px;
+    padding: 10px;
+    align-self: right;
+}
+
+.marco {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    /* min-height: calc(100vh - 90px);  */
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.separador {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.abajo {
+    align-self: flex-end;
+}
+
+/* .cuerpo {
+    min-height: 100vh;
+}  */
+
+#imagen-caso{
+    display: block;
+}
+
+.alternador{
+    display: none;
+    align-self: center;
+}
+@media screen and (max-width:1080px) {
+    .contenedor-left{
+      width: 95%;
+      float: none;
+    }
+    #imagen-caso{
+        display:none;
+    }
+    #boton1{
+        display: block;
+    }
+    .contenedor-right{
+        float: none;
+        width: 95%;
+    }
+    
+    .float-left{
+        float: none;
+    }
+    .info, .flotante-left{
+        width: 50%;
+    }
+}
+@media screen and (max-height:593px) {
+    .marco{
+        min-height:  525px;
+    }
 }

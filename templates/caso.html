@@ -7,6 +7,7 @@
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -29,19 +30,48 @@
         </nav>
     </header>
     <section class="sector">
-        <article>
-            <h3>Nombre de la planta</h3>
-            <img src="">
-            <p><span style="color: red;">Tipo de planta:</span>este es el tipo de la planta</p>
-            <p>Descripcion del caso</p>
-            <p>Estado delcaso: en progreso</p>
-            <p>Evolucion del Caso</p>
-            <p>Recomendaciones</p>
-            <p>Especialista a cargo: Juan</p>
-            <p>ultima actualizacion. xx/xx/xx</p>
-            <button>Editar caso</button>
-            <button>Eliminar caso</button>
-        </article>
+        <div class="marco">
+            <div class="cuerpo">
+                <h2 class="titulo-casos">{{nombre}}</h2>
+                <br>
+                <div>
+                    
+                    <div class="contenedor-right float-right">
+                        <div>
+                            <p class="flotante-left">Tipo de planta:</p> <span class="info">{{tipo}}</span>
+                        </div>
+                        <div class="separador">
+                            <p class="">Descripcion:</p> <span class="info">{{texto}}</span>
+                        </div>
+                        <div>
+                            <p class="flotante-left">Estado del caso:</p> <span class="info">{{estado}}</span>
+                        </div>
+                        <div>
+                            <p class="flotante-left">Evolucion del Caso:</p> <span class="info">{{evolucion}}</span>
+                        </div>
+                        <div class="separador">
+                            <p class="">Recomendaciones:</p> <span class="info">{{recomendacion}}</span>
+                        </div>
+                        <div>
+                            <p class="flotante-left">Especialista a cargo:</p> <span
+                                class="info">{{especialista}}</span>
+                        </div>
+                        <div>
+                            <p class="flotante-left">Ultima Actualizacion:</p> <span class="info">{{date}}</span>
+                        </div>
+                    </div>
+                    <div class="contenedor-left">
+                        <img id="imagen-caso" class="imagen-casos" src="{{fotos}}" width="500" />
+                    </div>
+                    <button id="boton1" class="alternador button" onclick="setImageDisplay('imagen-caso')">Ver Foto</button>
+                </div>
+            </div>
+            <div class="abajo">
+                <button class="float-right button" type="submit" onclick="modificar_caso('{{idcaso}}')">Editar
+                    caso</button>
+                <button class="button" type="submit">Eliminar caso</button>
+            </div>
+        </div>
     </section>
     <footer>
         <div class="copyright">
@@ -58,6 +88,7 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
+    <script src="../static/js/codigo.js"></script>
 </body>
 
 </html>

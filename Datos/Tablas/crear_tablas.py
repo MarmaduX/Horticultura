@@ -21,7 +21,7 @@ sql_tabla_caso = '''CREATE TABLE Caso (
         idCaso INTEGER PRIMARY KEY AUTOINCREMENT,
         tipoCultivo varchar(50),
         nombrePlanta varchar(50) NOT NULL,
-        foto varchar(200) NOT NULL,
+        foto text NOT NULL,
         descripcionCaso varchar(200) NOT NULL,
         estado varchar(50),
         evolucionCaso varchar(50),
