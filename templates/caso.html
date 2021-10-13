@@ -13,9 +13,9 @@
 <body>
     <header>
         <div>
-            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
         </div>
-        <a class="titulo" href="#">Horticultura Virtual</a>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
@@ -68,9 +68,9 @@
                 </div>
             </div>
             <div class="abajo">
-                <button class="float-right button" type="submit" onclick="modificar_caso('{{idcaso}}')">Editar
+                <button class="float-right button" type="submit" >Editar
                     caso</button>
-                <button class="button" type="submit">Eliminar caso</button>
+                <button class="button" type="submit" onclick="borrar_caso('{{idcaso}}', '{{ userid }}')">Eliminar caso</button>
             </div>
         </div>
     </section>

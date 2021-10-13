@@ -106,10 +106,10 @@ def modificar_caso(idCaso):
         return 'OK', 200
     return render_template("home.html")
 
-@app.route('/casos/<idCaso>', methods=['DELETE'])
-def eliminar_caso(idCaso):
-    autenticacion.eliminar_caso(idCaso)
-    return 'OK', 200
+# @app.route('/casos/<idCaso>', methods=['DELETE'])
+# def eliminar_caso(idCaso):
+#     autenticacion.eliminar_caso(idCaso)
+#     return 'OK', 200
 
 @app.route('/eliminar_caso', methods=['DELETE'])
 def eliminar_casoa():

@@ -14,9 +14,9 @@
 <body>
     <header>
         <div>
-            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
         </div>
-        <a class="titulo" href="#">Horticultura Virtual</a>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
@@ -42,7 +42,7 @@
 
                     </div>
                 </div>
-                <button class="button card-btn" type="submit"><a class="btn" href='/vercaso/{{ caso[0] }}'>Ver caso</a></button>
+                <a class="" href='/vercaso/{{ caso[0] }}'><button class="button card-btn" type="submit">Ver caso</button></a>
             </div>
             {% endfor %}
             {% if (casos == []) %}
@@ -86,6 +86,7 @@
                         elemento[i].style.width = "auto";
                     }
                     articulo.className = "centrar_caso";
+                    
                 } else {
                     for (var i = 0; i < elemento.length; i++) {
                         if (booleano) {
@@ -97,6 +98,7 @@
                         }
                         elemento[i].style.width = "44%";
                     }
+                    booleano = false;
                     articulo.className = " ";
                 }
             }

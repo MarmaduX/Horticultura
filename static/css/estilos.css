@@ -63,10 +63,12 @@ header nav a:hover{
 }
 
 section .slider {
-    width: 50%;
-    margin-right: 20px;
-    float: right;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
     overflow: hidden;
+    margin-top: 20px;
 }
 
 section .slider ul {
@@ -192,6 +194,14 @@ label {
     .recordar{
         width: 50%;
   }
+}
+@media screen and (max-width:950px) {
+    .container{
+        width: 85%;
+    }
+    section .slider {
+        width: 90%;
+    }
 }
 
 .required {

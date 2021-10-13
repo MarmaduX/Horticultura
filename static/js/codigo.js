@@ -4,14 +4,15 @@
 //     xmlhttp.send();
 // }
 
-function modificar_caso(idcaso) {
+function borrar_caso(idcaso, userid) {
     $.ajax({
-      type: 'POST',
+      type: 'DELETE',
       url: "/eliminar_caso",
       data: {idcaso: idcaso},
       dataType: "text",
       success: function(data){
                  alert("Se ah borrado el caso");
+                 window.location.href  = "/casos/"+userid;
                }
     });
 };

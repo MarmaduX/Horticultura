@@ -24,9 +24,9 @@
 <body>
     <header>
         <div>
-            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
         </div>
-        <a class="titulo" href="#">Horticultura Virtual</a>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav class="">
             <a class="" href="/index">Inicio</a>
             <a class="active" href="#">Ingresar</a>
@@ -34,7 +34,7 @@
         </nav>
     </header>
     <section class="sector">
-        <div class="container">
+        <div id="contenedor" class="container">
             <form action="/login" method="post" name="login">
                 <div class="row">
                     <div class="col-25">
@@ -51,20 +51,28 @@
                     </div>
                     <div class="col-75">
                         <input id="clave" name="clave" required placeholder="Ingrese su contraseña..." size="50"
-                        type="password" value="" />
+                            type="password" value="" />
                     </div>
                 </div>
                 <div class="col-25 recordar">
                     <label for="remember_me">
-                    <input id="remember_me" name="remember_me" type="checkbox" value="y" />
-                    Recordarme
-                </label>
+                        <input id="remember_me" name="remember_me" type="checkbox" value="y" />
+                        Recordarme
+                    </label>
                 </div>
-                
+
                 <div class="row">
-                    <button class="button-form" id="login_submit" name="login_submit" type="submit" value="Ingresar">Registrarse</button>
-                </div>                
+                    <button class="button-form" id="login_submit" name="login_submit" type="submit"
+                        value="Ingresar">Registrarse</button>
+                </div>
             </form>
+        </div>
+        <div class="slider">
+            <ul>
+                <li><img src="../static/imagenes/fertilizantes.jpg" class="d-block w-100" alt="..."></li>
+                <li><img src="../static/imagenes/maquinaria.jpg" class="d-block w-100" alt="..."></li>
+                <li><img src="../static/imagenes/semillas.jpg" class="d-block w-100" alt="..."></li>
+            </ul>
         </div>
     </section>
     <footer>
@@ -82,6 +90,24 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
+    <script>
+        // var articulo = document.getElementById("contenedor");
+        // $(document).ready(function () {
+        //     $(window).resize(function () {
+        //         cambio();
+        //     });
+
+        //     cambio();
+
+        //     function cambio() {
+        //         if ($(window).width() < 700) {
+        //             articulo.style.width = "85%";
+        //         } else {
+        //             articulo.style.width = "50%";
+        //         }
+        //     }
+        // });
+    </script>
 </body>
 
 </html>
