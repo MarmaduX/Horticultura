@@ -112,7 +112,7 @@ def modificar_caso(idCaso):
 #     return 'OK', 200
 
 @app.route('/eliminar_caso', methods=['DELETE'])
-def eliminar_casoa():
+def eliminar_casos():
     idcaso = request.form.get("idcaso")
     autenticacion.eliminar_caso(idcaso)
     return render_template("index.html")
@@ -159,15 +159,14 @@ def pasar_a_resuelto_un_caso(idCaso):
 @app.route('/cultivos', methods=['POST'])
 def crear_cultivo():
     datos_cultivo = request.get_json()
-    autenticacion.crear_cultivo(datos_cultivo['nombrecientifco'], datos_cultivo['tipoCultivo'], datos_cultivo['foto'],
-                                datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
-    return 'OK', 200
+    autenticacion.crear_cultivo(datos_cultivo['nombreCientifico'], datos_cultivo['tipoCultivo'], datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
+    return render_template("cultivos.html")
 
 
 @app.route('/cultivos/<idPlanta>', methods=['PUT'])
 def editar_cultivo(idPlanta):
     datos_cultivo = request.get_json()
-    autenticacion.editar_cultivo(idPlanta, datos_cultivo['nombrecientifco'], datos_cultivo['tipoCultivo'],
+    autenticacion.editar_cultivo(idPlanta, datos_cultivo['nombreCientifco'], datos_cultivo['tipoCultivo'],
                                  datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
     return "OK", 200
 
@@ -175,7 +174,7 @@ def editar_cultivo(idPlanta):
 @app.route('/cultivos', methods=['GET'])
 def listar_cultivos():
     lista = autenticacion.listar_cultivos()
-    return jsonify(lista), 200
+    return render_template("cultivos.html")
 
 
 @app.route('/cultivos/<idPlanta>', methods=['GET'])

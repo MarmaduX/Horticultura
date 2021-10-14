@@ -20,7 +20,7 @@ def obtener_usuarios():
     respuesta = requests.get(f'{rest_api.API_URL}/usuarios')
     return respuesta.json()
 
-def crear_cultivo():
+def crear_cultivo(nombreCientífico, tipoCultivo, descripción, plagas, enfermedades):
     body = {"nombreCientífico": nombreCientífico,
             "tipoCultivo": tipoCultivo,
             "descripción": descripción,
@@ -29,7 +29,7 @@ def crear_cultivo():
     respuesta = request.post(f'{rest_api.API_URL}/cultivos', json=body)
     return respuesta.status_code == 200
 
-def modificar_cultivo():
+def modificar_cultivo(nombreCientífico, tipoCultivo, descripción,plagas, enfermedades):
     body = {"nombreCientífico": nombreCientífico,
             "tipoCultivo": tipoCultivo,
             "descripción": descripción,
@@ -38,7 +38,7 @@ def modificar_cultivo():
     respuesta = request.put(f'{rest_api.API_URL}/cultivos', json=body)
     return respuesta.status_code == 200
 
-def listar_cultivos():
+def listar_cultivos(nombreCientífico, tipoCultivo, descripción, plagas, enfermedades):
     body = {"nombreCientífico": nombreCientífico,
             "tipoCultivo": tipoCultivo,
             "descripción": descripción,
@@ -47,13 +47,13 @@ def listar_cultivos():
     respuesta = request.get(f'{rest_api.API_URL}/cultivos', json=body)
     return respuesta.status_code == 200
 
-def mostrar_cultivos():
+def mostrar_cultivos(nombreCultivo, tipoCultivo):
     body = {"nombreCultivo": nombreCultivo,
             "tipoCultivo": tipoCultivo}
     respuesta = request.get(f'{rest_api.API_URL}/cutlivos', json=body)
     return respuesta.status_code == 200
 
-def mostrar_cultivo_por():
+def mostrar_cultivo_por(nombreCientífico, tipoCultivo, descripción, plagas, enfermedades):
     body = {"nombreCientífico": nombreCientífico,
             "tipoCultivo": tipoCultivo,
             "descripción": descripción,

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div>
+            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+        </div>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
+        <nav>
+            <a class="" href="/index">Inicio</a>
+            <a class="" href="#">Cultivos</a>
+            <a class="" href="/cultivos/{{userid}}">Todos los cultivos</a>
+            {% if rol == 1 %}
+            <a class="" href="/cultivos/{{ userid }}">Crear culivo</a>
+            {% else %}
+            <a class="" href="/todosloscultivos">Todos los cultivos</a>
+            {% endif %}
+            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="/usuario/{{ userid }}">Perfil</a>
+        </nav>
+    </header>
+<section class="sector">
+        <form action="modificar_cultivo" method="post" name="signup">
+            <label for="nombre">Nombre científoco</label>
+            <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..." type="text" size="50">
+            <br>
+            <label for="tipo">Ingrese el tipo del cultivo</label>
+            <input id="tipo" name="tipo" required placeholder="Ingrese el tipo de cultivo..." type="text" size="50">
+            <br>
+            <label for="foto">foto del cultivo</label>
+            <input id="foto" name="foto" required type="file">
+            <br>
+            <label for="desc">Ingrese una descripcion del problema</label>
+            <textarea id="desc" name="desc" required placeholder="Ingrese descripcion del cultivo..."></textarea>
+            <br>
+            <button id="crear_submit" name="crear_submit" type="submit">Editar Cultivo</button>
+        </form>
+    </section>
+ <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
+                <span class="material-icons">
+                    email
+                </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
+        </div>
+    </footer>
+</body>
+
+</html>
