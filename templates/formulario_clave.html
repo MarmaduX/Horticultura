@@ -37,13 +37,13 @@
                     <div class="col-25"><label for="clave">Nueva Clave:</label>
                     </div>
                     <div class="col-75"><input id="clave" name="clave" required placeholder="Ingrese su clave nueva..."
-                            size="80" type="password" />
+                            size="80" type="password" value="{{ nueva }}" />
                     </div>
                 </div><div class="row">
                     <div class="col-25"><label for="confirm">Confirmar clave</label>
                     </div>
                     <div class="col-75"><input id="confirm" name="confirm" required placeholder="Ingrese su de nuevo la clave..."
-                            size="80" type="password" />
+                            size="80" type="password" value="{{ confirm }}" />
                     </div>
                 </div>
                 <div class="row">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <br>
-                <ul class="errorMessages" style="display:none" id="errores_profile"></ul>
+                <ul class="errorMessages display-none" id="errores_profile"></ul>
                 <label id="error" class="required">{{ error }}</label>
                 <div class="row">
                     <button class="float-right button" type="submit">Cambiar Clave</button>

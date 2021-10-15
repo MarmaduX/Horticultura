@@ -29,13 +29,13 @@
             <a class="" href="/usuario">Perfil</a>
         </nav>
     </header>
-    <section class="sector">
+    <section class="sector prueba-modal">
         <div class="marco">
             <div class="cuerpo">
                 <h2 class="titulo-casos">{{nombre}}</h2>
                 <br>
                 <div>
-                    
+
                     <div class="contenedor-right float-right">
                         <div>
                             <p class="flotante-left">Tipo de planta:</p> <span class="info">{{tipo}}</span>
@@ -64,16 +64,33 @@
                         <img id="imagen-caso" class="imagen-casos" src="{{fotos}}" width="500" />
                     </div>
                     <div class="clearfix"></div>
-                    <button id="boton1" class="alternador button" onclick="setImageDisplay('imagen-caso')">Ver Foto</button>
+                    <button id="boton1" class="display-none button">Ver Foto</button>
+                    <button id="boton2" class="button alternador ">Cerrar Foto</button>
                 </div>
             </div>
             <div class="abajo">
-                <button class="float-right button" type="submit" >Editar
+                <button class="float-right button" type="submit">Editar
                     caso</button>
-                <button class="button" type="submit" onclick="borrar_caso('{{idcaso}}', '{{ usuario[0] }}')">Eliminar caso</button>
+                <button class="button cta" type="submit">Eliminar caso</button>
             </div>
         </div>
     </section>
+    <div class="modal-container">
+        <div class="modal modal-close">
+            <div class="modal-textos">
+                <div>
+                    <h2>¿Seguro que quieres eliminar este caso?</h2>
+                    <p>Se borrara permanentemente</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="abajo">
+                <button class="button float-left2 close">Cancelar</button>
+                <button class="button float-right2"
+                    onclick="borrar_caso('{{idcaso}}', '{{ usuario[0] }}')">Eliminar</button>
+            </div>
+        </div>
+    </div>
     <footer>
         <div class="copyright">
             <p>Copyright 2021</p>

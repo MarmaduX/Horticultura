@@ -33,7 +33,7 @@ def crear_usuario():
             return 'La clave es requerida', 412
         autenticacion.crear_usuario(datos_usuario['nombre'], datos_usuario['correo'], datos_usuario['usuario'], datos_usuario['clave'])"""
         return process_signup(), 200
-    return render_template("signup.html"), 200
+    return render_template("signup.html",error="", correo="", username="", nombre=""), 200
 
 
 @app.route('/usuario', methods=['POST', "GET"])
@@ -62,10 +62,10 @@ def formulario_us():
                         datos = autenticacion.verificar_correo(request.form['email'])
                         session["usuario"]=datos[0]
                         return modificar_usuario()
-                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este usuario ya esta en uso")
-            return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este correo ya esta en uso")
-        return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida"), 200
-    return render_template("formulario_us.html", usuario=session['usuario'],rol = session['user_rol'], error="")
+                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
+            return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este correo ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
+        return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"]), 200
+    return render_template("formulario_us.html", usuario=session['usuario'],rol = session['user_rol'], error="", nombre=session["usuario"][1], correo=session["usuario"][2], username=session["usuario"][3])
 
 @app.route('/formulario_clave', methods=['POST', 'GET'])
 def formulario_clave():
@@ -73,8 +73,8 @@ def formulario_clave():
         if verificar_clave(request.form["vieja"]) == "Ok":
             autenticacion.modificar_usuario(session['usuario'][0], session['usuario'][1], session['usuario'][3],session['usuario'][2], request.form['clave'])
             return render_template("editar_usuario.html", usuario=session['usuario'], rol = session['user_rol'])
-        return render_template("formulario_clave.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida")
-    return render_template("formulario_clave.html", usuario=session['usuario'],rol = session['user_rol'], error="")
+        return render_template("formulario_clave.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida", nueva=request.form["clave"], confirm=request.form["confirm"])
+    return render_template("formulario_clave.html", usuario=session['usuario'],rol = session['user_rol'], error="", nueva="", confirm="")
 
 def verificar_clave(clave):
     pase = autenticacion.verificar_clave(session["usuario"][0], clave)
@@ -98,18 +98,9 @@ def login():
         if datos == 0:
             return "Usuario y/o Clave invalida", 412
         return "Tienes Acceso", 200"""
-        missing = []
-        fields = ['email', 'clave', 'login_submit']
-        for field in fields:
-            value = request.form.get(field, None)
-            if value is None or value == '':
-                missing.append(field)
-        if missing:
-            return render_template('missingFields.html', inputs=missing)
-
         return load_user(request.form['email'], request.form['clave'])
 
-    return render_template("login.html"), 200
+    return render_template("login.html", error="", email=""), 200
 
 
 @app.route('/caso/<idUsuario>', methods=['POST', "GET"])
@@ -241,37 +232,20 @@ def process_logout():
 
 def load_user(email, passwd):
     if len(autenticacion.verificar_correo(email)) == 0:
-        return process_error("User not found / No existe un usuario con ese nombre")
+        return render_template("login.html", error="Este correo no esta registrado", email=request.form["email"])
     datos = autenticacion.verificar_correo(email)
     if datos[0][4] != passwd:
-        return process_error("Incorrect password / la clave no es correcta")
-    
+        return render_template("login.html", error="Contraseña erronea", email=request.form["email"])
     session['usuario'] = datos[0]
     return index()
 
-def process_error(message):
-    return render_template("error.html", error_message=message)
-
 def process_signup():
-    faltan = []
-    campos = ['nombre', 'email', 'usuario', 'clave', 'confirm', 'signup_submit']
-    for campo in campos:
-        value = request.form.get(campo, None)
-        if value is None or value == '':
-            faltan.append(campo)
-    if faltan:
-        return render_template("missingFields.html", inputs=faltan)
-    return create_user_file(request.form['nombre'], request.form['email'], request.form['usuario'], request.form['clave'], request.form['confirm'])
-
-def create_user_file(name, email, nick, clave, clave_confirm):
-    if len(autenticacion.verificar_correo(email)) >0:
-        return process_error("The email is already used, you must select a different email / Ya existe un usuario con ese correo")
-    if len(autenticacion.verificar_usuario(nick)) >0:
-        return process_error("The nickname is already used, you must select a different nickname / Ya existe un usuario con ese nombre de usuario")
-    if clave != clave_confirm:
-        return process_error("Your password and confirmation password do not match / Las claves no coinciden")
-    autenticacion.crear_usuario(name, email, nick, clave)
-    datos = autenticacion.verificar_correo(email)
+    if len(autenticacion.verificar_correo(request.form['email'])) >0:
+        return render_template("signup.html", error="Ya existe un usuario con ese correo", correo=request.form['email'], username=request.form['usuario'], nombre=request.form['nombre'])
+    if len(autenticacion.verificar_usuario(request.form['usuario'])) >0:
+        return render_template("signup.html", error="Ya existe un usuario con ese nombre de usuario", correo=request.form['email'], username=request.form['usuario'], nombre=request.form['nombre'])
+    autenticacion.crear_usuario(request.form['nombre'], request.form['email'], request.form['usuario'],  request.form['clave'])
+    datos = autenticacion.verificar_correo(request.form['email'])
     session['usuario'] = datos[0]
     return index()
 

@@ -5,35 +5,51 @@
 // }
 
 function borrar_caso(idcaso, userid) {
-    $.ajax({
-      type: 'DELETE',
-      url: "/eliminar_caso",
-      data: {idcaso: idcaso},
-      dataType: "text",
-      success: function(data){
-                 alert("Se ah borrado el caso");
-                 window.location.href  = "/casos/"+userid;
-               }
-    });
+	$.ajax({
+		type: 'DELETE',
+		url: "/eliminar_caso",
+		data: { idcaso: idcaso },
+		dataType: "text",
+		success: function () {
+			window.location.href = "/casos/" + userid;
+		}
+	});
 };
 
 function load() {
-  var file = document.getElementById('foto').files[0]
-  
-  var reader = new FileReader()
+	var file = document.getElementById('foto').files[0]
 
-  reader.readAsDataURL(file);
-  reader.onload = function() {
-    var imgUrlBase64 = this.result
-    document.getElementById('show').value = imgUrlBase64
-  }
+	var reader = new FileReader()
+
+	reader.readAsDataURL(file);
+	reader.onload = function () {
+		var imgUrlBase64 = this.result
+		document.getElementById('show').value = imgUrlBase64
+	}
 }
 
+let boton = document.getElementById("boton1");
+let boton2 = document.getElementById("boton2");
 
-function setImageDisplay(id) {
-  var img = document.getElementById(id);
-  img.style.display = "block";  
-}
+boton.addEventListener("click", function (e){
+	e.preventDefault();
+	var img = document.getElementById("imagen-caso");
+	img.style.display = "block";
+	boton.classList.toggle("alternador");
+	boton2.classList.toggle("alternador");
+	boton.classList.toggle("display-none");
+	boton2.classList.toggle("display-none");
+})
+
+boton2.addEventListener("click", function (e){
+	e.preventDefault();
+	var img = document.getElementById("imagen-caso");
+	img.style.display = "none";
+	boton.classList.toggle("alternador");
+	boton2.classList.toggle("alternador");
+	boton.classList.toggle("display-none");
+	boton2.classList.toggle("display-none");
+})
 
 function validateProfileDHTML(form) {
 	var retorno = true;
@@ -43,40 +59,159 @@ function validateProfileDHTML(form) {
 	form["confirm"].className = ""
 	form["vieja"].className = ""
 
-	if(form["clave"].value.trim() == "") {
+	if (form["clave"].value.trim() == "") {
 		errores += "<li><b>clave</b> is required"
 		form["clave"].className = "inputError"
-		if(retorno) form["clave"].focus()
+		if (retorno) form["clave"].focus()
 		retorno = false;
 	}
 
-	if(form["confirm"].value.trim() == "") {
+	if (form["confirm"].value.trim() == "") {
 		errores += "<li><b>confirm</b> is required"
 		form["confirm"].className = "inputError"
-		if(retorno) form["confirm"].focus()
+		if (retorno) form["confirm"].focus()
 		retorno = false;
 	}
 
-	if(form["vieja"].value.trim() == "") {
+	if (form["vieja"].value.trim() == "") {
 		errores += "<li><b>vieja</b> is required"
 		form["vieja"].className = "inputError"
-		if(retorno) form["vieja"].focus()
+		if (retorno) form["vieja"].focus()
 		retorno = false;
 	}
 
-	if(form["clave"].value != form["confirm"].value) {
+	if (form["clave"].value != form["confirm"].value) {
 		errores += "<li><b>La clave nueva</b> no coincide"
 		form["clave"].className = "inputError"
 		form["confirm"].className = "inputError"
-		if(retorno) form["confirm"].focus()
+		if (retorno) form["confirm"].focus()
 		retorno = false;
 	}
 
-	if(! retorno) {
-	    document.getElementById("errores_profile").innerHTML = errores
-	    document.getElementById("errores_profile").style.display = "block"
-      document.getElementById("error").style.display = "none"
+	if (!retorno) {
+		document.getElementById("errores_profile").innerHTML = errores
+		document.getElementById("errores_profile").style.display = "block"
+		document.getElementById("error").style.display = "none"
 	}
 
-	return(retorno);
+	return (retorno);
 }
+
+function validarlogin(form) {
+	var retorno = true;
+	var errores = "";
+
+	form["email"].className = ""
+	form["clave"].className = ""
+
+	if (form["email"].value.trim() == "") {
+		errores += "<li><b>El correo</b> es requerido"
+		form["email"].className = "inputError"
+		if (retorno) form["email"].focus()
+		retorno = false;
+	}
+
+	if (form["clave"].value.trim() == "") {
+		errores += "<li><b>La clave</b> es requerida"
+		form["clave"].className = "inputError"
+		if (retorno) form["clave"].focus()
+		retorno = false;
+	}
+
+	if (!retorno) {
+		document.getElementById("errores_profile").innerHTML = errores
+		document.getElementById("errores_profile").style.display = "block"
+		document.getElementById("error").style.display = "none"
+	}
+
+	return (retorno);
+}
+
+function validarsignup(form) {
+	var retorno = true;
+	var errores = "";
+
+	form["nombre"].className = ""
+	form["usuario"].className = ""
+	form["email"].className = ""
+	form["clave"].className = ""
+	form["confirm"].className = ""
+
+	if (form["nombre"].value.trim() == "") {
+		errores += "<li><b>El nombre</b> es requerido"
+		form["nombre"].className = "inputError"
+		if (retorno) form["nombre"].focus()
+		retorno = false;
+	}
+	if (form["usuario"].value.trim() == "") {
+		errores += "<li><b>El usuario</b> es requerido"
+		form["usuario"].className = "inputError"
+		if (retorno) form["usuario"].focus()
+		retorno = false;
+	}
+	if (form["email"].value.trim() == "") {
+		errores += "<li><b>El correo</b> es requerido"
+		form["email"].className = "inputError"
+		if (retorno) form["email"].focus()
+		retorno = false;
+	}
+	if (form["clave"].value.trim() == "") {
+		errores += "<li><b>La clave</b> es requerida"
+		form["clave"].className = "inputError"
+		if (retorno) form["clave"].focus()
+		retorno = false;
+	}
+	if (form["confirm"].value.trim() == "") {
+		errores += "<li><b>El confirmacion</b> es requerido"
+		form["confirm"].className = "inputError"
+		if (retorno) form["confirm"].focus()
+		retorno = false;
+	}
+
+
+	if (form["clave"].value != form["confirm"].value) {
+		errores += "<li><b>Las claves</b> no coinciden"
+		form["clave"].className = "inputError"
+		form["confirm"].className = "inputError"
+		if (retorno) form["confirm"].focus()
+		retorno = false;
+	}
+	if (!retorno) {
+		document.getElementById("errores_profile").innerHTML = errores
+		document.getElementById("errores_profile").style.display = "block"
+		document.getElementById("error").style.display = "none"
+	}
+
+	return (retorno);
+}
+
+let cerrar = document.querySelectorAll(".close")[0];
+let abrir = document.querySelectorAll(".cta")[0];
+let modal = document.querySelectorAll(".modal")[0];
+let modalC = document.querySelectorAll(".modal-container")[0];
+
+abrir.addEventListener("click", function (e) {
+	e.preventDefault();
+	modalC.style.opacity = "1";
+	modalC.style.visibility = "visible";
+	modal.classList.toggle("modal-close");
+})
+
+cerrar.addEventListener("click", function (e) {
+	e.preventDefault();
+	modal.classList.toggle("modal-close");
+	setTimeout(function () {
+		modalC.style.opacity = "0";
+		modalC.style.visibility = "hidden";
+	}, 850);
+})
+
+window.addEventListener("click", function (e) {
+	if (e.target == modalC) {
+		modal.classList.toggle("modal-close");
+		setTimeout(function () {
+			modalC.style.opacity = "0";
+			modalC.style.visibility = "hidden";
+		}, 850);
+	}
+})

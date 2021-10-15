@@ -35,14 +35,14 @@
     </header>
     <section class="sector">
         <div id="contenedor" class="container">
-            <form action="/login" method="post" name="login">
+            <form action="/login" method="post" name="login" onsubmit="return validarlogin(this)">
                 <div class="row">
                     <div class="col-25">
                         <label for="email">Email:</label>
                     </div>
                     <div class="col-75">
                         <input id="email" name="email" required placeholder="Ingrese su email..." size="50" type="text"
-                            value="" />
+                            value="{{ email }}" />
                     </div>
                 </div>
                 <div class="row">
@@ -60,10 +60,11 @@
                         Recordarme
                     </label>
                 </div>
-
+                <ul class="errorMessages display-none" id="errores_profile"></ul>
+                <label id="error" class="required">{{ error }}</label>
                 <div class="row">
                     <button class="button-form" id="login_submit" name="login_submit" type="submit"
-                        value="Ingresar">Registrarse</button>
+                        value="Ingresar">Ingresar</button>
                 </div>
             </form>
         </div>
@@ -90,24 +91,7 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
-    <script>
-        // var articulo = document.getElementById("contenedor");
-        // $(document).ready(function () {
-        //     $(window).resize(function () {
-        //         cambio();
-        //     });
-
-        //     cambio();
-
-        //     function cambio() {
-        //         if ($(window).width() < 700) {
-        //             articulo.style.width = "85%";
-        //         } else {
-        //             articulo.style.width = "50%";
-        //         }
-        //     }
-        // });
-    </script>
+    <script src="../static/js/codigo.js"></script>
 </body>
 
 </html>
