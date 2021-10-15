@@ -7,6 +7,7 @@
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,49 +19,34 @@
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
-            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+            <a class="" href="/casos/{{ usuario[0] }}">Mis Casos</a>
             {% if rol == 1 %}
-            <a class="" href="/caso/{{ userid }}">Crear caso</a>
+            <a class="" href="/caso/{{ usuario[0] }}">Crear caso</a>
             {% else %}
             <a class="" href="/todosloscasos">Todos los casos</a>
             {% endif %}
-            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
             <a class="active" href="#">Perfil</a>
         </nav>
     </header>
     <section class="sector">
         <div class="container">
-            <form action="/usuario/{{ userid }}" method="POST" name="profile"
-                onsubmit="return validateProfileDHTML(this)">
-                <div class="inputs">
-                    <label for="nombre">Nombre Completo:</label>
-                    <input id="nombre" maxlength="64" name="nombre" required
-                        placeholder="Ingrese su nombre y apellido..." size="80" type="text" value="{{ nombre }}" />
-                </div>
-                <div class="inputs">
-                    <label for="email">Email:</label>
-                    <input id="email" name="email" required placeholder="Ingrese su email..." size="80" type="text"
-                        value="{{ email }}" />
-                </div>
-                <div class="inputs">
-                    <label for="usuario">Usuario:</label>
-                    <input id="usuario" name="usuario" required placeholder="Ingrese su usuario..." size="80"
-                        type="text" value="{{ nickname }}" />
-                </div>
-                <div class="inputs">
-                    <label for="clave">Contraseña:</label>
-                    <input id="clave" name="clave" required placeholder="Ingrese una contraseña..." size="80"
-                        type="password" value="{{ clave }}" />
-                </div>
-                <div class="inputs">
-                    <label for="confirm">Confirmar contraseña:</label>
-                    <input id="confirm" name="confirm" required placeholder="Ingrese nuevamente la contraseña..."
-                        size="80" type="password" value="{{ clave }}" />
-                </div>
-                <div class="inputs">
-                    <button id="accept_submit" name="accept_submit" type="submit" value="">Confirmar</button>
-                </div>
-            </form>
+            <h2 class="text-center">{{usuario[1]}}</h2>
+            <br>
+            <h3 class="text-center">Detalles del usuario</h3>
+            <br>
+            <div>
+                <p class="flotante-left2">Nombre de usuario:</p><span class="datos">{{usuario[3]}}</span>
+
+                <br>
+                <p class="flotante-left2">Correo:</p><span class="datos">{{usuario[2]}}</span>
+
+                <div class="clearfix"></div>
+            </div>
+            <br>
+            <a href="/formulario_us"><button class="float-right button"  type="submit">Cambiar Datos</button></a>
+            <a href="/formulario_clave"><button class="button" type="submit">Cambiar Contraseña</button></a>
+            <div class="clearfix"></div>
         </div>
     </section>
     <footer>
@@ -78,6 +64,7 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
+    <script src="../static/js/codigo.js"></script>
 </body>
 
 </html>

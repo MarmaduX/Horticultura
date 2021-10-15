@@ -36,12 +36,51 @@ def crear_usuario():
     return render_template("signup.html"), 200
 
 
-@app.route('/usuario/<idUsuario>', methods=['POST', "GET"])
-def modificar_usuario(idUsuario):
+@app.route('/usuario', methods=['POST', "GET"])
+def modificar_usuario():
+    return render_template("editar_usuario.html", usuario=session['usuario'],  rol = session['user_rol']), 200
+
+@app.route('/formulario_us', methods=['POST', 'GET'])
+def formulario_us():
     if request.method == 'POST':
-        autenticacion.modificar_usuario(idUsuario, request.form['nombre'], request.form['usuario'], request.form['email'], request.form['clave'])
-        return render_template("editar_usuario.html",nickname=session['usuario'][3], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'], rol = session['user_rol']), 200
-    return render_template("editar_usuario.html", nickname=session['usuario'][3], userid=session['user_id'], casos= len(session['casos']), email= session['email'], nombre = session['nombre'],  rol = session['user_rol']), 200
+        if verificar_clave(request.form["vieja"]) == "Ok":
+            if session["usuario"][2] == request.form['email']:
+                if session["usuario"][3] == request.form['usuario']:
+                    autenticacion.modificar_usuario(session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
+                    datos = autenticacion.verificar_correo(request.form['email'])
+                    session["usuario"]=datos[0]
+                    return modificar_usuario()
+                if len(autenticacion.verificar_usuario(request.form['usuario'])) == 0:
+                    autenticacion.modificar_usuario(session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
+                    datos = autenticacion.verificar_correo(request.form['email'])
+                    session["usuario"] = datos[0]
+                    return modificar_usuario()
+                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este usuario ya esta en uso")
+            if len(autenticacion.verificar_correo(request.form['email'])) ==0:
+                if session["usuario"][3] == request.form['usuario']:
+                        autenticacion.modificar_usuario(session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
+                        datos = autenticacion.verificar_correo(request.form['email'])
+                        session["usuario"]=datos[0]
+                        return modificar_usuario()
+                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este usuario ya esta en uso")
+            return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este correo ya esta en uso")
+        return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida"), 200
+    return render_template("formulario_us.html", usuario=session['usuario'],rol = session['user_rol'], error="")
+
+@app.route('/formulario_clave', methods=['POST', 'GET'])
+def formulario_clave():
+    if request.method == 'POST':
+        if verificar_clave(request.form["vieja"]) == "Ok":
+            autenticacion.modificar_usuario(session['usuario'][0], session['usuario'][1], session['usuario'][3],session['usuario'][2], request.form['clave'])
+            return render_template("editar_usuario.html", usuario=session['usuario'], rol = session['user_rol'])
+        return render_template("formulario_clave.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida")
+    return render_template("formulario_clave.html", usuario=session['usuario'],rol = session['user_rol'], error="")
+
+def verificar_clave(clave):
+    pase = autenticacion.verificar_clave(session["usuario"][0], clave)
+    if pase == []:
+        return "Contraseñas Incorrectas"
+    return "Ok"
 
 @app.route('/usuario/<idUsuario>', methods=['DELETE'])
 def eliminar_usuario(idUsuario):
@@ -126,7 +165,7 @@ def mostrar_casos():
 @app.route('/vercaso/<idCaso>', methods=['GET'])
 def mostrar_caso(idCaso):
     datos = autenticacion.ver_caso(idCaso)
-    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=datos[0][10], nickname=session['usuario'][3]), 200
+    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=datos[0][10], usuario=session['usuario']), 200
 
 
 @app.route('/casos/<idUsuario>', methods=['GET'])

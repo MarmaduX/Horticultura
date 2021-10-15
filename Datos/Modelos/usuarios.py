@@ -9,6 +9,15 @@ def verificar_correo(email):
     existe = bd.ejecutar_sql(verificar_correo_sql)
     return existe
 
+def verificar_clave(id, clave):
+    verificar_correo_sql = f"""
+        SELECT * FROM Usuario WHERE idUsuario = "{id}" and contraseña = "{clave}"
+    """
+    bd = BaseDeDatos()
+    existe = []
+    existe = bd.ejecutar_sql(verificar_correo_sql)
+    return existe
+    
 def verificar_usuario(usuario):
     verificar_usuario_sql = f"""
         SELECT * FROM Usuario WHERE nombreUsuario = "{usuario}" 

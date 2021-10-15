@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div>
+            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+        </div>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
+        <nav>
+            <a class="" href="/index">Inicio</a>
+            <a class="" href="#">Cultivos</a>
+            <a class="" href="/casos/{{ usuario[0] }}">Mis Casos</a>
+            {% if rol == 1 %}
+            <a class="" href="/caso/{{ usuario[0] }}">Crear caso</a>
+            {% else %}
+            <a class="" href="/todosloscasos">Todos los casos</a>
+            {% endif %}
+            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
+            <a class="active" href="#">Perfil</a>
+        </nav>
+    </header>
+    <section class="sector">
+        <div class="container">
+            <form action="/formulario_us" method="POST" name="profile"
+                onsubmit="return validar(this)">
+                <div class="row">
+                    <div class="col-25"><label for="nombre">Nombre Completo:</label>
+                    </div>
+                    <div class="col-75"><input id="nombre" maxlength="64" name="nombre" required
+                            placeholder="Ingrese su nombre y apellido..." size="80" type="text" value="{{ usuario[1] }}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25"><label for="email">Email:</label>
+                    </div>
+                    <div class="col-75"><input id="email" name="email" required placeholder="Ingrese su email..."
+                            size="80" type="text" value="{{ usuario[2] }}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25"><label for="usuario">Usuario:</label>
+                    </div>
+                    <div class="col-75"><input id="usuario" name="usuario" required placeholder="Ingrese su usuario..."
+                            size="80" type="text" value="{{ usuario[3] }}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25"><label for="vieja">Contraseña:</label>
+                    </div>
+                    <div class="col-75"><input id="vieja" name="vieja" required placeholder="Ingrese su contraseña..."
+                            size="80" type="password" />
+                    </div>
+                </div>
+                <br>
+                <label id="error" class="required">{{ error }}</label>
+                <div class="row">
+                    <button class="float-right button" type="submit">Cambiar Datos</button>
+                    <a href="/usuario"><button class="button" type="button">Cancelar</button></a>
+                </div>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
+                <span class="material-icons">
+                    email
+                </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
+        </div>
+    </footer>
+    <script src="../static/js/codigo.js"></script>
+</body>
+
+</html>

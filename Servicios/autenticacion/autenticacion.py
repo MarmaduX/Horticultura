@@ -5,7 +5,10 @@ def crear_usuario(nombre, email, usuario, clave):
 
 def verificar_correo(correo):
     return modelo_usuario.verificar_correo(correo)
-    
+
+def verificar_clave(idusuario, clave):
+    return modelo_usuario.verificar_clave(idusuario, clave)
+       
 def verificar_usuario(usuario):
     return modelo_usuario.verificar_usuario(usuario)
 
