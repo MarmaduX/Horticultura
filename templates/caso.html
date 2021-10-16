@@ -33,6 +33,7 @@
         <div class="marco">
             <div class="cuerpo">
                 <h2 class="titulo-casos">{{nombre}}</h2>
+                <hr>
                 <br>
                 <div>
                     <div class="contenedor-right float-right">
@@ -64,15 +65,17 @@
                         </div>
                     </div>
                     <div class="contenedor-left float-left">
-                        <img id="imagen-caso" class="imagen-casos" src="{{fotos}}" width="500" />
+                        <img id="imagen-caso" class="imagen-casos" src="{{fotos}}" />
                     </div>
                     <div class="clearfix"></div>
                     <button id="boton1" class="alternador button">Ver Foto</button>
                 </div>
             </div>
             <div class="abajo">
-                <button class="float-right button" type="submit">Editar
-                    caso</button>
+                <form action="/modificar_caso/{{ idcaso }}" method="get">
+                    <button class="float-right button" type="submit">Editar
+                        caso</button>
+                </form>
                 <button class="button cta" type="submit">Eliminar caso</button>
             </div>
         </div>

@@ -127,14 +127,14 @@ def crear_caso(idUsuario):
         
     return render_template("ingreso_caso.html", userid=idUsuario, nickname=session['usuario'][3],  rol =session['usuario'][0])
 
-@app.route('/casos/<idCaso>', methods=['PUT'])
+@app.route('/modificar_caso/<idCaso>', methods=['GET', 'POST'])
 def modificar_caso(idCaso):
-    if request.method == 'PUT':
-        datos_casos = request.get_json()
-        autenticacion.modificar_caso(idCaso, datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'],
-                                 datos_casos['descripcionCaso'], datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'])
-        return 'OK', 200
-    return render_template("home.html")
+    datos = autenticacion.ver_caso(idCaso)
+    if request.method == 'POST':
+        autenticacion.modificar_caso(idCaso, request.form['tipo'], request.form['nombre'], request.form['show'],
+                                 request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'])
+        return mostrar_caso(idCaso)
+    return render_template("editar_caso.html", caso=datos[0], idcaso=idCaso, usuario=session["usuario"])
 
 # @app.route('/casos/<idCaso>', methods=['DELETE'])
 # def eliminar_caso(idCaso):

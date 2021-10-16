@@ -7,6 +7,25 @@
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("input[required]").parent().prev().append($("<span>").text("*").addClass("required"));
+        })
+        $(document).ready(function () {
+
+            var now = new Date();
+
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes) + ":" + (seconds);
+            $("#date").val(today);
+        });
+    </script>
 </head>
 
 <body>
@@ -18,41 +37,87 @@
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
-            <a class="" href="/casos/{{userid}}">Mis Casos</a>
-            {% if rol == 1 %}
-            <a class="" href="/caso/{{ userid }}">Crear caso</a>
-            {% else %}
-            <a class="" href="/todosloscasos">Todos los casos</a>
-            {% endif %}
-            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="/casos/{{usuario[0]}}">Mis Casos</a>
+            <a class="active" href="#">Crear caso</a>
+            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
             <a class="" href="/usuario">Perfil</a>
         </nav>
     </header>
     <section class="sector">
-        <form action="editar_caso" method="post" name="signup">
-            <label for="nombre">Nombre de la planta</label>
-            <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..." type="text" size="50">
-            <br>
-            <label for="tipo">Ingrese el tipo del cultivo</label>
-            <input id="tipo" name="tipo" required placeholder="Ingrese el tipo del cultivo..." type="text" size="50">
-            <br>
-            <label for="foto">foto de la enfermedad o plaga</label>
-            <input id="foto" name="foto" required type="file">
-            <br>
-            <label for="desc">Ingrese una descripcion del problema</label>
-            <textarea id="desc" name="desc" required placeholder="Ingrese descripcion..."></textarea>
-            <br>
-            <label for="estado">Estado</label>
-            <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50">
-            <br>
-            <label for="evolucion">Evolucion del caso</label>
-            <input id="evolucion" name="evolucion" required placeholder="Evolucion del caso..." type="text" size="50">
-            <br>
-            <label for="date">Fecha de creacion</label>
-            <input id="date" name="date" required type="date" size="50"><input type="time">
-            <br>
-            <button id="crear_submit" name="crear_submit" type="submit">Editar Caso</button>
-        </form>
+        <div class="container">
+            <form action="/modificar_caso/{{idcaso}}" method="post" name="ingresar_caso">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="nombre">Nombre del cultivo:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..."
+                            type="text" size="50" value="{{ caso[2] }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="tipo">Tipo del cultivo:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="tipo" name="tipo" required placeholder="Ingrese el tipo del cultivo..." type="text"
+                            size="50" value="{{ caso[1] }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-pers">
+                        <label for="foto">Captura de la planta:</label>
+                    </div>
+                    <div class="col-pers2">
+                        <input id="foto" name="foto" type="file" onchange = "load ()" >
+                    </div>
+                </div>
+                <div class="oculta">
+                    <img src=""/>
+                </div>
+                <div class="oculta">
+                    <p>
+                        Codificación Photo64: <textarea cols = "60" rows = "15" id = "show" name = "show">{{ caso[3] }}</textarea>
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="desc">Descripcion del problema:</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="desc" name="desc" required placeholder="Ingrese descripcion..." >{{ caso[4] }}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="estado">Estado:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50" value="{{ caso[5] }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="evolucion">Evolucion del caso:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="evolucion" name="evolucion" placeholder="Evolucion del caso..." type="text" value="{{ caso[6] }}" size="50">
+                    </div>
+                </div>
+                <div class="oculta">
+                    <div class="col-25">
+                        <label for="date">Fecha de creacion:</label>
+                    </div>
+                    <div class="col-pers2">
+                        <input id="date" name="date" type="text" >
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="button-form" id="crear_submit" name="crear_submit" type="submit">Editar</button>
+                    <a href='/vercaso/{{ idcaso }}'><button class="button" type="button">Cancelar</button>
+                </a></div>
+            </form>
+        </div>
     </section>
     <footer>
         <div class="copyright">
@@ -69,6 +134,8 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
+    
+    <script src="../static/js/codigo.js"></script>
 </body>
 
 </html>
