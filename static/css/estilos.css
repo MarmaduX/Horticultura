@@ -304,7 +304,7 @@ footer .terminos{
 }
 
 .contenedor-left{
-    width: 40%;
+    width: 35%;
     margin-left: 10px;
     padding-right: 10px;
     align-self: center;
@@ -324,6 +324,7 @@ footer .terminos{
     margin-left: 10px;
     margin-right: 10px;
     padding: 15px;
+    width: 90%;
     overflow: hidden;
 }
 
@@ -336,16 +337,16 @@ footer .terminos{
     align-self: flex-end;
 }
 
-/* .cuerpo {
-    min-height: 100vh;
-}  */
+.cuerpo {
+    min-height: 80vh;
+}  
 
 #imagen-caso{
     display: block;
 }
 
 .alternador{
-    display: block;
+    display: none;
 }
 @media screen and (max-width:1080px) {
     .contenedor-left{
@@ -365,6 +366,9 @@ footer .terminos{
     }
     .info, .flotante-left{
         width: 50%;
+    }
+    .alternador{
+        display: block;
     }
 }
 @media screen and (max-height:593px) {

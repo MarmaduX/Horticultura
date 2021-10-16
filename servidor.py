@@ -156,7 +156,12 @@ def mostrar_casos():
 @app.route('/vercaso/<idCaso>', methods=['GET'])
 def mostrar_caso(idCaso):
     datos = autenticacion.ver_caso(idCaso)
-    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=datos[0][10], usuario=session['usuario']), 200
+    especialista = autenticacion.devolver_usuario(datos[0][10])
+    if especialista == []:
+        nombreespecial = "Aun no tiene un especialista asignado"
+    else:
+        nombreespecial = especialista[0][1]
+    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=nombreespecial, usuario=session['usuario']), 200
 
 
 @app.route('/casos/<idUsuario>', methods=['GET'])

@@ -12,6 +12,9 @@ def verificar_clave(idusuario, clave):
 def verificar_usuario(usuario):
     return modelo_usuario.verificar_usuario(usuario)
 
+def devolver_usuario(iduser):
+    return modelo_usuario.devolver_usuario(iduser)
+
 def modificar_usuario(idUsuario, nombre, usuario, correo, contraseña):
     modelo_usuario.modificar_usuario(idUsuario, nombre, usuario, correo, contraseña)
 

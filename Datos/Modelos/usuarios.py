@@ -27,6 +27,15 @@ def verificar_usuario(usuario):
     existe = bd.ejecutar_sql(verificar_usuario_sql)
     return existe
 
+def devolver_usuario(iduser):
+    verificar_usuario_sql = f"""
+        SELECT * FROM Usuario WHERE idUsuario = "{iduser}" 
+    """
+    bd = BaseDeDatos()
+    existe = []
+    existe = bd.ejecutar_sql(verificar_usuario_sql)
+    return existe
+
 def crear_usuario(nombreCompleto, correo, nombreUsuario, contraseña):
     crear_usuario_sql = f"""
         INSERT INTO Usuario(nombreCompleto, correo, nombreUsuario, contraseña)

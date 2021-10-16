@@ -29,27 +29,15 @@ function load() {
 }
 
 let boton = document.getElementById("boton1");
-let boton2 = document.getElementById("boton2");
 
 boton.addEventListener("click", function (e){
 	e.preventDefault();
 	var img = document.getElementById("imagen-caso");
 	img.style.display = "block";
 	boton.classList.toggle("alternador");
-	boton2.classList.toggle("alternador");
 	boton.classList.toggle("display-none");
-	boton2.classList.toggle("display-none");
 })
 
-boton2.addEventListener("click", function (e){
-	e.preventDefault();
-	var img = document.getElementById("imagen-caso");
-	img.style.display = "none";
-	boton.classList.toggle("alternador");
-	boton2.classList.toggle("alternador");
-	boton.classList.toggle("display-none");
-	boton2.classList.toggle("display-none");
-})
 
 function validateProfileDHTML(form) {
 	var retorno = true;
@@ -194,12 +182,12 @@ abrir.addEventListener("click", function (e) {
 	e.preventDefault();
 	modalC.style.opacity = "1";
 	modalC.style.visibility = "visible";
-	modal.classList.toggle("modal-close");
+	modal.className = "modal";
 })
 
 cerrar.addEventListener("click", function (e) {
 	e.preventDefault();
-	modal.classList.toggle("modal-close");
+	modal.className = "modal modal-close";
 	setTimeout(function () {
 		modalC.style.opacity = "0";
 		modalC.style.visibility = "hidden";
@@ -208,7 +196,7 @@ cerrar.addEventListener("click", function (e) {
 
 window.addEventListener("click", function (e) {
 	if (e.target == modalC) {
-		modal.classList.toggle("modal-close");
+		modal.className = "modal modal-close";
 		setTimeout(function () {
 			modalC.style.opacity = "0";
 			modalC.style.visibility = "hidden";
