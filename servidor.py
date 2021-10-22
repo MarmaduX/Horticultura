@@ -1,5 +1,6 @@
 from flask import Flask, request,  render_template, jsonify, json, session, url_for
 from Servicios.autenticacion import autenticacion
+import math
 
 app = Flask(__name__)
 
@@ -38,7 +39,7 @@ def crear_usuario():
 
 @app.route('/usuario', methods=['POST', "GET"])
 def modificar_usuario():
-    return render_template("editar_usuario.html", usuario=session['usuario'],  rol = session['user_rol']), 200
+    return render_template("editar_usuario.html", usuario=session['usuario'], rol = session['usuario'][5]), 200
 
 @app.route('/formulario_us', methods=['POST', 'GET'])
 def formulario_us():
@@ -55,26 +56,26 @@ def formulario_us():
                     datos = autenticacion.verificar_correo(request.form['email'])
                     session["usuario"] = datos[0]
                     return modificar_usuario()
-                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este usuario ya esta en uso")
+                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['usuario'][5], error="Este usuario ya esta en uso")
             if len(autenticacion.verificar_correo(request.form['email'])) ==0:
                 if session["usuario"][3] == request.form['usuario']:
                         autenticacion.modificar_usuario(session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
                         datos = autenticacion.verificar_correo(request.form['email'])
                         session["usuario"]=datos[0]
                         return modificar_usuario()
-                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
-            return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Este correo ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
-        return render_template("formulario_us.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"]), 200
-    return render_template("formulario_us.html", usuario=session['usuario'],rol = session['user_rol'], error="", nombre=session["usuario"][1], correo=session["usuario"][2], username=session["usuario"][3])
+                return render_template("formulario_us.html", usuario=session['usuario'], rol = session['usuario'][5], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
+            return render_template("formulario_us.html", usuario=session['usuario'], rol = session['usuario'][5], error="Este correo ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
+        return render_template("formulario_us.html", usuario=session['usuario'], rol = session['usuario'][5], error="Contraseña Invalida", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"]), 200
+    return render_template("formulario_us.html", usuario=session['usuario'], rol = session['usuario'][5], error="", nombre=session["usuario"][1], correo=session["usuario"][2], username=session["usuario"][3])
 
 @app.route('/formulario_clave', methods=['POST', 'GET'])
 def formulario_clave():
     if request.method == 'POST':
         if verificar_clave(request.form["vieja"]) == "Ok":
             autenticacion.modificar_usuario(session['usuario'][0], session['usuario'][1], session['usuario'][3],session['usuario'][2], request.form['clave'])
-            return render_template("editar_usuario.html", usuario=session['usuario'], rol = session['user_rol'])
-        return render_template("formulario_clave.html", usuario=session['usuario'], rol = session['user_rol'], error="Contraseña Invalida", nueva=request.form["clave"], confirm=request.form["confirm"])
-    return render_template("formulario_clave.html", usuario=session['usuario'],rol = session['user_rol'], error="", nueva="", confirm="")
+            return render_template("editar_usuario.html", usuario=session['usuario'], rol = session['usuario'][5])
+        return render_template("formulario_clave.html", usuario=session['usuario'], rol = session['usuario'][5], error="Contraseña Invalida", nueva=request.form["clave"], confirm=request.form["confirm"])
+    return render_template("formulario_clave.html", usuario=session['usuario'], rol = session['usuario'][5], error="", nueva="", confirm="")
 
 def verificar_clave(clave):
     pase = autenticacion.verificar_clave(session["usuario"][0], clave)
@@ -115,17 +116,9 @@ def crear_caso(idUsuario):
         #     return 'La foto del caso es necesaria', 412
         # autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
         #                         datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
-        missing = []
-        fields = ['nombre', 'tipo', 'foto', 'desc']
-        for field in fields:
-            value = request.form.get(field, None)
-            if value is None or value == '':
-                missing.append(field)
-        if missing:
-            return render_template('missingFields.html', inputs=missing)
         return creacion_caso(request.form['nombre'], request.form['tipo'], request.form['show'], request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'], idUsuario)
         
-    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session['usuario'][3],  rol =session['usuario'][0])
+    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session['usuario'][3], rol = session['usuario'][5])
 
 @app.route('/modificar_caso/<idCaso>', methods=['GET', 'POST'])
 def modificar_caso(idCaso):
@@ -134,12 +127,7 @@ def modificar_caso(idCaso):
         autenticacion.modificar_caso(idCaso, request.form['tipo'], request.form['nombre'], request.form['show'],
                                  request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'])
         return mostrar_caso(idCaso)
-    return render_template("editar_caso.html", caso=datos[0], idcaso=idCaso, usuario=session["usuario"])
-
-# @app.route('/casos/<idCaso>', methods=['DELETE'])
-# def eliminar_caso(idCaso):
-#     autenticacion.eliminar_caso(idCaso)
-#     return 'OK', 200
+    return render_template("editar_caso.html", caso=datos[0], idcaso=idCaso, usuario=session["usuario"], rol = session['usuario'][5])
 
 @app.route('/eliminar_caso', methods=['DELETE'])
 def eliminar_casos():
@@ -149,9 +137,28 @@ def eliminar_casos():
 
 @app.route('/casos', methods=['GET'])
 def mostrar_casos():
-    casos_a_mostrar = jsonify(autenticacion.mostrar_casos())
-    return render_template("casos.html"), 200
-
+    page = request.args.get('page')
+    if not page or int(page) == 0:
+        page = 1
+    if request.args.get('keyword') == None:
+        keyword = ""
+    else:
+        keyword = request.args.get('keyword')
+    casos_a_mostrar = autenticacion.mostrar_casos(keyword)
+    cantidad = len(casos_a_mostrar)
+    cantidad = math.ceil(cantidad/10)
+    if int(page)>cantidad:
+        page=cantidad
+    page_range = range(int(page) - 2, int(page) + 3)
+    if int(page)+3>cantidad:
+        page_range= range(int(page)-3, cantidad+1)
+    if int(page) < 4:
+        if cantidad < 5:
+            page_range = range(1, cantidad+1)
+        else: 
+            page_range = range(1, cantidad+1)
+    casos_a_mostrar = autenticacion.mostrar_casos_paginado(int(page), keyword)
+    return render_template("allcasos.html", palabra=keyword, usuario = session["usuario"], casos=casos_a_mostrar, items=casos_a_mostrar,page=int(page),prange = page_range), 200
 
 @app.route('/vercaso/<idCaso>', methods=['GET'])
 def mostrar_caso(idCaso):
@@ -166,28 +173,50 @@ def mostrar_caso(idCaso):
 
 @app.route('/casos/<idUsuario>', methods=['GET'])
 def mostrar_caso_por(idUsuario):
-    casos_a_mostrar = autenticacion.mostrar_casos_usuario(idUsuario)
-    return render_template("casos_usuario.html", casos = casos_a_mostrar, usuario=session["usuario"])
+    if session["usuario"][5] == 1:
+        casos_a_mostrar = autenticacion.mostrar_casos_usuario(idUsuario)
+    else:
+        casos_a_mostrar = autenticacion.mostrar_casos_especialista(idUsuario)
+    return render_template("casos_usuario.html", casos = casos_a_mostrar, usuario=session["usuario"], rol = session['usuario'][5])
 
 
 @app.route('/casos/tipo/<tipoCultivo>', methods=['GET'])
 def mostrar_casos_por(tipoCultivo):
-    return jsonify(autenticacion.mostrar_casos_por(tipoCultivo)), 200
+    page = request.args.get('page')
+    if not page or int(page) == 0:
+        page = 1
+    if request.args.get('keyword') == None:
+        keyword = ""
+    else:
+        keyword = request.args.get('keyword')
+    casos_a_mostrar = autenticacion.mostrar_casos_por(keyword, tipoCultivo)
+    cantidad = len(casos_a_mostrar)
+    cantidad = math.ceil(cantidad/10)
+    if int(page)>cantidad:
+        page=cantidad
+    page_range = range(int(page) - 2, int(page) + 3)
+    if int(page)+3>cantidad:
+        page_range= range(int(page)-3, cantidad+1)
+    if int(page) < 4:
+        if cantidad < 5:
+            page_range = range(1, cantidad+1)
+        else: 
+            page_range = range(1, cantidad+1)
+    casos_a_mostrar = autenticacion.mostrar_casos_por_paginado(int(page), keyword, tipoCultivo)
+    return render_template("casostipo.html", tipo=tipoCultivo, palabra=keyword, usuario = session["usuario"], casos=casos_a_mostrar, items=casos_a_mostrar, page=int(page), prange = list(page_range)), 200
 
-
-@app.route('/casos/editarCaso/<idCaso>', methods=['PUT'])
+@app.route('/caso/recomendacion/<idCaso>', methods=["GET","POST"])
 def registrar_recomendacion(idCaso):
-    datos_casos = request.get_json()
-    autenticacion.registrar_recomendacion(
-        idCaso, datos_casos['recomendaciones'], datos_casos['estado'], datos_casos['fechaActualizacion'], datos_casos['especialista'])
-    return 'OK', 200
+    if request.method == "POST":
+        autenticacion.registrar_recomendacion(idCaso, request.form["rec"],  request.form["estado"],  request.form["date"], session["usuario"][0])
+        return mostrar_caso(idCaso)
+    return render_template("casorec.html", idcaso = idCaso, usuario=session["usuario"], rol = session['usuario'][5])
 
-
-@app.route('/casos/finalizar/<idCaso>', methods=['PUT'])
-def pasar_a_resuelto_un_caso(idCaso):
-    datos_casos = request.get_json()
-    autenticacion.pasar_a_resuelto_un_caso(
-        idCaso, datos_casos['estado'], datos_casos['fecaActualizacion'])
+@app.route('/casos/finalizar', methods=['PUT'])
+def pasar_a_resuelto_un_caso():
+    idcaso = request.form.get("idcaso")
+    date = request.form.get("date")
+    autenticacion.pasar_a_resuelto_un_caso(idcaso, "Finalizado", date)
     return 'OK', 200
 
 

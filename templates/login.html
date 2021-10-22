@@ -7,24 +7,13 @@
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        .required {
-            color: red;
-            padding-left: 4px;
-        }
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(function () {
-            $("input[required]").parent().prev().append($("<span>").text("*").addClass("required"));
-        })
-    </script>
 </head>
 
 <body>
     <header>
         <div>
-            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav class="">
@@ -70,9 +59,9 @@
         </div>
         <div class="slider">
             <ul>
-                <li><img src="../static/imagenes/fertilizantes.jpg" class="d-block w-100" alt="..."></li>
-                <li><img src="../static/imagenes/maquinaria.jpg" class="d-block w-100" alt="..."></li>
-                <li><img src="../static/imagenes/semillas.jpg" class="d-block w-100" alt="..."></li>
+                <li><img src="/static/imagenes/fertilizantes.jpg" class="d-block w-100" alt="..."></li>
+                <li><img src="/static/imagenes/maquinaria.jpg" class="d-block w-100" alt="..."></li>
+                <li><img src="/static/imagenes/semillas.jpg" class="d-block w-100" alt="..."></li>
             </ul>
         </div>
     </section>
@@ -91,7 +80,7 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
-    <script src="../static/js/codigo.js"></script>
+    <script src="/static/js/codigo.js"></script>
 </body>
 
 </html>

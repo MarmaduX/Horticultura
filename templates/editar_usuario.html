@@ -13,7 +13,7 @@
 <body>
     <header>
         <div>
-            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav>
@@ -23,7 +23,7 @@
             {% if rol == 1 %}
             <a class="" href="/caso/{{ usuario[0] }}">Crear caso</a>
             {% else %}
-            <a class="" href="/todosloscasos">Todos los casos</a>
+            <a class="" href="/casos">Todos los casos</a>
             {% endif %}
             <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
             <a class="active" href="#">Perfil</a>
@@ -64,7 +64,7 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
-    <script src="../static/js/codigo.js"></script>
+    <script src="/static/js/codigo.js"></script>
 </body>
 
 </html>

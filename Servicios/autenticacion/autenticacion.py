@@ -39,14 +39,23 @@ def eliminar_caso(idCaso):
 def ver_caso(nombrePlanta):
     return modelo_caso.ver_caso(nombrePlanta)
 
-def mostrar_casos():
-    return modelo_caso.mostrar_casos()
+def mostrar_casos(key):
+    return modelo_caso.mostrar_casos(key)
+
+def mostrar_casos_paginado(page, key):
+    return modelo_caso.mostrar_casos_paginado(page, key)
 
 def mostrar_casos_usuario(idUsuario):
     return modelo_caso.mostrar_casos_usuario(idUsuario)
 
-def mostrar_casos_por(tipoCultivo):
-    return modelo_caso.mostrar_casos_por(tipoCultivo)
+def mostrar_casos_especialista(idUsuario):
+    return modelo_caso.mostrar_casos_especialista(idUsuario)
+    
+def mostrar_casos_por(key, tipoCultivo):
+    return modelo_caso.mostrar_casos_por(tipoCultivo, key)
+
+def mostrar_casos_por_paginado(page, key, tipo):
+    return modelo_caso.mostrar_casos_por_paginado(page,tipo, key)
 
 def registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion, especialista):
     modelo_caso.registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion, especialista)

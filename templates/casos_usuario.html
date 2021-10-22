@@ -14,14 +14,18 @@
 <body>
     <header>
         <div>
-            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
             <a class="active" href="#">Mis Casos</a>
+            {% if rol == 1 %}
             <a class="" href="/caso/{{ usuario[0] }}">Crear caso</a>
+            {% else %}
+            <a class="" href="/casos">Todos los casos</a>
+            {% endif %}
             <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
             <a class="" href="/usuario">Perfil</a>
         </nav>
@@ -38,7 +42,7 @@
                         <h3 class="card-title text-center">{{ caso[2] }}</h3>
                         <p class="card-subtitle">Tipo de planta:</p><span class="card-text">{{ caso[1] }}</span>
                         <p class="card-subtitle">Estado del caso:</p><span class="card-text">{{ caso[5] }}</span>
-                        <p class="card-subtitle">Ultima revicion:</p><span class="card-text">{{ caso[7] }}</span>
+                        <p class="card-subtitle">Ultima revision:</p><span class="card-text">{{ caso[7] }}</span>
 
                     </div>
                 </div>
@@ -46,7 +50,7 @@
             </div>
             {% endfor %}
             {% if (casos == []) %}
-            <div class="marco">
+            <div class="container">
                 <p class="text-center">Usted no tiene ningun caso registrado</p>
             </div>
             {% endif %}

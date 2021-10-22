@@ -3,7 +3,7 @@
 
 <head>
     <title>Horticultura</title>
-    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet" type="text/css">
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,17 +13,17 @@
 <body>
     <header>
         <div>
-            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
-            <a class="active" href="/casos/{{usuario[0]}}">Mis Casos</a>
+            <a class="" href="/casos/{{usuario[0]}}">Mis Casos</a>
             {% if rol == 1 %}
             <a class="" href="/caso/{{ usuario[0] }}">Crear caso</a>
             {% else %}
-            <a class="" href="/todosloscasos">Todos los casos</a>
+            <a class="" href="/casos">Todos los casos</a>
             {% endif %}
             <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
             <a class="" href="/usuario">Perfil</a>
@@ -72,11 +72,17 @@
                 </div>
             </div>
             <div class="abajo">
+                {% if rol == 1 %}
                 <form action="/modificar_caso/{{ idcaso }}" method="get">
                     <button class="float-right button" type="submit">Editar
                         caso</button>
                 </form>
+                <button id="finalizar" class="button" type="submit">Pasar a resuelto</button>
                 <button class="button cta" type="submit">Eliminar caso</button>
+                {% else %}
+                <button id="finalizar" class="button" type="submit">Pasar a resuelto</button>
+                <a href="/caso/recomendacion/{{idcaso}}"><button id="rec" class="float-right button" type="submit">Registrar Recomendacion</button></a>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -96,6 +102,21 @@
             </div>
         </div>
     </div>
+    <div id="mcontainer" class="modal-container">
+        <div id="mfinal" class="modal modal-close">
+            <div class="modal-textos">
+                <div>
+                    <h2>¿Quieres pasar a resuelto el caso?</h2>
+                    <p>Se cambiara el estado del caso a finalizado</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="abajo">
+                <button id="close" class="button float-left2">Cancelar</button>
+                <button class="button float-right2"  onclick="finalizar_caso('{{idcaso}}')">Finalizar caso</button>
+            </div>
+        </div>
+    </div>
     <footer>
         <div class="copyright">
             <p>Copyright 2021</p>
@@ -111,7 +132,7 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
-    <script src="../static/js/codigo.js"></script>
+    <script src="/static/js/codigo.js"></script>
 </body>
 
 </html>

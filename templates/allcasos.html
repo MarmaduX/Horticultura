@@ -1,41 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <title>Horticultura</title>
-    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <header>
         <div>
-            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav>
             <a class="" href="/index">Inicio</a>
             <a class="" href="#">Cultivos</a>
-            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
-            <a class="active" href="/todosloscasos">Todos los casos</a>
-            <a class="" href="/logout">Log Out ({{ nickname }})</a>
+            <a class="" href="/casos/{{ usuario[0] }}">Mis Casos</a>
+            <a class="active" href="#">Todos los casos</a>
+            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
             <a class="" href="/usuario">Perfil</a>
         </nav>
     </header>
     <section class="sector">
-        <button>Ordenar por tipo de cultivo</button>
-        <article>
-            <h3>Nombre de la planta</h3>
-            <img src="">
-            <p><span style="color: red;">Tipo de planta:</span>este es el tipo de la planta</p>
-            <p>Descripcion del caso</p>
-            <p>Estado delcaso: en progreso</p>
-            <p>ultima actualizacion. xx/xx/xx</p>
-            <button>Ver caso</button>
+        <div class="search">
+            <form action="/casos">
+                <div class="inputsr">
+                    <div class="col-80">
+                        <input type="text" class="form-control" value="{{palabra}}" name="keyword"
+                            placeholder="Nombre de la planta...">
+                    </div>
+                    <div class="col-20">
+                        <button class="btnsearch" type="submit"><span class="material-icons">
+                                search
+                            </span></button>
+                    </div>
+                </div>
+            </form>
+            <div id="header">
+                <ul class="nav">
+                    <li>Tipo Cultivo
+                        <ul class="lista">
+                            <li><a href="/casos/tipo/Celeares">Cereales</a></li>
+                            <li><a href="/casos/tipo/Leguminosas">Leguminosas</a></li>
+                            <li><a href="/casos/tipo/Oleaginosas">Oleaginosas</a></li>
+                            <li><a href="/casos/tipo/Hortalizas">Hortalizas</a></li>
+                            <li><a href="/casos/tipo/Frutales">Frutales</a></li>
+                            <li><a href="/casos/tipo/Ornamentales">Ornamentales</a></li>
+                            <li><a href="/casos/tipo/Raíces+y+tubérculos">Raíces y tubérculos</a></li>
+                            <li><a href="/casos/tipo/Cultivos+para+bebidas+medicinales+y+aromáticas">Cultivos para
+                                    bebidas medicinales y aromáticas</a></li>
+                            <li><a href="/casos/tipo/Cultivos+tropicales+tradicionales">Cultivos tropicales
+                                    tradicionales</a></li>
+                            <li><a href="/casos/tipo/Pastos">Pastos</a></li>
+                            <li><a href="/casos/tipo/Otro">Otro</a></li>
+                            <li><a href="/casos">Ninguno</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <article id="unic-article">
+            {% for caso in items %}
+            <div class="container-fluid">
+                <div>
+                    <div class="media">
+                        <img class="imagen-small" src="{{ caso[3] }}" />
+                    </div>
+                    <div class="body">
+                        <h3 class="card-title text-center">{{ caso[2] }}</h3>
+                        <p class="card-subtitle">Tipo de planta:</p><span class="card-text">{{ caso[1] }}</span>
+                        <p class="card-subtitle">Estado del caso:</p><span class="card-text">{{ caso[5] }}</span>
+                        <p class="card-subtitle">Ultima revision:</p><span class="card-text">{{ caso[7] }}</span>
+
+                    </div>
+                </div>
+                <a class="" href='/vercaso/{{ caso[0] }}'><button class="button card-btn" type="submit">Ver
+                        caso</button></a>
+            </div>
+            {% endfor %}
+            {% if items == [] %}
+            <br>
+            <div class="container">
+                <p class="text-center">No se encontró ningun caso</p>
+            </div>
+            {% endif %}
         </article>
+        <div class="clearfix"></div>
+        <div class="navegacion">
+            <nav class="barranav" aria-label="Page navigation">
+                <ul class="pag">
+                    {% if items != [] %}
+                    <li class="horizontal">
+                        <a href="/casos?keyword={{palabra}}&page={{ page - 1 }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% for pg in prange %}
+                    <li class="horizontal"><a id="{{pg}}" href="/casos?keyword={{palabra}}&page={{ pg }}">{{ pg }}</a>
+                    </li>
+                    {% endfor %}
+                    <li class="horizontal">
+                        <a href="/casos?keyword={{palabra}}&page={{ page + 1}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="clearfix"></div>
     </section>
     <footer>
         <div class="copyright">
@@ -52,6 +131,48 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
+    <script>
+
+        var booleano = false;
+        var elemento = document.getElementsByClassName("container-fluid");
+        var articulo = document.getElementById("unic-article");
+        $(document).ready(function () {
+            $(window).resize(function () {
+                cambio();
+            });
+
+            cambio();
+
+            function cambio() {
+                if ($(window).width() < 1200) {
+                    for (var i = 0; i < elemento.length; i++) {
+                        elemento[i].style.float = "none";
+                        elemento[i].style.width = "auto";
+                    }
+                    articulo.className = "centrar_caso";
+
+                } else {
+                    for (var i = 0; i < elemento.length; i++) {
+                        if (booleano) {
+                            booleano = false;
+                            elemento[i].style.float = "right";
+                        } else {
+                            booleano = true;
+                            elemento[i].style.float = "left";
+                        }
+                        elemento[i].style.width = "44%";
+                    }
+                    booleano = false;
+                    articulo.className = " ";
+                }
+            }
+            if ('{{page}}' !== "0") {
+                var paginaactiva = document.getElementById("{{page}}");
+                paginaactiva.className = "active";
+            }
+
+        });
+    </script>
 </body>
 
 </html>

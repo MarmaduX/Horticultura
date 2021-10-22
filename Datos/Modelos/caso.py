@@ -1,5 +1,5 @@
 from Datos.basededatos import BaseDeDatos
-
+import pymysql
 
 def crear_caso(tipoCultivo, nombrePlanta, foto, descripcionCaso, estado, evolucionCaso, fechaActualizacion, idUsuario):
     crear_caso_sql = f"""
@@ -40,10 +40,19 @@ def ver_caso(idCaso):
     bd = BaseDeDatos()
     return bd.ejecutar_sql(ver_caso_sql)
 
-def mostrar_casos():
-    mostrar_casos_sql = f"""
-        SELECT * FROM Caso
-    """
+def mostrar_casos(keyword=None):
+    mostrar_casos_sql = "SELECT * FROM Caso"
+    if keyword:
+       mostrar_casos_sql = mostrar_casos_sql + " where nombrePlanta like '%" + keyword + "%'"
+    bd = BaseDeDatos()
+    return bd.ejecutar_sql(mostrar_casos_sql)
+
+def mostrar_casos_paginado(page, keyword=None):
+    mostrar_casos_sql = "SELECT * FROM Caso"
+    if keyword:
+       mostrar_casos_sql = mostrar_casos_sql + " where nombrePlanta like '%" + keyword + "%'"
+    start = (int(page) - 1) * 10
+    mostrar_casos_sql = mostrar_casos_sql + " limit " + str(start) + ",10"
     bd = BaseDeDatos()
     return bd.ejecutar_sql(mostrar_casos_sql)
 
@@ -54,12 +63,30 @@ def mostrar_casos_usuario(idUsuario):
     bd = BaseDeDatos()
     return bd.ejecutar_sql(mostrar_caso_por_sql)
 
-def mostrar_casos_por(tipoCultivo):
-    mostrar_casos_por_sql = f"""
-        SELECT * FROM Caso WHERE tipoCultivo = '{tipoCultivo}'
+def mostrar_casos_especialista(idUsuario):
+    mostrar_caso_por_sql = f"""
+        SELECT * FROM Caso WHERE usuarioEspecialista = '{idUsuario}'
     """
     bd = BaseDeDatos()
-    return bd.ejecutar_sql(mostrar_casos_por_sql)
+    return bd.ejecutar_sql(mostrar_caso_por_sql)
+
+def mostrar_casos_por(tipo, key=None):
+    mostrar_casos_sql = f"""
+        SELECT * FROM Caso where tipoCultivo = '{tipo}'
+    """
+    if key:
+       mostrar_casos_sql = mostrar_casos_sql + " and nombrePlanta like '%" + key + "%'"
+    bd = BaseDeDatos()
+    return bd.ejecutar_sql(mostrar_casos_sql)
+
+def mostrar_casos_por_paginado(page, tipo, keyword=None):
+    mostrar_casos_sql = f"SELECT * FROM Caso where tipoCultivo = '{tipo}'"
+    if keyword:
+       mostrar_casos_sql = mostrar_casos_sql + " and nombrePlanta like '%" + keyword + "%'"
+    start = (int(page) - 1) * 10
+    mostrar_casos_sql = mostrar_casos_sql + " limit " + str(start) + ",10"
+    bd = BaseDeDatos()
+    return bd.ejecutar_sql(mostrar_casos_sql)
 
 def registrar_recomendacion(idCaso, recomendaciones, estado, fechaActualizacion, especialista):
     registrar_recomendacion_sql = f"""

@@ -3,35 +3,17 @@
 
 <head>
     <title>Horticultura</title>
-    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet" type="text/css">
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(function () {
-            $("input[required]").parent().prev().append($("<span>").text("*").addClass("required"));
-        })
-        $(document).ready(function () {
-
-            var now = new Date();
-
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var seconds = now.getSeconds();
-            var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes) + ":" + (seconds);
-            $("#date").val(today);
-        });
-    </script>
 </head>
 
 <body>
     <header>
         <div>
-            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="/index">Horticultura Virtual</a>
         <nav>
@@ -60,8 +42,19 @@
                         <label for="tipo">Tipo del cultivo:</label>
                     </div>
                     <div class="col-75">
-                        <input id="tipo" name="tipo" required placeholder="Ingrese el tipo del cultivo..." type="text"
-                            size="50">
+                        <select id="tipo" name="tipo" required>
+                            <option value="Otro">Otro</option>
+                            <option value="Cereales">Cereales</option>
+                            <option value="Leguminosas">Leguminosas</option>
+                            <option value="Oleaginosas">Oleaginosas</option>
+                            <option value="Hortalizas">Hortalizas</option>
+                            <option value="Frutales">Frutales</option>
+                            <option value="Ornamentales">Ornamentales</option>
+                            <option value="Raíces y tubérculos">Raíces y tubérculos</option>
+                            <option value="Cultivos para bebidas medicinales y aromáticas">Cultivos para bebidas medicinales y aromáticas</option>
+                            <option value="Cultivos tropicales tradicionales">Cultivos tropicales tradicionales</option>
+                            <option value="Pastos">Pastos</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -85,7 +78,7 @@
                         <label for="desc">Descripcion del problema:</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="desc" name="desc" required placeholder="Ingrese descripcion..."></textarea>
+                        <textarea id="desc" class="desc" name="desc" rows="13" required placeholder="Ingrese descripcion..."></textarea>
                     </div>
                 </div>
                 <div class="oculta">
@@ -133,8 +126,7 @@
             <a href="#">Terminos y Condiciones</a>
         </div>
     </footer>
-    
-    <script src="../static/js/codigo.js"></script>
+    <script src="/static/js/codigo.js"></script>
 </body>
 
 </html>

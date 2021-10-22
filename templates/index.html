@@ -12,7 +12,7 @@
 <body>
     <header>
         <div>
-            <a href="#"><img class="logo" src="../static/imagenes/logo.png"></a>
+            <a href="#"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
         <a class="titulo" href="#">Horticultura Virtual</a>
         <nav>
@@ -23,7 +23,7 @@
             {% if rol == 1 %}
             <a class="" href="/caso/{{ userid }}">Crear caso</a>
             {% else %}
-            <a class="" href="/todosloscasos">Todos los casos</a>
+            <a class="" href="/casos">Todos los casos</a>
             {% endif %}
             <a class="" href="/logout">Log Out ({{ nickname }}) </a>
             <a class="" href="/usuario">Perfil</a>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet" type="text/css">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div>
+            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
+        </div>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
+        <nav>
+            <a class="" href="/index">Inicio</a>
+            <a class="" href="#">Cultivos</a>
+            <a class="" href="/casos/{{usuario[0]}}">Mis Casos</a>
+            <a class="active" href="#">Crear caso</a>
+            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
+            <a class="" href="/usuario">Perfil</a>
+        </nav>
+    </header>
+    <section class="sector">
+        <div class="container">
+            <form action="/caso/recomendacion/{{idcaso}}" method="post" name="ingresar_caso">
+                <div class="cuerpoM">
+                    <div class="col-25">
+                        <label for="rec">Recomendacion:</label>
+                    </div>
+                    <div class="col-752">
+                        <textarea id="rec" class="rec" rows="10" name="rec" required
+                            placeholder="Ingrese su recomendacion..."></textarea>
+                    </div>
+                    <div class="oculta">
+                        <div class="col-25">
+                            <label for="estado">Estado:</label>
+                        </div>
+                        <div class="col-75">
+                            <input id="estado" name="estado" required type="text" size="50" value="En progreso">
+                        </div>
+                    </div>
+                    <div class="oculta">
+                        <div class="col-25">
+                            <label for="date">Fecha de actualizacion:</label>
+                        </div>
+                        <div class="col-pers2">
+                            <input id="date" name="date" type="text">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="abajo">
+                        <button class="button float-right2" type="submit">Registrar</button>
+                        <a href="/vercaso/{{idcaso}}"><button id="cancelar" class="button float-left2" type="button">Cancelar</button></a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
+                <span class="material-icons">
+                    email
+                </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
+        </div>
+    </footer>
+    <script src="/static/js/codigo.js"></script>
+</body>
+
+</html>

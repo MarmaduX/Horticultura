@@ -29,14 +29,16 @@ function load() {
 }
 
 let boton = document.getElementById("boton1");
+if (boton) {
+	boton.addEventListener("click", function (e) {
+		e.preventDefault();
+		var img = document.getElementById("imagen-caso");
+		img.style.display = "block";
+		boton.classList.toggle("alternador");
+		boton.classList.toggle("display-none");
+	})
+}
 
-boton.addEventListener("click", function (e){
-	e.preventDefault();
-	var img = document.getElementById("imagen-caso");
-	img.style.display = "block";
-	boton.classList.toggle("alternador");
-	boton.classList.toggle("display-none");
-})
 
 
 function validateProfileDHTML(form) {
@@ -178,22 +180,24 @@ let abrir = document.querySelectorAll(".cta")[0];
 let modal = document.querySelectorAll(".modal")[0];
 let modalC = document.querySelectorAll(".modal-container")[0];
 
-abrir.addEventListener("click", function (e) {
-	e.preventDefault();
-	modalC.style.opacity = "1";
-	modalC.style.visibility = "visible";
-	modal.className = "modal";
-})
-
-cerrar.addEventListener("click", function (e) {
-	e.preventDefault();
-	modal.className = "modal modal-close";
-	setTimeout(function () {
-		modalC.style.opacity = "0";
-		modalC.style.visibility = "hidden";
-	}, 850);
-})
-
+if (abrir) {
+	abrir.addEventListener("click", function (e) {
+		e.preventDefault();
+		modalC.style.opacity = "1";
+		modalC.style.visibility = "visible";
+		modal.className = "modal";
+	})
+}
+if (cerrar) {
+	cerrar.addEventListener("click", function (e) {
+		e.preventDefault();
+		modal.className = "modal modal-close";
+		setTimeout(function () {
+			modalC.style.opacity = "0";
+			modalC.style.visibility = "hidden";
+		}, 850);
+	})
+}
 window.addEventListener("click", function (e) {
 	if (e.target == modalC) {
 		modal.className = "modal modal-close";
@@ -202,4 +206,70 @@ window.addEventListener("click", function (e) {
 			modalC.style.visibility = "hidden";
 		}, 850);
 	}
+	if (e.target == modalCR) {
+		modalR.className = "modal modal-close";
+		setTimeout(function () {
+			modalCR.style.opacity = "0";
+			modalCR.style.visibility = "hidden";
+		}, 850);
+	}
 })
+
+let cerrarR = document.getElementById("close");
+let abrirR = document.getElementById("finalizar");
+let modalR = document.getElementById("mfinal");
+let modalCR = document.getElementById("mcontainer");
+
+if (abrirR) {
+	abrirR.addEventListener("click", function (e) {
+		e.preventDefault();
+		modalCR.style.opacity = "1";
+		modalCR.style.visibility = "visible";
+		modalR.className = "modal";
+	})
+}
+
+if (cerrarR) {
+	cerrarR.addEventListener("click", function (e) {
+		e.preventDefault();
+		modalR.className = "modal modal-close";
+		setTimeout(function () {
+			modalCR.style.opacity = "0";
+			modalCR.style.visibility = "hidden";
+		}, 850);
+	})
+}
+
+$(function () {
+	$("input[required]").parent().prev().append($("<span>").text("*").addClass("required"));
+	$("select[required]").parent().prev().append($("<span>").text("*").addClass("required"));
+})
+
+$(document).ready(function () {
+
+	var now = new Date();
+
+	var day = ("0" + now.getDate()).slice(-2);
+	var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+	var hours = now.getHours();
+	var minutes = now.getMinutes();
+	var seconds = now.getSeconds();
+	var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes) + ":" + (seconds);
+	$("#date").val(today);
+	fecha = today;
+});
+
+let fecha;
+function finalizar_caso(idcaso) {
+	$.ajax({
+		type: 'PUT',
+		url: "/casos/finalizar",
+		data: { idcaso: idcaso,
+				date: fecha },
+		dataType: "text",
+		success: function () {
+			window.location.href = "/vercaso/" + idcaso;
+		}
+	});
+};
