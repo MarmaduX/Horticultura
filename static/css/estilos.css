@@ -175,10 +175,9 @@ label {
         width: 95%;
         margin-top: 0px;
     }
-    button[type=submit] {
+    /* button[type=submit] {
         margin-top: 5px;
-
-    }
+    } */
     .col-pers2{
         float: left;
     }

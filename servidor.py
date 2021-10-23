@@ -1,8 +1,29 @@
 from flask import Flask, request,  render_template, jsonify, json, session, url_for
 from Servicios.autenticacion import autenticacion
 import math
+from flask_mail import Mail,  Message
 
 app = Flask(__name__)
+
+app.config.update(
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME = 'horticultura.virtual@gmail.com',
+    MAIL_PASSWORD = 'ngftzrifctlvcaci'
+)
+
+mail = Mail(app)
+
+@app.route('/send-mail/<correo>')
+def send_mail(correo):
+    msg = mail.send_message(
+        'Creacion de cuenta',
+        sender='horticultura.virtual@gmail.com',
+        recipients=[correo],
+        body="Usted se ah registrado en la pagina Horticultura Virtual."
+    )
+    return 'Mail sent'
 
 @app.route('/')
 @app.route('/index')
@@ -209,6 +230,7 @@ def mostrar_casos_por(tipoCultivo):
 def registrar_recomendacion(idCaso):
     if request.method == "POST":
         autenticacion.registrar_recomendacion(idCaso, request.form["rec"],  request.form["estado"],  request.form["date"], session["usuario"][0])
+        notificacion(idCaso)
         return mostrar_caso(idCaso)
     return render_template("casorec.html", idcaso = idCaso, usuario=session["usuario"], rol = session['usuario'][5])
 
@@ -281,12 +303,26 @@ def process_signup():
     autenticacion.crear_usuario(request.form['nombre'], request.form['email'], request.form['usuario'],  request.form['clave'])
     datos = autenticacion.verificar_correo(request.form['email'])
     session['usuario'] = datos[0]
+    send_mail(request.form["email"])
     return index()
 
 def creacion_caso(nombre, tipo, foto, desc, estado, evolucion, date, iduser):
     autenticacion.crear_caso(tipo, nombre, foto, desc, estado, evolucion, date, iduser)
     datos = autenticacion.obtener_recien(iduser, date)
     return mostrar_caso(datos[0][0])
+
+def notificacion(casoid):
+    datos = autenticacion.ver_caso(casoid)
+    usuario = autenticacion.devolver_usuario(datos[0][9])
+    especialista = autenticacion.devolver_usuario(datos[0][10])
+    datos = datos[0]
+    msg = mail.send_message(
+        'Caso sobre ' + datos[2],
+        sender='horticultura.virtual@gmail.com',
+        recipients=[usuario[0][2]],
+        body="Usted recibio una respuesta a su caso por parte de " + especialista[0][1] + "."
+    )
+    return 'Mail sent'
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'  # this string is used for security reasons (see CSRF)
 

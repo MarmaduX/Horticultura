@@ -67,21 +67,25 @@
                     <div class="contenedor-left float-left">
                         <img id="imagen-caso" class="imagen-casos" src="{{fotos}}" />
                     </div>
-                    <div class="clearfix"></div>
                     <button id="boton1" class="alternador button">Ver Foto</button>
+                    <div class="clearfix"></div>
                 </div>
             </div>
             <div class="abajo">
                 {% if rol == 1 %}
                 <form action="/modificar_caso/{{ idcaso }}" method="get">
-                    <button class="float-right button" type="submit">Editar
+                    <button class="float-right2 button" type="submit">Editar
                         caso</button>
+
                 </form>
-                <button id="finalizar" class="button" type="submit">Pasar a resuelto</button>
-                <button class="button cta" type="submit">Eliminar caso</button>
+                <a onClick='addIcs();'></a>
+                <!-- <button class="button float-right2" type="button" onclick="addRecordatorio()">Agendar Recordatorio</button> -->
+                <button class="button cta float-left2" type="submit">Eliminar caso</button>
+                <button id="finalizar" class="float-left2 button" type="submit">Pasar a resuelto</button>
                 {% else %}
                 <button id="finalizar" class="button" type="submit">Pasar a resuelto</button>
-                <a href="/caso/recomendacion/{{idcaso}}"><button id="rec" class="float-right button" type="submit">Registrar Recomendacion</button></a>
+                <a href="/caso/recomendacion/{{idcaso}}"><button id="rec" class="float-right button"
+                        type="submit">Registrar Recomendacion</button></a>
                 {% endif %}
             </div>
         </div>
@@ -96,9 +100,9 @@
             </div>
             <div class="clearfix"></div>
             <div class="abajo">
-                <button class="button float-left2 close">Cancelar</button>
                 <button class="button float-right2"
                     onclick="borrar_caso('{{idcaso}}', '{{ usuario[0] }}')">Eliminar</button>
+                <button class="button float-left2 close">Cancelar</button>
             </div>
         </div>
     </div>
@@ -112,8 +116,8 @@
             </div>
             <div class="clearfix"></div>
             <div class="abajo">
+                <button class="button float-right2" onclick="finalizar_caso('{{idcaso}}')">Finalizar caso</button>
                 <button id="close" class="button float-left2">Cancelar</button>
-                <button class="button float-right2"  onclick="finalizar_caso('{{idcaso}}')">Finalizar caso</button>
             </div>
         </div>
     </div>
