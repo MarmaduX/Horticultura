@@ -205,12 +205,13 @@ def mostrar_casos():
 def mostrar_caso(idCaso):
     datos = autenticacion.ver_caso(idCaso)
     comentarios = autenticacion.obtener_comentarios(idCaso)
+    evolucion = autenticacion.obtener_evoluciones(idCaso)
     especialista = autenticacion.devolver_usuario(datos[0][10])
     if especialista == []:
         nombreespecial = "Aun no tiene un especialista asignado"
     else:
         nombreespecial = especialista[0][1]
-    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, comentarios=comentarios, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=nombreespecial, usuario=session['usuario']), 200
+    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, comentarios=comentarios, evolucion_caso=evolucion, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=nombreespecial, usuario=session['usuario']), 200
 
 
 @app.route('/casos/<idUsuario>', methods=['GET'])
@@ -258,6 +259,37 @@ def registrar_recomendacion(idCaso):
         return mostrar_caso(idCaso)
     return render_template("casorec.html", idcaso=idCaso, usuario=session["usuario"], rol=session['usuario'][5])
 
+@app.route('/evolucion', methods=["POST"])
+def evolucion():
+    direccion = ""
+    f = request.files['foto']
+    if secure_filename(f.filename) != '':
+        direccion = "../Horticultura/static/imagenes/subidasBD/"
+        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
+        f.save(os.path.join(direccion, filename))
+        direccion = "/static/imagenes/subidasBD/" + filename
+    autenticacion.crear_evolucion(request.form["coment"], request.form["idcaso"], direccion)
+    return redirect(url_for('mostrar_caso', idCaso=request.form["idcaso"]))
+
+@app.route('/eliminar_evo', methods=['DELETE'])
+def eliminar_evo():
+    idevolucion = request.form.get("idevo")
+    autenticacion.eliminar_evolucion(idevolucion)
+    return render_template("index.html")
+
+@app.route('/editar_evo/<idevo>', methods=['POST'])
+def editar_evo(idevo):
+    direccion = autenticacion.obtener_evolucion(idevo)
+    direccion = direccion[0][2]
+    f = request.files['foto_edit']
+    if secure_filename(f.filename) != '':
+        direccion = "../Horticultura/static/imagenes/subidasBD/"
+        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
+        f.save(os.path.join(direccion, filename))
+        direccion = "/static/imagenes/subidasBD/" + filename
+    comentario = request.form["coment_edit"]
+    autenticacion.cambiar_evolucion(idevo, comentario, direccion)
+    return redirect(url_for('mostrar_caso', idCaso=request.form["idcaso"]))
 
 @app.route('/comentar', methods=["POST"])
 def comentar():
@@ -265,7 +297,7 @@ def comentar():
     f = request.files['foto']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     autenticacion.crear_comentario(
@@ -285,7 +317,7 @@ def editar_coment(idcoment):
     f = request.files['foto_edit']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     comentario = request.form["coment_edit"]

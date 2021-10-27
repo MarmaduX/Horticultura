@@ -8,9 +8,18 @@ def crear_evolucion(texto, idcaso, foto):
     bd = BaseDeDatos()
     bd.ejecutar_sql(crear_evolucion_sql)
 
-def obtener_evolucion(idcaso):
+def obtener_evoluciones(idcaso):
     obtener_evolucion_sql = f"""
         SELECT * FROM Evolucion WHERE caso = '{idcaso}'
+    """
+    bd = BaseDeDatos()
+    comentarios = []
+    comentarios = bd.ejecutar_sql(obtener_evolucion_sql)
+    return comentarios
+
+def obtener_evolucion(idevo):
+    obtener_evolucion_sql = f"""
+        SELECT * FROM Evolucion WHERE evolucionid = '{idevo}'
     """
     bd = BaseDeDatos()
     comentarios = []
@@ -25,9 +34,9 @@ def cambiar_evolucion(idevo, texto, foto):
     bd = BaseDeDatos()
     bd.ejecutar_sql(cambiar_evolucion_sql)
 
-def eliinar_evolucion(idevo):
-    eliinar_evolucion_sql = f"""
+def eliminar_evolucion(idevo):
+    eliminar_evolucion_sql = f"""
         DELETE FROM Evolucion WHERE evolucionid = '{idevo}'
     """
     bd = BaseDeDatos()
-    bd.ejecutar_sql(eliinar_evolucion_sql)
+    bd.ejecutar_sql(eliminar_evolucion_sql)

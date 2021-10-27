@@ -31,7 +31,7 @@
     </header>
     <section class="sector prueba-modal">
         <div class="marco">
-            <div class="">
+            <div class="cuerpo">
                 <h2 class="titulo-casos">{{nombre}}</h2>
                 <hr>
                 <br>
@@ -47,10 +47,10 @@
                         <div>
                             <p class="flotante-left">Estado del caso:</p> <span class="info">{{estado}}</span>
                         </div>
-                        <br>
+                        <!-- <br>
                         <div>
                             <p class="flotante-left">Evolucion del Caso:</p> <span class="info">{{evolucion}}</span>
-                        </div>
+                        </div> -->
                         <div class="separador">
                             <p class="">Recomendaciones:</p> <span class="info">{{recomendacion}}</span>
                         </div>
@@ -90,6 +90,83 @@
                         type="submit">Registrar Recomendacion</button></a>
                 {% endif %}
             </div>
+            <div class="clearfix"></div>
+            {% for evo in evolucion_caso %}
+            <br>
+            <div class="comentario_content">
+                <div id="{{ evo[0] }}">
+                    {% if evo[2] != "" %}
+                    {% if userid == usuario[0] %}
+                    <div id="header3">
+                        <ul class="nav2">
+                            <li><span class="material-icons">
+                                    settings
+                                </span>
+                                <ul class="lista">
+                                    <li><button type="submit" class="btn_vacio" onclick="habilitar_edit('{{evo[0]}}')">Editar</button></li>
+                                    <li><button type="submit" class="btn_vacio" onclick="abrir_evolucion('{{evo[0]}}')">Borrar</button></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="comentario-der">
+                        <label class="contenido">{{evo[1]}}</label>
+
+                    </div>
+                    <div class="comentario-izq">
+                        <image class="imagen-coment" src="{{evo[2]}}"></image>
+                    </div>
+                    {% else %}
+                    {% if userid == usuario[0] %}
+                    <div id="header2">
+                        <ul class="nav2">
+                            <li><span class="material-icons">
+                                    settings
+                                </span>
+                                <ul class="lista">
+                                    <li><button type="submit" class="btn_vacio" onclick="habilitar_edit('{{evo[0]}}')">Editar</button></li>
+                                    <li><button type="submit" class="btn_vacio" onclick="abrir_evolucion('{{evo[0]}}')">Borrar</button></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="comentario-der">
+                        <label class="contenido">{{evo[1]}}</label>
+                    </div>
+                    {% endif %}
+                    <div class="clearfix"></div>
+                </div>
+                <div id="{{ evo[0] }}edit" class="oculta">
+                    <form action="/editar_evo/{{ evo[0] }}" method="POST" enctype="multipart/form-data">
+                        <textarea id="coment_edit" name="coment_edit" class="comentario" required>{{evo[1]}}</textarea>
+                        <div class="clearfix"></div>
+                        <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
+                        <input accept="image/*" id="foto_edit" name="foto_edit" type="file">
+                        <div class="oculta">
+                            <input id="date2" name="date2" type="text" >
+                        </div>
+                        <div class="clearfix"></div>
+                        <button class="button" type="button" onclick="cancelar_edit('{{evo[0]}}')">Cancelar</button>
+                        <button class="button-form" type="submit">Editar</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            {% if userid == usuario[0] %}
+            <form action="/evolucion" method="POST" enctype="multipart/form-data">
+                <textarea id="coment" name="coment" class="comentario" required
+                    placeholder="Escribe el detalle de la evolucion..."></textarea>
+                <div class="clearfix"></div>
+                <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
+                <div class="oculta">
+                    <input id="date2" name="date2" type="text" >
+                </div>
+                <input accept="image/*" id="foto" name="foto" type="file">
+                <button class="button-form" type="submit">Postear</button>
+            </form>
+            {% endif %}
         </div>
     </section>
     <section>
@@ -99,30 +176,31 @@
             <div class="comentario_content">
                 <div id="{{ coment[0] }}">
                     {% if coment[5] != "" %}
+                    {% if coment[2] == usuario[0] %}
+                    <div id="header3">
+                        <ul class="nav2">
+                            <li><span class="material-icons">
+                                    settings
+                                </span>
+                                <ul class="lista">
+                                    <li><button type="submit" class="btn_vacio"
+                                            onclick="cambiar_edit('{{ coment[0] }}')">Editar</button></li>
+                                    <li><button type="submit" class="btn_vacio"
+                                            onclick="abrir_comentario('{{ coment[0]}}')">Borrar</button></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
                     <div class="comentario-der">
                         <label class="subtitulo">{{coment[3]}}</label>
-                        {% if coment[2] == usuario[0] %}
-                        <div id="header3">
-                            <ul class="nav2">
-                                <li><span class="material-icons">
-                                        settings
-                                    </span>
-                                    <ul class="lista">
-                                        <li><button type="submit" class="btn_vacio" onclick="cambiar_edit('{{ coment[0] }}')">Editar</button></li>
-                                        <li><button type="submit" class="btn_vacio"
-                                                onclick="abrir_comentario('{{ coment[0]}}')">Borrar</button></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        {% endif %}
+
                         <label class="contenido">{{coment[1]}}</label>
                     </div>
                     <div class="comentario-izq">
                         <image class="imagen-coment" src="{{coment[5]}}"></image>
                     </div>
                     {% else %}
-                    <label class="subtitulo">{{coment[3]}}</label>
                     {% if coment[2] == usuario[0] %}
                     <div id="header2">
                         <ul class="nav2">
@@ -130,7 +208,8 @@
                                     settings
                                 </span>
                                 <ul class="lista">
-                                    <li><button type="submit" class="btn_vacio" onclick="cambiar_edit('{{ coment[0] }}')">Editar</button></li>
+                                    <li><button type="submit" class="btn_vacio"
+                                            onclick="cambiar_edit('{{ coment[0] }}')">Editar</button></li>
                                     <li><button type="submit" class="btn_vacio" id="{{ coment[0] }}"
                                             onclick="abrir_comentario('{{ coment[0]}}')">Borrar</button></li>
                                 </ul>
@@ -138,18 +217,25 @@
                         </ul>
                     </div>
                     {% endif %}
+                    <label class="subtitulo">{{coment[3]}}</label>
+
                     <label class="contenido">{{coment[1]}}</label>
                     {% endif %}
                     <div class="clearfix"></div>
                 </div>
                 <div id="{{ coment[0] }}edit" class="oculta">
                     <form action="/editar_coment/{{ coment[0] }}" method="POST" enctype="multipart/form-data">
-                        <textarea id="coment_edit" name="coment_edit" class="comentario" required >{{coment[1]}}</textarea>
+                        <textarea id="coment_edit" name="coment_edit" class="comentario"
+                            required>{{coment[1]}}</textarea>
                         <div class="clearfix"></div>
                         <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
                         <input accept="image/*" id="foto_edit" name="foto_edit" type="file">
+                        <div class="oculta">
+                            <input id="date2" name="date2" type="text" >
+                        </div>
                         <div class="clearfix"></div>
-                        <button class="button" type="button" onclick="cambiar_coment('{{ coment[0]}}')">Cancelar</button>
+                        <button class="button" type="button"
+                            onclick="cambiar_coment('{{ coment[0]}}')">Cancelar</button>
                         <button class="button-form" type="submit">Comentar</button>
                     </form>
                 </div>
@@ -159,6 +245,9 @@
                 <textarea id="coment" name="coment" class="comentario" required
                     placeholder="Escribe un cometario..."></textarea>
                 <div class="clearfix"></div>
+                <div class="oculta">
+                    <input id="date2" name="date2" type="text" >
+                </div>
                 <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
                 <input accept="image/*" id="foto" name="foto" type="file">
                 <button class="button-form" type="submit">Comentar</button>
@@ -190,10 +279,24 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <p id="eliminarC" class=""></p>
             <div class="abajo">
                 <button class="button float-right2" onclick="borrar_comentario('{{idcaso}}')">Eliminar</button>
                 <button id="closeC" class="button float-left2 close">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <div id="evo_modal" class="modal-container">
+        <div id="evo_m" class="modal modal-close">
+            <div class="modal-textos">
+                <div>
+                    <h2>¿Seguro que quieres eliminar esta evolucion?</h2>
+                    <p>Se borrara permanentemente</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="abajo">
+                <button class="button float-right2" onclick="borrar_evolucion('{{idcaso}}')">Eliminar</button>
+                <button id="closeE" class="button float-left2 close">Cancelar</button>
             </div>
         </div>
     </div>

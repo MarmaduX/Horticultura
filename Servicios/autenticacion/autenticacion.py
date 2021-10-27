@@ -102,11 +102,14 @@ def eliminar_comentario(idcoment):
 def crear_evolucion(texto, idcaso, foto):
     modelo_evo.crear_evolucion(texto, idcaso, foto)
 
-def obtener_evolucion(idcaso):
-    return modelo_evo.obtener_evolucion(idcaso)
+def obtener_evoluciones(idcaso):
+    return modelo_evo.obtener_evoluciones(idcaso)
+
+def obtener_evolucion(idevo):
+    return modelo_evo.obtener_evolucion(idevo)
 
 def cambiar_evolucion(idevo, texto, foto):
     modelo_evo.cambiar_evolucion(idevo, texto, foto)
 
-def eliinar_evolucion(idevo):
-    modelo_evo.eliinar_evolucion(idevo)
+def eliminar_evolucion(idevo):
+    modelo_evo.eliminar_evolucion(idevo)

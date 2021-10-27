@@ -240,6 +240,13 @@ window.addEventListener("click", function (e) {
 			modalCC.style.visibility = "hidden";
 		}, 850);
 	}
+	if (e.target == modalCE) {
+		modalE.className = "modal modal-close";
+		setTimeout(function () {
+			modalCE.style.opacity = "0";
+			modalCE.style.visibility = "hidden";
+		}, 850);
+	}
 })
 
 let cerrarR = document.getElementById("close");
@@ -332,11 +339,63 @@ if (cerrarC) {
 	})
 }
 
+function habilitar_edit(id){
+	var modalP = document.getElementById(id);
+	var modalE = document.getElementById(id + "edit");
+	modalP.style.display = "none";
+	modalE.style.display = "block";
+}
+
+function cancelar_edit(id){
+	var modalP = document.getElementById(id);
+	var modalE = document.getElementById(id + "edit");
+	modalP.style.display = "block";
+	modalE.style.display = "none";
+}
+
+let cerrarE = document.getElementById("closeE");
+let borrarE;
+let modalE = document.getElementById("evo_m");
+let modalCE = document.getElementById("evo_modal");
+
+function abrir_evolucion(idevo) {
+	borrarE = idevo;
+	modalCE.style.opacity = "1";
+	modalCE.style.visibility = "visible";
+	modalE.className = "modal";
+
+}
+
+function borrar_evolucion(idcaso) {
+	$.ajax({
+		type: 'DELETE',
+		url: "/eliminar_evo",
+		data: { idevo: borrarE },
+		success: function () {
+			window.location.href = "/vercaso/" + idcaso;
+		}
+	});
+};
+
+
+if (cerrarE) {
+	cerrarE.addEventListener("click", function (e) {
+		e.preventDefault();
+		modalE.className = "modal modal-close";
+		setTimeout(function () {
+			modalCE.style.opacity = "0";
+			modalCE.style.visibility = "hidden";
+		}, 850);
+	})
+}
+
+
 $(function () {
 	$("input[required]").parent().prev().append($("<span>").text("*").addClass("required"));
 	$("select[required]").parent().prev().append($("<span>").text("*").addClass("required"));
 })
 
+let fecha;
 $(document).ready(function () {
 
 	var now = new Date();
@@ -348,11 +407,13 @@ $(document).ready(function () {
 	var minutes = now.getMinutes();
 	var seconds = now.getSeconds();
 	var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes) + ":" + (seconds);
+	var today2 = now.getFullYear() + "-" + (month) + "-" + (day) + "-" + (hours) + "-" + (minutes) + "-" + (seconds);
+	
 	$("#date").val(today);
+	$("#date2").val(today2);
 	fecha = today;
 });
 
-let fecha;
 function finalizar_caso(idcaso) {
 	$.ajax({
 		type: 'PUT',
