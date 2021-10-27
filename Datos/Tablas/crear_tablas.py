@@ -44,6 +44,27 @@ sql_tabla_alters = '''ALTER TABLE Usuario ADD idRol INTEGER REFERENCES Rol (idRo
     ALTER TABLE Caso ADD usuarioEspecialista INTEger REFERENCES Usuario (idusuario);
     '''
 
+sql_tabla_comentarios = """
+    CREATE TABLE Comentarios(
+  		comentid INTEGER PRIMARY KEY AUTOINCREMENT,
+        texto text,
+        usuario INTEger REFERENCES Usuario (idusuario),
+  		usuarioname varchar(50),
+        caso INTEger REFERENCES Caso (idcaso),
+        foto varchar(250) NOT NULL
+    );
+    """
+
+sql_tabla_evolucion = """
+    CREATE TABLE Evolucion(
+  		evolucionid INTEGER PRIMARY KEY AUTOINCREMENT,
+        texto text,
+  		foto varchar(250) NOT NULL,
+        caso INTEger REFERENCES Caso (idcaso)
+    );
+    """
+
+
 if __name__ == '__main__':
     try:
         print('Creando Base de Datos...')
@@ -56,6 +77,8 @@ if __name__ == '__main__':
         conexion.executescript(sql_tabla_caso)
         conexion.executescript(sql_tabla_cultivo)
         conexion.executescript(sql_tabla_alters)
+        conexion.executescript(sql_tabla_comentarios)
+        conexion.executescript(sql_tabla_evolucion)
 
         conexion.close()
         print('Creacion finalizada.')

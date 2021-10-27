@@ -31,7 +31,7 @@
     </header>
     <section class="sector prueba-modal">
         <div class="marco">
-            <div class="cuerpo">
+            <div class="">
                 <h2 class="titulo-casos">{{nombre}}</h2>
                 <hr>
                 <br>
@@ -73,6 +73,7 @@
             </div>
             <div class="abajo">
                 {% if rol == 1 %}
+                {% if usuario[0] == userid %}
                 <form action="/modificar_caso/{{ idcaso }}" method="get">
                     <button class="float-right2 button" type="submit">Editar
                         caso</button>
@@ -82,12 +83,86 @@
                 <!-- <button class="button float-right2" type="button" onclick="addRecordatorio()">Agendar Recordatorio</button> -->
                 <button class="button cta float-left2" type="submit">Eliminar caso</button>
                 <button id="finalizar" class="float-left2 button" type="submit">Pasar a resuelto</button>
+                {% endif %}
                 {% else %}
                 <button id="finalizar" class="button" type="submit">Pasar a resuelto</button>
                 <a href="/caso/recomendacion/{{idcaso}}"><button id="rec" class="float-right button"
                         type="submit">Registrar Recomendacion</button></a>
                 {% endif %}
             </div>
+        </div>
+    </section>
+    <section>
+        <br>
+        <div class="cuerpoC">
+            {% for coment in comentarios %}
+            <div class="comentario_content">
+                <div id="{{ coment[0] }}">
+                    {% if coment[5] != "" %}
+                    <div class="comentario-der">
+                        <label class="subtitulo">{{coment[3]}}</label>
+                        {% if coment[2] == usuario[0] %}
+                        <div id="header3">
+                            <ul class="nav2">
+                                <li><span class="material-icons">
+                                        settings
+                                    </span>
+                                    <ul class="lista">
+                                        <li><button type="submit" class="btn_vacio" onclick="cambiar_edit('{{ coment[0] }}')">Editar</button></li>
+                                        <li><button type="submit" class="btn_vacio"
+                                                onclick="abrir_comentario('{{ coment[0]}}')">Borrar</button></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <label class="contenido">{{coment[1]}}</label>
+                    </div>
+                    <div class="comentario-izq">
+                        <image class="imagen-coment" src="{{coment[5]}}"></image>
+                    </div>
+                    {% else %}
+                    <label class="subtitulo">{{coment[3]}}</label>
+                    {% if coment[2] == usuario[0] %}
+                    <div id="header2">
+                        <ul class="nav2">
+                            <li><span class="material-icons">
+                                    settings
+                                </span>
+                                <ul class="lista">
+                                    <li><button type="submit" class="btn_vacio" onclick="cambiar_edit('{{ coment[0] }}')">Editar</button></li>
+                                    <li><button type="submit" class="btn_vacio" id="{{ coment[0] }}"
+                                            onclick="abrir_comentario('{{ coment[0]}}')">Borrar</button></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <label class="contenido">{{coment[1]}}</label>
+                    {% endif %}
+                    <div class="clearfix"></div>
+                </div>
+                <div id="{{ coment[0] }}edit" class="oculta">
+                    <form action="/editar_coment/{{ coment[0] }}" method="POST" enctype="multipart/form-data">
+                        <textarea id="coment_edit" name="coment_edit" class="comentario" required >{{coment[1]}}</textarea>
+                        <div class="clearfix"></div>
+                        <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
+                        <input accept="image/*" id="foto_edit" name="foto_edit" type="file">
+                        <div class="clearfix"></div>
+                        <button class="button" type="button" onclick="cambiar_coment('{{ coment[0]}}')">Cancelar</button>
+                        <button class="button-form" type="submit">Comentar</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            <form action="/comentar" method="POST" enctype="multipart/form-data">
+                <textarea id="coment" name="coment" class="comentario" required
+                    placeholder="Escribe un cometario..."></textarea>
+                <div class="clearfix"></div>
+                <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
+                <input accept="image/*" id="foto" name="foto" type="file">
+                <button class="button-form" type="submit">Comentar</button>
+            </form>
         </div>
     </section>
     <div class="modal-container">
@@ -103,6 +178,22 @@
                 <button class="button float-right2"
                     onclick="borrar_caso('{{idcaso}}', '{{ usuario[0] }}')">Eliminar</button>
                 <button class="button float-left2 close">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <div id="coment_modal" class="modal-container">
+        <div id="coment_m" class="modal modal-close">
+            <div class="modal-textos">
+                <div>
+                    <h2>¿Seguro que quieres eliminar este comentario?</h2>
+                    <p>Se borrara permanentemente</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <p id="eliminarC" class=""></p>
+            <div class="abajo">
+                <button class="button float-right2" onclick="borrar_comentario('{{idcaso}}')">Eliminar</button>
+                <button id="closeC" class="button float-left2 close">Cancelar</button>
             </div>
         </div>
     </div>

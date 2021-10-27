@@ -16,6 +16,26 @@ function borrar_caso(idcaso, userid) {
 	});
 };
 
+function comentar(idcaso, userid) {
+	var comentario = document.getElementById("coment");
+	var foto = "";
+	foto = document.getElementById("foto");
+	$.ajax({
+		type: 'POST',
+		url: "/comentar",
+		data: {
+			userid: userid,
+			comentario: comentario,
+			idcaso: idcaso,
+			foto: foto
+		},
+		dataType: "text",
+		success: function () {
+			window.location.href = "/vercaso/" + idcaso;
+		}
+	});
+};
+
 function load() {
 	var file = document.getElementById('foto').files[0]
 
@@ -213,6 +233,13 @@ window.addEventListener("click", function (e) {
 			modalCR.style.visibility = "hidden";
 		}, 850);
 	}
+	if (e.target == modalCC) {
+		modalComent.className = "modal modal-close";
+		setTimeout(function () {
+			modalCC.style.opacity = "0";
+			modalCC.style.visibility = "hidden";
+		}, 850);
+	}
 })
 
 let cerrarR = document.getElementById("close");
@@ -236,6 +263,71 @@ if (cerrarR) {
 		setTimeout(function () {
 			modalCR.style.opacity = "0";
 			modalCR.style.visibility = "hidden";
+		}, 850);
+	})
+}
+
+function cambiar_edit(id){
+	var modalP = document.getElementById(id);
+	var modalE = document.getElementById(id + "edit");
+	modalP.style.display = "none";
+	modalE.style.display = "block";
+}
+
+function cambiar_coment(id){
+	var modalP = document.getElementById(id);
+	var modalE = document.getElementById(id + "edit");
+	modalP.style.display = "block";
+	modalE.style.display = "none";
+}
+
+function editar_comentario(id, idcaso){
+	var comentario = document.getElementById("coment_edit");
+	var foto = document.getElementById("foto_edit");
+	$.ajax({
+		type: 'POST',
+		url: "/editar_coment",
+		data: { idcoment: id,
+				comentario: comentario.value,
+				foto: foto.value},
+		success: function () {
+			window.location.href = "/vercaso/" + idcaso;
+		}
+	});
+}
+
+let cerrarC = document.getElementById("closeC");
+let borrarC;
+let modalComent = document.getElementById("coment_m");
+let modalCC = document.getElementById("coment_modal");
+
+function abrir_comentario(idcomentario) {
+	borrarC = idcomentario;
+	modalCC.style.opacity = "1";
+	modalCC.style.visibility = "visible";
+	modalComent.className = "modal";
+
+}
+
+function borrar_comentario(idcaso) {
+	$.ajax({
+		type: 'DELETE',
+		url: "/eliminar_coment",
+		data: { idcomentario: borrarC },
+		success: function () {
+			window.location.href = "/vercaso/" + idcaso;
+		}
+	});
+};
+
+
+if (cerrarC) {
+	cerrarC.addEventListener("click", function (e) {
+		e.preventDefault();
+		modalComent.className = "modal modal-close";
+		setTimeout(function () {
+			modalCC.style.opacity = "0";
+			modalCC.style.visibility = "hidden";
 		}, 850);
 	})
 }
@@ -265,8 +357,10 @@ function finalizar_caso(idcaso) {
 	$.ajax({
 		type: 'PUT',
 		url: "/casos/finalizar",
-		data: { idcaso: idcaso,
-				date: fecha },
+		data: {
+			idcaso: idcaso,
+			date: fecha
+		},
 		dataType: "text",
 		success: function () {
 			window.location.href = "/vercaso/" + idcaso;

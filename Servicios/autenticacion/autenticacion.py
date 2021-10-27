@@ -1,4 +1,4 @@
-from Datos.Modelos import usuarios as modelo_usuario, cultivo as modelo_cultivo, caso as modelo_caso, rol as modelo_rol
+from Datos.Modelos import usuarios as modelo_usuario, cultivo as modelo_cultivo, caso as modelo_caso, rol as modelo_rol, evolucionCaso as modelo_evo, comentarios as modelo_coment
 
 def crear_usuario(nombre, email, usuario, clave):
     modelo_usuario.crear_usuario(nombre, email, usuario, clave)
@@ -84,4 +84,29 @@ def mostar_cultivo_por(tipoCultivo):
 def crear_rol(tipoRol):
     modelo_rol.crear_rol(tipoRol)
 
+def crear_comentario(texto, idusuario, nombreusuario, idcaso, foto):
+    modelo_coment.crear_comentario(texto, idusuario, nombreusuario, idcaso, foto)
 
+def obtener_comentarios(idcaso):
+    return modelo_coment.obtener_comentarios(idcaso)
+
+def obtener_comentario(idcoment):
+    return modelo_coment.obtener_comentario(idcoment)
+
+def cambiar_comentario(idcoment, texto, foto):
+    modelo_coment.cambiar_comentario(idcoment, texto, foto)
+
+def eliminar_comentario(idcoment):
+    modelo_coment.eliminar_comentario(idcoment)
+
+def crear_evolucion(texto, idcaso, foto):
+    modelo_evo.crear_evolucion(texto, idcaso, foto)
+
+def obtener_evolucion(idcaso):
+    return modelo_evo.obtener_evolucion(idcaso)
+
+def cambiar_evolucion(idevo, texto, foto):
+    modelo_evo.cambiar_evolucion(idevo, texto, foto)
+
+def eliinar_evolucion(idevo):
+    modelo_evo.eliinar_evolucion(idevo)
