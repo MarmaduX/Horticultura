@@ -79,15 +79,15 @@ def formulario_us():
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
-                    return modificar_usuario()
+                    return redirect(url_for('modificar_usuario'))
                 if len(autenticacion.verificar_usuario(request.form['usuario'])) == 0:
                     autenticacion.modificar_usuario(
                         session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
-                    return modificar_usuario()
-                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso")
+                    return redirect(url_for('modificar_usuario'))
+                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
             if len(autenticacion.verificar_correo(request.form['email'])) == 0:
                 if session["usuario"][3] == request.form['usuario']:
                     autenticacion.modificar_usuario(
@@ -95,7 +95,7 @@ def formulario_us():
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
-                    return modificar_usuario()
+                    return redirect(url_for('modificar_usuario'))
                 return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
             return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este correo ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
         return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Contraseña Invalida", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"]), 200
@@ -108,7 +108,7 @@ def formulario_clave():
         if verificar_clave(request.form["vieja"]) == "Ok":
             autenticacion.modificar_usuario(
                 session['usuario'][0], session['usuario'][1], session['usuario'][3], session['usuario'][2], request.form['clave'])
-            return render_template("editar_usuario.html", usuario=session['usuario'], rol=session['usuario'][5])
+            return redirect(url_for('modificar_usuario'))
         return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5], error="Contraseña Invalida", nueva=request.form["clave"], confirm=request.form["confirm"])
     return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5], error="", nueva="", confirm="")
 
@@ -172,7 +172,7 @@ def modificar_caso(idCaso):
 def eliminar_casos():
     idcaso = request.form.get("idcaso")
     autenticacion.eliminar_caso(idcaso)
-    return render_template("index.html")
+    return render_template("cultivos.html")
 
 
 @app.route('/casos', methods=['GET'])
