@@ -21,14 +21,14 @@
     <nav class="">
         <a class="active" href="#">Cultivos</a>
         {% if logged %}
-            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
-            {% if rol == 1 %}
-            <a class="" href="/caso/{{ userid }}">Crear caso</a>
-            {% else %}
-            <a class="" href="/casos">Todos los casos</a>
-            {% endif %}
-            <a class="" href="/logout">Salir ({{ nickname }}) </a>
-            <a class="" href="/usuario">Perfil</a>
+        <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+        {% if rol == 1 %}
+        <a class="" href="/caso/{{ userid }}">Crear caso</a>
+        {% else %}
+        <a class="" href="/casos">Todos los casos</a>
+        {% endif %}
+        <a class="" href="/logout">Salir ({{ nickname }}) </a>
+        <a class="" href="/usuario">Perfil</a>
         {%else%}
         <a class="" href="/login">Ingresar</a>
         <a class="" href="/signup">Registrarse</a>
@@ -37,79 +37,134 @@
 </header>
 <section class="sector">
     <br>
-    <tittle>BIENVENIDOS A HORTICULTURA VIRTUAL</tittle>
-    <br>
-    <hr/>
-    <br>
-    <tittle>CATÁLOGO DE CULTIVOS</tittle>
-    <br>
-    <p>¿Qué tipos de cultivos existen?</p>
-    <br>
-    <h1>Conoce más acerca de los cultivos
-        <p>
-            <button id="crear_submit" name="crear_submit" type="submit>"/>
-            <a href="/ver_cultivos">Ver cultivos</a></button>
-        </p>
-    </h1>
-    <br>
-    <ul>
-        <li>Cultivos para bebidas medicinales y aromáticas</li>
-        <br>
-        <img width="500 px" alt="Estos son los cultivos"
-             src="/static/imagenes/Cultivos/cma_cultivos_medicinales y aromaticos.jpg" />
-        <br>
-        <li>Cereales</li>
-        <br>
-        <img width="500 px" alt="Estos son cereales."
-             src="https://dam.cocinafacil.com.mx/wp-content/uploads/2019/03/cereales-1.jpg"/>
-        <br>
-        <li>Leguminosas</li>
-        <br>
-        <img width="500 px" alt="Estos son leguminosas"
-             src="https://www.gob.mx/cms/uploads/article/main_image/6784/legum.jpg"/>
-        <br>
-        <li>Oleaginosas</li>
-        <br>
-        <img width="500 px" alt="Estos son oleaginosas"
-             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzgdRPV4C7KASWCSNgvebNaIpwqjiwHdjsHQ&usqp=CAU"/>
-        <br>
-        <li>Hortalizas</li>
-        <br>
-        <img width="500 px" alt="Estos son hortalizas"
-             src="data:image/jpeg;base64,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"/>
-        <br>
-        <li>Cultivos frutales</li>
-        <br>
-        <img width="500 px" alt="Estos son cultivos frutales"
-             src="https://www.jardineriaon.com/wp-content/uploads/2020/09/huerto-de-frutales.jpg"/>
-        <br>
-        <li>Cultivos ornamentales</li>
-        <br>
-        <img width="500 px" alt="Estos son cultivos ornamentales"
-             src="https://www.floresyplantas.net/wp-content/uploads/plantas-de-begonia-elatior.jpg"/>
-        <br>
-        <li>Pasturas</li>
-        <br>
-        <img width="500 px" alt="Estos son pasturas" src="https://www.defrentealcampo.com.ar/wp-content/uploads/2017/12/pasturas-forrajeras.jpg"/>
-        <br>
-        <li>Cultivos alimentarios</li>
-        <br>
-        <li>Cultivos para forraje</li>
-        <br>
-        <img width="500 px" alt="Esto es cebada, uno de los tantos cultivos de forraje"
-             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUDWo_vn8Ln0tQYMHxmwl1t1uPpvnrgUAdbQ&usqp=CAU"/>
-        <br>
-        <li>Cultivos textiles</li>
-        <br>
-        <img width="500 px" alt="Estos son cultivos textiles"
-             src="https://storage.googleapis.com/portalfruticola/2018/07/e510e580-plantacion-de-algodon2-1024x681.jpg"/>
-        <br>
-        <li>Cultivos industriales</li>
-        <br>
-        <img width="500 px" alt="Estos son cultivos de industriales"
-             src="https://cdn.euroinnova.edu.es/img/subidasEditor/pexels-freestocksorg-175389-1608289575.webp"/>
-    </ul>
-    <br>
+
+    <h1 class="titulo2"> Conoce más acerca de los cultivos</h1>
+    <!--<button> id="crear_submit" name="crear_submit" type="submit>"/>
+   <a href="/ver_cultivos">Ver cultivos</a></button>-->
+
+    <div class="cultivo">
+        <a href="/cultivos/Cultivos para bebidas medicinales y aromáticas">
+            <button class="cultivo2">Cultivos para bebidas medicinales y
+                aromáticas
+            </button>
+        </a>
+        <a href="/cultivos/Cultivos para bebidas medicinales y aromáticas"> <img class="imagen_cultivos"
+                                                                                 alt="Estos son los cultivos mencionados"
+                                                                                 src="/static/imagenes/Cultivos/c. bebidas medicinales/cbma.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Cereales">
+            <button class="cultivo2">Cereales
+            </button>
+        </a>
+        <a href="/cultivos/Cereales"> <img class="imagen_cultivos"
+                                           alt="Estos son cereales"
+                                           src="/static/imagenes/Cultivos/c. cereales/cereales.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Leguminosas">
+            <button class="cultivo2">Leguminosas
+            </button>
+        </a>
+        <a href="/cultivos/Leguminosas"> <img class="imagen_cultivos"
+                                              alt="Estos son leguminosas"
+                                              src="/static/imagenes/Cultivos/c. leguminosas/leguminosas.jpg"/></a>
+    </div>
+
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Oleaginosas">
+            <button class="cultivo2">Oleaginosas
+            </button>
+        </a>
+        <a href="/cultivos/Oleaginosas"> <img class="imagen_cultivos"
+                                              alt="Estos son cultivos oleaginosos"
+                                              src="/static/imagenes/Cultivos/c. oleaginosas/oleaginosas.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Hortalizas">
+            <button class="cultivo2">Hortalizas
+            </button>
+        </a>
+        <a href="/cultivos/Hortalizas"> <img class="imagen_cultivos"
+                                             alt="Estos son hortalizas"
+                                             src="/static/imagenes/Cultivos/c. hortalizas/hortalizas.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Cultivos frutales">
+            <button class="cultivo2">Cultivos frutales
+            </button>
+        </a>
+        <a href="/cultivos/Cultivos frutales"> <img class="imagen_cultivos"
+                                                    alt="Estos son cultivos frutales"
+                                                    src="/static/imagenes/Cultivos/c. frutales/cf.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Cultivos ornamentales">
+            <button class="cultivo2">Cultivos ornamentales
+            </button>
+        </a>
+        <a href="/cultivos/Cultivos ornamentales"> <img class="imagen_cultivos"
+                                                        alt="Estos son cultivos ornamentales"
+                                                        src="/static/imagenes/Cultivos/c. ornamentales/co.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Pastos">
+            <button class="cultivo2">Pastos
+            </button>
+        </a>
+        <a href="/cultivos/Pastos"> <img class="imagen_cultivos"
+                                         alt="Esto es pasto"
+                                         src="/static/imagenes/Cultivos/c. pastos/pasturas.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Cultivos alimentarios">
+            <button class="cultivo2">Cultivos alimentarios
+            </button>
+        </a>
+        <a href="/cultivos/Cultivos alimentarios"> <img class="imagen_cultivos"
+                                                        alt="Estos son cultivos alimentarios"
+                                                        src="/static/imagenes/Cultivos/c. alimentarios/ca.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Cultivos para forraje">
+            <button class="cultivo2">Cultivos para forraje
+            </button>
+        </a>
+        <a href="/cultivos/Cultivos para forraje"> <img class="imagen_cultivos"
+                                                        alt="Estos son cultivos para forraje"
+                                                        src="/static/imagenes/Cultivos/c. forraje/cpf.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Cultivos textiles">
+            <button class="cultivo2">Cultivos textiles
+            </button>
+        </a>
+        <a href="/cultivos/Cultivos textiles"> <img class="imagen_cultivos"
+                                                    alt="Estos son cultivos textiles"
+                                                    src="/static/imagenes/Cultivos/c. textiles/ct.jpg"/></a>
+    </div>
+
+    <div class="cultivo">
+        <a href="/cultivos/Cultivos industriales">
+            <button class="cultivo2">Cultivos industriales
+            </button>
+        </a>
+        <a href="/cultivos/Cultivos industriales"> <img class="imagen_cultivos"
+                                                        alt="Estos son cultivos industriales"
+                                                        src="/static/imagenes/Cultivos/c. industriales/ci.jpg"/></a>
+    </div>
+
 </section>
 <p>
     <button id="crear_submit" name="crear_submit" type="submit>"/>

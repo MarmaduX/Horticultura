@@ -717,3 +717,31 @@ footer .terminos{
         width: auto;
     }
 }
+
+.titulo2{
+text-align:center;
+}
+
+.cultivo{
+text-align:center;
+width: 45%;
+border-radius: 5px;
+padding: 20px;
+margin: 5px;
+}
+
+.cultivo2{
+text-decoration: none;
+margin: 10px;
+padding: 12px 20px;
+border-radius: 5px;
+color: white;
+background-color: #4CAF50;
+border: none;
+width: 100%;
+}
+
+.imagen_cultivos{
+object-fit: contain;
+max-width: 100%;
+}

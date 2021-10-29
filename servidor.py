@@ -388,6 +388,7 @@ def mostar_cultivos_filtrados(tipoCultivo):
     return jsonify(lista), 200
 
 
+
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
     session.pop('usuario', None)
