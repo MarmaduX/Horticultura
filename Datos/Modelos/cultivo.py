@@ -17,12 +17,12 @@ def editar_cultivo(idPlanta, nombreCientifico, tipoCultivo, foto, descripcionCul
     bd = BaseDeDatos()
     bd.ejecutar_sql(editar_cultivo_sql)
 
-def listar_cultivos():
-    listar_cultivos_sql = f"""
+def ver_cultivos():
+    ver_cultivos_sql = f"""
         SELECT * FROM Cultivo
     """
     bd = BaseDeDatos()
-    return bd.ejecutar_sql(listar_cultivos_sql)
+    return bd.ejecutar_sql(ver_cultivos_sql)
 
 def mostrar_cultivo(idPlanta):
     mostrar_cultivo_sql = f"""

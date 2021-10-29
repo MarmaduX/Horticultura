@@ -2,7 +2,7 @@ import requests
 
 from web.servicios import rest_api
 
-def valirdar_credenciales(usuario, clave):
+def validar_credenciales(usuario, clave):
     body = {"nombre": usuario,
            "clave": clave}
     respuesta = requests.post(f'{rest_api.API_URL}/login', json=body)
@@ -62,6 +62,7 @@ def mostrar_cultivo_por(nombreCientífico, tipoCultivo, descripción, plagas, en
     respuesta = request.get(f'{rest_api.API_URL}/cultivos', json=body)
     return respuesta.status_code == 200
 
-def eliminar_cultivo():
-    body = {}
-    respuesta = request.delete(f'{rest_api.API_URL}/cultivos')
+def eliminar_cultivo(idPlanta, nombrePlanta):
+    body = {"nombrePlanta": nombrePlanta}
+    respuesta = request.delete(f'{rest_api.API_URL}/cultivos', json=body)
+    return respuesta.status_code == 200

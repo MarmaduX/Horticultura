@@ -31,22 +31,6 @@ def send_mail(correo):
     return 'Mail sent'
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    if 'usuario' in session:
-        logged = True
-        nickname = session['usuario'][3]
-        userid = session['usuario'][0]
-        rol = session['usuario'][5]
-    else:
-        logged = False
-        nickname = ''
-        userid = ''
-        rol = ''
-    return render_template('index.html', logged=logged, nickname=nickname, userid=userid, rol=rol)
-
-
 @app.route('/signup', methods=['POST', 'GET'])
 def crear_usuario():
     if request.method == 'POST':
@@ -125,7 +109,7 @@ def verificar_clave(clave):
 def eliminar_usuario(idUsuario):
     datos_usuario = request.get_json()
     autenticacion.eliminar_usuario(idUsuario)
-    return index(), 200
+    return listar_cultivos(), 200
 
 
 @app.route('/login', methods=['POST', "GET"])
@@ -365,16 +349,30 @@ def editar_cultivo(idPlanta):
                                  datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
     return "OK", 200
 
-
 @app.route('/cultivos', methods=['GET'])
+@app.route('/')
+@app.route('/index')
 def listar_cultivos():
-    lista = autenticacion.listar_cultivos()
-    return render_template("cultivos.html")
-
+    if 'usuario' in session:
+        logged = True
+        nickname = session['usuario'][3]
+        userid = session['usuario'][0]
+        rol = session['usuario'][5]
+    else:
+        logged = False
+        nickname = ''
+        userid = ''
+        rol = ''
+    return render_template('cultivos.html', logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 @app.route('/cultivos/<idPlanta>', methods=['GET'])
 def mostrar_cultivo(idPlanta):
     lista = autenticacion.mostar_cultivo(idPlanta)
+    return jsonify(lista), 200
+
+@app.route('/ver_cultivos', methods=['GET'])
+def ver_cultivos():
+    lista = autenticacion.ver_cultivos()
     return jsonify(lista), 200
 
 
@@ -393,7 +391,7 @@ def mostar_cultivos_filtrados(tipoCultivo):
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
     session.pop('usuario', None)
-    return index()
+    return redirect(url_for("listar_cultivos"))
 
 
 def load_user(email, passwd):
@@ -403,7 +401,7 @@ def load_user(email, passwd):
     if datos[0][4] != passwd:
         return render_template("login.html", error="Contraseña erronea", email=request.form["email"])
     session['usuario'] = datos[0]
-    return index()
+    return redirect(url_for("listar_cultivos"))
 
 
 def process_signup():
@@ -416,7 +414,8 @@ def process_signup():
     datos = autenticacion.verificar_correo(request.form['email'])
     session['usuario'] = datos[0]
     send_mail(request.form["email"])
-    return index()
+    return redirect(url_for("listar_cultivos"))
+
 
 
 def creacion_caso(nombre, tipo, foto, desc, estado, evolucion, date, iduser):

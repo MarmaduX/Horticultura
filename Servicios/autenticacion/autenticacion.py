@@ -72,6 +72,9 @@ def editar_cultivo(idPlanta, nombreCientifico, tipoCultivo, foto, descripcionCul
 def listar_cultivos():
     return modelo_cultivo.listar_cultivos()
 
+def ver_cultivos():
+    return modelo_cultivo.ver_cultivos()
+
 def mostar_cultivo(idPlanta):
     return modelo_cultivo.mostrar_cultivo(idPlanta)
 
