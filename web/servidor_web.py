@@ -48,7 +48,7 @@ def cultivos():
     error = None
     if request.method == 'POST':
         if not autenticacion.crear_cultivo(request.form['cultivos']):
-            error = 'No se pudo encontrar el cultivo'
+            error = 'No se pudo crear el cultivo'
         else:
             return redirect(url_for('cultivos'))
     return render_template('cultivos.html', error=error)
@@ -91,7 +91,7 @@ def cultivos():
 def cultivos():
     error = None
     if request.method == 'GET':
-        if not autenticacion.mostrar_cultivo_por(request.form['cultivos']):
+        if not autenticacion.mostrar_cultivos_filtrados(request.form['cultivos']):
             error = 'No se pudo mostrar el cultivo'
         else:
             return redirect(url_for('cultivos'))

@@ -78,8 +78,8 @@ def mostar_cultivo(idPlanta):
 def eliminar_cultivo(idPlanta):
     modelo_cultivo.eliminar_cultivo(idPlanta)
 
-def mostar_cultivo_por(tipoCultivo):
-    return modelo_cultivo.mostrar_cultivo_por(tipoCultivo)
+def mostar_cultivos_filtrados(tipoCultivo):
+    return modelo_cultivo.mostrar_cultivos_filtrados(tipoCultivo)
 
 def crear_rol(tipoRol):
     modelo_rol.crear_rol(tipoRol)

@@ -367,8 +367,8 @@ def eliminar_cultivo(idPlanta):
 
 
 @app.route('/cultivo/<tipoCultivo>', methods=['GET'])
-def mostar_cultivo_por(tipoCultivo):
-    lista = autenticacion.mostar_cultivo_por(tipoCultivo)
+def mostar_cultivos_filtrados(tipoCultivo):
+    lista = autenticacion.mostar_cultivos_filtrados(tipoCultivo)
     return jsonify(lista), 200
 
 
