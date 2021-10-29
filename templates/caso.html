@@ -10,22 +10,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
-<body>
+<body onload="set_date()">
     <header>
         <div>
-            <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
+            <a href="/cultivos"><img class="logo" src="/static/imagenes/logo.png"></a>
         </div>
-        <a class="titulo" href="/index">Horticultura Virtual</a>
+        <a class="titulo" href="/cultivos">Horticultura Virtual</a>
         <nav>
-            <a class="" href="/index">Inicio</a>
-            <a class="" href="#">Cultivos</a>
-            <a class="" href="/casos/{{usuario[0]}}">Mis Casos</a>
+            <a class="" href="/cultivos">Cultivos</a>
+            <a class="" href="/casos/{{ usuario[0] }}">Mis Casos</a>
             {% if rol == 1 %}
             <a class="" href="/caso/{{ usuario[0] }}">Crear caso</a>
             {% else %}
             <a class="" href="/casos">Todos los casos</a>
             {% endif %}
-            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
+            <a class="" href="/logout">Salir ({{ usuario[3] }})</a>
             <a class="" href="/usuario">Perfil</a>
         </nav>
     </header>
@@ -103,8 +102,10 @@
                                     settings
                                 </span>
                                 <ul class="lista">
-                                    <li><button type="submit" class="btn_vacio" onclick="habilitar_edit('{{evo[0]}}')">Editar</button></li>
-                                    <li><button type="submit" class="btn_vacio" onclick="abrir_evolucion('{{evo[0]}}')">Borrar</button></li>
+                                    <li><button type="submit" class="btn_vacio"
+                                            onclick="habilitar_edit('{{evo[0]}}')">Editar</button></li>
+                                    <li><button type="submit" class="btn_vacio"
+                                            onclick="abrir_evolucion('{{evo[0]}}')">Borrar</button></li>
                                 </ul>
                             </li>
                         </ul>
@@ -125,8 +126,10 @@
                                     settings
                                 </span>
                                 <ul class="lista">
-                                    <li><button type="submit" class="btn_vacio" onclick="habilitar_edit('{{evo[0]}}')">Editar</button></li>
-                                    <li><button type="submit" class="btn_vacio" onclick="abrir_evolucion('{{evo[0]}}')">Borrar</button></li>
+                                    <li><button type="submit" class="btn_vacio"
+                                            onclick="habilitar_edit('{{evo[0]}}')">Editar</button></li>
+                                    <li><button type="submit" class="btn_vacio"
+                                            onclick="abrir_evolucion('{{evo[0]}}')">Borrar</button></li>
                                 </ul>
                             </li>
                         </ul>
@@ -144,9 +147,6 @@
                         <div class="clearfix"></div>
                         <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
                         <input accept="image/*" id="foto_edit" name="foto_edit" type="file">
-                        <div class="oculta">
-                            <input id="date2" name="date2" type="text" >
-                        </div>
                         <div class="clearfix"></div>
                         <button class="button" type="button" onclick="cancelar_edit('{{evo[0]}}')">Cancelar</button>
                         <button class="button-form" type="submit">Editar</button>
@@ -160,9 +160,6 @@
                     placeholder="Escribe el detalle de la evolucion..."></textarea>
                 <div class="clearfix"></div>
                 <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
-                <div class="oculta">
-                    <input id="date2" name="date2" type="text" >
-                </div>
                 <input accept="image/*" id="foto" name="foto" type="file">
                 <button class="button-form" type="submit">Postear</button>
             </form>
@@ -230,9 +227,6 @@
                         <div class="clearfix"></div>
                         <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
                         <input accept="image/*" id="foto_edit" name="foto_edit" type="file">
-                        <div class="oculta">
-                            <input id="date2" name="date2" type="text" >
-                        </div>
                         <div class="clearfix"></div>
                         <button class="button" type="button"
                             onclick="cambiar_coment('{{ coment[0]}}')">Cancelar</button>
@@ -245,9 +239,6 @@
                 <textarea id="coment" name="coment" class="comentario" required
                     placeholder="Escribe un cometario..."></textarea>
                 <div class="clearfix"></div>
-                <div class="oculta">
-                    <input id="date2" name="date2" type="text" >
-                </div>
                 <input class="oculta" id="idcaso" name="idcaso" value="{{idcaso}}">
                 <input accept="image/*" id="foto" name="foto" type="file">
                 <button class="button-form" type="submit">Comentar</button>

@@ -407,10 +407,8 @@ $(document).ready(function () {
 	var minutes = now.getMinutes();
 	var seconds = now.getSeconds();
 	var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes) + ":" + (seconds);
-	var today2 = now.getFullYear() + "-" + (month) + "-" + (day) + "-" + (hours) + "-" + (minutes) + "-" + (seconds);
 	
 	$("#date").val(today);
-	$("#date2").val(today2);
 	fecha = today;
 });
 

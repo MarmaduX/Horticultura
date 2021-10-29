@@ -5,6 +5,7 @@ from Servicios.autenticacion import autenticacion
 import math
 from PIL import Image
 from flask_mail import Mail,  Message
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -79,15 +80,15 @@ def formulario_us():
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
-                    return modificar_usuario()
+                    return redirect(url_for('modificar_usuario'))
                 if len(autenticacion.verificar_usuario(request.form['usuario'])) == 0:
                     autenticacion.modificar_usuario(
                         session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
-                    return modificar_usuario()
-                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso")
+                    return redirect(url_for('modificar_usuario'))
+                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
             if len(autenticacion.verificar_correo(request.form['email'])) == 0:
                 if session["usuario"][3] == request.form['usuario']:
                     autenticacion.modificar_usuario(
@@ -95,7 +96,7 @@ def formulario_us():
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
-                    return modificar_usuario()
+                    return redirect(url_for('modificar_usuario'))
                 return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
             return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este correo ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
         return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Contraseña Invalida", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"]), 200
@@ -108,7 +109,7 @@ def formulario_clave():
         if verificar_clave(request.form["vieja"]) == "Ok":
             autenticacion.modificar_usuario(
                 session['usuario'][0], session['usuario'][1], session['usuario'][3], session['usuario'][2], request.form['clave'])
-            return render_template("editar_usuario.html", usuario=session['usuario'], rol=session['usuario'][5])
+            return redirect(url_for('modificar_usuario'))
         return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5], error="Contraseña Invalida", nueva=request.form["clave"], confirm=request.form["confirm"])
     return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5], error="", nueva="", confirm="")
 
@@ -171,8 +172,14 @@ def modificar_caso(idCaso):
 @app.route('/eliminar_caso', methods=['DELETE'])
 def eliminar_casos():
     idcaso = request.form.get("idcaso")
+    comentarios = autenticacion.obtener_comentarios(idcaso)
+    evolucion = autenticacion.obtener_evoluciones(idcaso)
+    for i in comentarios:
+        autenticacion.eliminar_comentario(i[0])
+    for i in evolucion:
+        autenticacion.eliminar_evolucion(i[0])
     autenticacion.eliminar_caso(idcaso)
-    return render_template("index.html")
+    return render_template("cultivos.html")
 
 
 @app.route('/casos', methods=['GET'])
@@ -259,17 +266,21 @@ def registrar_recomendacion(idCaso):
         return mostrar_caso(idCaso)
     return render_template("casorec.html", idcaso=idCaso, usuario=session["usuario"], rol=session['usuario'][5])
 
+
 @app.route('/evolucion', methods=["POST"])
 def evolucion():
+    now = datetime.now()
     direccion = ""
     f = request.files['foto']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
-    autenticacion.crear_evolucion(request.form["coment"], request.form["idcaso"], direccion)
+    autenticacion.crear_evolucion(
+        request.form["coment"], request.form["idcaso"], direccion)
     return redirect(url_for('mostrar_caso', idCaso=request.form["idcaso"]))
+
 
 @app.route('/eliminar_evo', methods=['DELETE'])
 def eliminar_evo():
@@ -277,14 +288,16 @@ def eliminar_evo():
     autenticacion.eliminar_evolucion(idevolucion)
     return render_template("index.html")
 
+
 @app.route('/editar_evo/<idevo>', methods=['POST'])
 def editar_evo(idevo):
+    now = datetime.now()
     direccion = autenticacion.obtener_evolucion(idevo)
     direccion = direccion[0][2]
     f = request.files['foto_edit']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day)+"-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     comentario = request.form["coment_edit"]
@@ -293,16 +306,18 @@ def editar_evo(idevo):
 
 @app.route('/comentar', methods=["POST"])
 def comentar():
+    now = datetime.now()
     direccion = ""
     f = request.files['foto']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day)+"-"+ str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     autenticacion.crear_comentario(
         request.form["coment"], session["usuario"][0], session["usuario"][1], request.form["idcaso"], direccion)
     return redirect(url_for('mostrar_caso', idCaso=request.form["idcaso"]))
+
 
 @app.route('/eliminar_coment', methods=['DELETE'])
 def eliminar_coment():
@@ -310,19 +325,22 @@ def eliminar_coment():
     autenticacion.eliminar_comentario(idcomentario)
     return render_template("index.html")
 
+
 @app.route('/editar_coment/<idcoment>', methods=['POST'])
 def editar_coment(idcoment):
+    now = datetime.now()
     direccion = autenticacion.obtener_comentario(idcoment)
     direccion = direccion[0][5]
     f = request.files['foto_edit']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = request.form["date2"]+str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day)+"-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     comentario = request.form["coment_edit"]
     autenticacion.cambiar_comentario(idcoment, comentario, direccion)
     return redirect(url_for('mostrar_caso', idCaso=request.form["idcaso"]))
+
 
 @app.route('/casos/finalizar', methods=['PUT'])
 def pasar_a_resuelto_un_caso():
