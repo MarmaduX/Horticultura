@@ -86,6 +86,14 @@ def formulario_us():
                         request.form['email'])
                     session["usuario"] = datos[0]
                     return redirect(url_for('modificar_usuario'))
+                if len(autenticacion.verificar_usuario(request.form['usuario'])) == 0:
+                    autenticacion.modificar_usuario(
+                        session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'],
+                        request.form['vieja'])
+                    datos = autenticacion.verificar_correo(
+                        request.form['email'])
+                    session["usuario"] = datos[0]
+                    return redirect(url_for('modificar_usuario'))
                 return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5],
                                        error="Este usuario ya esta en uso", nombre=request.form["nombre"],
                                        correo=request.form["email"], username=request.form["usuario"])
@@ -383,9 +391,10 @@ def editar_cultivo(idPlanta):
     return "OK", 200
 
 
-@app.route('/cultivos', methods=['GET'])
+
 @app.route('/')
 @app.route('/index')
+@app.route('/cultivos', methods=['GET', "POST"])
 def listar_cultivos():
     if 'usuario' in session:
         logged = True
@@ -450,8 +459,8 @@ def process_signup():
         request.form['nombre'], request.form['email'], request.form['usuario'], request.form['clave'])
     datos = autenticacion.verificar_correo(request.form['email'])
     session['usuario'] = datos[0]
-    send_mail(request.form["email"])
-    return redirect(url_for("listar_cultivos"))
+    # send_mail(request.form["email"])
+    return listar_cultivos()
 
 
 def creacion_caso(nombre, tipo, foto, desc, estado, evolucion, date, iduser):
