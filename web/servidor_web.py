@@ -69,7 +69,7 @@ def cultivos():
 def cultivos():
     error = None
     if request.method == 'GET':
-        if not autenticacion.listar_cultivos(request.form['cultivos']):
+        if not autenticacion.mostrar_cultivos(request.form['cultivos']):
             error = 'No se pudieron obtener los cultivos'
         else:
             return redirect(url_for('cultivos'))

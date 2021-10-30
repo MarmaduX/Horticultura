@@ -379,8 +379,7 @@ def mostrar_cultivo(idPlanta):
 
 @app.route('/ver_cultivos', methods=['GET'])
 def ver_cultivos():
-    lista = autenticacion.ver_cultivos()
-    return jsonify(lista), 200
+    return render_template('ver_cultivos.html')
 
 
 @app.route('/cultivos/<idPlanta>', methods=['DELETE'])
