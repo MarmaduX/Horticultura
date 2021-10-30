@@ -172,7 +172,17 @@ def crear_caso(idUsuario):
 def modificar_caso(idCaso):
     datos = autenticacion.ver_caso(idCaso)
     if request.method == 'POST':
-        autenticacion.modificar_caso(idCaso, request.form['tipo'], request.form['nombre'], request.form['show'],
+        now = datetime.now()
+        caso = autenticacion.ver_caso(idCaso)
+        direccion = caso[0][3]
+        f = request.files['foto']
+        if secure_filename(f.filename) != '':
+            direccion = "../Horticultura/static/imagenes/casosimg/"
+            filename = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + \
+                    "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+            f.save(os.path.join(direccion, filename))
+            direccion = "/static/imagenes/casosimg/" + filename
+        autenticacion.modificar_caso(idCaso, request.form['tipo'], request.form['nombre'], direccion,
                                      request.form['desc'], request.form['estado'], request.form['evolucion'],
                                      request.form['date'])
         return mostrar_caso(idCaso)
@@ -217,7 +227,7 @@ def mostrar_casos():
             page_range = range(1, cantidad + 1)
     casos_a_mostrar = autenticacion.mostrar_casos_paginado(int(page), keyword)
     return render_template("allcasos.html", palabra=keyword, usuario=session["usuario"], casos=casos_a_mostrar,
-                           items=casos_a_mostrar, page=int(page), prange=page_range), 200
+                           items=casos_a_mostrar, page=int(page), prange=page_range, titulo="Todos Los Casos"), 200
 
 
 @app.route('/vercaso/<idCaso>', methods=['GET'])
@@ -280,7 +290,7 @@ def registrar_recomendacion(idCaso):
     if request.method == "POST":
         autenticacion.registrar_recomendacion(
             idCaso, request.form["rec"], request.form["estado"], request.form["date"], session["usuario"][0])
-        notificacion(idCaso)
+        # notificacion(idCaso)
         return mostrar_caso(idCaso)
     return render_template("casorec.html", idcaso=idCaso, usuario=session["usuario"], rol=session['usuario'][5])
 
