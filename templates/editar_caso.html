@@ -24,7 +24,7 @@
             {% else %}
             <a class="" href="/casos">Todos los casos</a>
             {% endif %}
-            <a class="" href="/logout">Log Out ({{ usuario[3] }})</a>
+            <a class="" href="/logout">Salir ({{ usuario[3] }})</a>
             <a class="" href="/usuario">Perfil</a>
         </nav>
     </header>
@@ -49,6 +49,13 @@
                             size="50" value="{{ caso[1] }}">
                     </div>
                 </div>
+                <div class="col-25">
+                <label for="nombre">Nombre de la planta:</label>
+            </div>
+            <div class="col-75">
+                <input id="nombre" name="nombre" required placeholder="Ingrese nombre de la planta..."
+                       type="text" size="50">
+            </div>
                 <div class="row">
                     <div class="col-pers">
                         <label for="foto">Captura de la planta:</label>
@@ -67,10 +74,10 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label for="desc">Descripcion del problema:</label>
+                        <label for="desc">Descripción del problema:</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="desc" name="desc" required placeholder="Ingrese descripcion..." >{{ caso[4] }}</textarea>
+                        <textarea id="desc" name="desc" required placeholder="Ingrese descripción..." >{{ caso[4] }}</textarea>
                     </div>
                 </div>
                 <div class="row">
