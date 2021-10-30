@@ -98,8 +98,8 @@ def cultivos():
     return render_template('cultivos.html', error=error)
 
 
-@app.route('/cultivos', methods=['DELETE'])
-def cultivos():
+@app.route('/cultivos/eliminar_cultivo', methods=['DELETE'])
+def cultivos(idPlanta):
     error = None
     if request.method == 'DELETE':
         if not autenticacion.eliminar_cultivo(request.form['cultivos']):

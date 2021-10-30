@@ -736,8 +736,26 @@ footer .terminos{
 }
 
 .titulo2{
-text-align:center;
+text-align: center;
 font-size: 32px;
+}
+
+.titulo3{
+front.size: 20px;
+margin: auto;
+width: 90%;
+text-align: center;
+}
+
+.categoria1{
+margin: auto;
+font-size: 18px;
+width: 90%;
+}
+
+.categoria2{
+font-size: 17px;
+width: 90%;
 }
 
 .cultivo{
@@ -774,7 +792,6 @@ display:block;
 margin:auto;
 border-radius: 5px;
 }
-
 
 .button2{
 text-decoration: none;

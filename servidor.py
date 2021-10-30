@@ -1,10 +1,10 @@
 import os
-from flask import Flask, request,  render_template, jsonify, json, session, url_for, redirect
+from flask import Flask, request, render_template, jsonify, json, session, url_for, redirect
 from werkzeug.utils import secure_filename
 from Servicios.autenticacion import autenticacion
 import math
 from PIL import Image
-from flask_mail import Mail,  Message
+from flask_mail import Mail, Message
 from datetime import datetime
 
 app = Flask(__name__)
@@ -60,31 +60,43 @@ def formulario_us():
             if session["usuario"][2] == request.form['email']:
                 if session["usuario"][3] == request.form['usuario']:
                     autenticacion.modificar_usuario(
-                        session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
+                        session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'],
+                        request.form['vieja'])
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
                     return redirect(url_for('modificar_usuario'))
                 if len(autenticacion.verificar_usuario(request.form['usuario'])) == 0:
                     autenticacion.modificar_usuario(
-                        session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
+                        session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'],
+                        request.form['vieja'])
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
                     return redirect(url_for('modificar_usuario'))
-                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
+                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5],
+                                       error="Este usuario ya esta en uso", nombre=request.form["nombre"],
+                                       correo=request.form["email"], username=request.form["usuario"])
             if len(autenticacion.verificar_correo(request.form['email'])) == 0:
                 if session["usuario"][3] == request.form['usuario']:
                     autenticacion.modificar_usuario(
-                        session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'], request.form['vieja'])
+                        session['usuario'][0], request.form['nombre'], request.form['usuario'], request.form['email'],
+                        request.form['vieja'])
                     datos = autenticacion.verificar_correo(
                         request.form['email'])
                     session["usuario"] = datos[0]
                     return redirect(url_for('modificar_usuario'))
-                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este usuario ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
-            return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Este correo ya esta en uso", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"])
-        return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="Contraseña Invalida", nombre=request.form["nombre"], correo=request.form["email"], username=request.form["usuario"]), 200
-    return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="", nombre=session["usuario"][1], correo=session["usuario"][2], username=session["usuario"][3])
+                return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5],
+                                       error="Este usuario ya esta en uso", nombre=request.form["nombre"],
+                                       correo=request.form["email"], username=request.form["usuario"])
+            return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5],
+                                   error="Este correo ya esta en uso", nombre=request.form["nombre"],
+                                   correo=request.form["email"], username=request.form["usuario"])
+        return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5],
+                               error="Contraseña Invalida", nombre=request.form["nombre"], correo=request.form["email"],
+                               username=request.form["usuario"]), 200
+    return render_template("formulario_us.html", usuario=session['usuario'], rol=session['usuario'][5], error="",
+                           nombre=session["usuario"][1], correo=session["usuario"][2], username=session["usuario"][3])
 
 
 @app.route('/formulario_clave', methods=['POST', 'GET'])
@@ -92,10 +104,14 @@ def formulario_clave():
     if request.method == 'POST':
         if verificar_clave(request.form["vieja"]) == "Ok":
             autenticacion.modificar_usuario(
-                session['usuario'][0], session['usuario'][1], session['usuario'][3], session['usuario'][2], request.form['clave'])
+                session['usuario'][0], session['usuario'][1], session['usuario'][3], session['usuario'][2],
+                request.form['clave'])
             return redirect(url_for('modificar_usuario'))
-        return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5], error="Contraseña Invalida", nueva=request.form["clave"], confirm=request.form["confirm"])
-    return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5], error="", nueva="", confirm="")
+        return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5],
+                               error="Contraseña Invalida", nueva=request.form["clave"],
+                               confirm=request.form["confirm"])
+    return render_template("formulario_clave.html", usuario=session['usuario'], rol=session['usuario'][5], error="",
+                           nueva="", confirm="")
 
 
 def verificar_clave(clave):
@@ -133,13 +149,15 @@ def crear_caso(idUsuario):
         direccion = ""
         f = request.files['foto']
         direccion = "../Horticultura/static/imagenes/casosimg/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
-            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + \
+                   "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/casosimg/" + filename
-        return creacion_caso(request.form['nombre'], request.form['tipo'], direccion, request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'], idUsuario)
+        return creacion_caso(request.form['nombre'], request.form['tipo'], direccion, request.form['desc'],
+                             request.form['estado'], request.form['evolucion'], request.form['date'], idUsuario)
 
-    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session['usuario'][3], rol=session['usuario'][5])
+    return render_template("ingreso_caso.html", userid=idUsuario, nickname=session['usuario'][3],
+                           rol=session['usuario'][5])
 
 
 @app.route('/modificar_caso/<idCaso>', methods=['GET', 'POST'])
@@ -147,9 +165,11 @@ def modificar_caso(idCaso):
     datos = autenticacion.ver_caso(idCaso)
     if request.method == 'POST':
         autenticacion.modificar_caso(idCaso, request.form['tipo'], request.form['nombre'], request.form['show'],
-                                     request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'])
+                                     request.form['desc'], request.form['estado'], request.form['evolucion'],
+                                     request.form['date'])
         return mostrar_caso(idCaso)
-    return render_template("editar_caso.html", caso=datos[0], idcaso=idCaso, usuario=session["usuario"], rol=session['usuario'][5])
+    return render_template("editar_caso.html", caso=datos[0], idcaso=idCaso, usuario=session["usuario"],
+                           rol=session['usuario'][5])
 
 
 @app.route('/eliminar_caso', methods=['DELETE'])
@@ -176,19 +196,20 @@ def mostrar_casos():
         keyword = request.args.get('keyword')
     casos_a_mostrar = autenticacion.mostrar_casos(keyword)
     cantidad = len(casos_a_mostrar)
-    cantidad = math.ceil(cantidad/10)
+    cantidad = math.ceil(cantidad / 10)
     if int(page) > cantidad:
         page = cantidad
     page_range = range(int(page) - 2, int(page) + 3)
-    if int(page)+3 > cantidad:
-        page_range = range(int(page)-3, cantidad+1)
+    if int(page) + 3 > cantidad:
+        page_range = range(int(page) - 3, cantidad + 1)
     if int(page) < 4:
         if cantidad < 5:
-            page_range = range(1, cantidad+1)
+            page_range = range(1, cantidad + 1)
         else:
-            page_range = range(1, cantidad+1)
+            page_range = range(1, cantidad + 1)
     casos_a_mostrar = autenticacion.mostrar_casos_paginado(int(page), keyword)
-    return render_template("allcasos.html", palabra=keyword, usuario=session["usuario"], casos=casos_a_mostrar, items=casos_a_mostrar, page=int(page), prange=page_range), 200
+    return render_template("allcasos.html", palabra=keyword, usuario=session["usuario"], casos=casos_a_mostrar,
+                           items=casos_a_mostrar, page=int(page), prange=page_range), 200
 
 
 @app.route('/vercaso/<idCaso>', methods=['GET'])
@@ -201,7 +222,11 @@ def mostrar_caso(idCaso):
         nombreespecial = "Aun no tiene un especialista asignado"
     else:
         nombreespecial = especialista[0][1]
-    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, comentarios=comentarios, evolucion_caso=evolucion, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3], texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7], recomendacion=datos[0][8], userid=datos[0][9], especialista=nombreespecial, usuario=session['usuario']), 200
+    return render_template("caso.html", rol=session['usuario'][5], idcaso=idCaso, comentarios=comentarios,
+                           evolucion_caso=evolucion, tipo=datos[0][1], nombre=datos[0][2], fotos=datos[0][3],
+                           texto=datos[0][4], estado=datos[0][5], evolucion=datos[0][6], date=datos[0][7],
+                           recomendacion=datos[0][8], userid=datos[0][9], especialista=nombreespecial,
+                           usuario=session['usuario']), 200
 
 
 @app.route('/casos/<idUsuario>', methods=['GET'])
@@ -210,7 +235,8 @@ def mostrar_caso_por(idUsuario):
         casos_a_mostrar = autenticacion.mostrar_casos_usuario(idUsuario)
     else:
         casos_a_mostrar = autenticacion.mostrar_casos_especialista(idUsuario)
-    return render_template("casos_usuario.html", casos=casos_a_mostrar, usuario=session["usuario"], rol=session['usuario'][5])
+    return render_template("casos_usuario.html", casos=casos_a_mostrar, usuario=session["usuario"],
+                           rol=session['usuario'][5])
 
 
 @app.route('/casos/tipo/<tipoCultivo>', methods=['GET'])
@@ -224,27 +250,28 @@ def mostrar_casos_por(tipoCultivo):
         keyword = request.args.get('keyword')
     casos_a_mostrar = autenticacion.mostrar_casos_por(keyword, tipoCultivo)
     cantidad = len(casos_a_mostrar)
-    cantidad = math.ceil(cantidad/10)
+    cantidad = math.ceil(cantidad / 10)
     if int(page) > cantidad:
         page = cantidad
     page_range = range(int(page) - 2, int(page) + 3)
-    if int(page)+3 > cantidad:
-        page_range = range(int(page)-3, cantidad+1)
+    if int(page) + 3 > cantidad:
+        page_range = range(int(page) - 3, cantidad + 1)
     if int(page) < 4:
         if cantidad < 5:
-            page_range = range(1, cantidad+1)
+            page_range = range(1, cantidad + 1)
         else:
-            page_range = range(1, cantidad+1)
+            page_range = range(1, cantidad + 1)
     casos_a_mostrar = autenticacion.mostrar_casos_por_paginado(
         int(page), keyword, tipoCultivo)
-    return render_template("casostipo.html", tipo=tipoCultivo, palabra=keyword, usuario=session["usuario"], casos=casos_a_mostrar, items=casos_a_mostrar, page=int(page), prange=list(page_range)), 200
+    return render_template("casostipo.html", tipo=tipoCultivo, palabra=keyword, usuario=session["usuario"],
+                           casos=casos_a_mostrar, items=casos_a_mostrar, page=int(page), prange=list(page_range)), 200
 
 
 @app.route('/caso/recomendacion/<idCaso>', methods=["GET", "POST"])
 def registrar_recomendacion(idCaso):
     if request.method == "POST":
         autenticacion.registrar_recomendacion(
-            idCaso, request.form["rec"],  request.form["estado"],  request.form["date"], session["usuario"][0])
+            idCaso, request.form["rec"], request.form["estado"], request.form["date"], session["usuario"][0])
         notificacion(idCaso)
         return mostrar_caso(idCaso)
     return render_template("casorec.html", idcaso=idCaso, usuario=session["usuario"], rol=session['usuario'][5])
@@ -257,8 +284,8 @@ def evolucion():
     f = request.files['foto']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
-            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + \
+                   "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     autenticacion.crear_evolucion(
@@ -281,8 +308,8 @@ def editar_evo(idevo):
     f = request.files['foto_edit']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
-            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + \
+                   "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     comentario = request.form["coment_edit"]
@@ -297,8 +324,8 @@ def comentar():
     f = request.files['foto']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
-            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + \
+                   "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     autenticacion.crear_comentario(
@@ -321,8 +348,8 @@ def editar_coment(idcoment):
     f = request.files['foto_edit']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
-            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + \
+                   "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     comentario = request.form["coment_edit"]
@@ -342,7 +369,8 @@ def pasar_a_resuelto_un_caso():
 def crear_cultivo():
     datos_cultivo = request.get_json()
     autenticacion.crear_cultivo(datos_cultivo['nombreCientifico'], datos_cultivo['tipoCultivo'], datos_cultivo['foto'],
-                                datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
+                                datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'],
+                                datos_cultivo['enfermedades'])
     return render_template("cultivos.html")
 
 
@@ -350,7 +378,8 @@ def crear_cultivo():
 def editar_cultivo(idPlanta):
     datos_cultivo = request.get_json()
     autenticacion.editar_cultivo(idPlanta, datos_cultivo['nombreCientifco'], datos_cultivo['tipoCultivo'],
-                                 datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
+                                 datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'],
+                                 datos_cultivo['enfermedades'])
     return "OK", 200
 
 
@@ -382,10 +411,9 @@ def ver_cultivos():
     return render_template('ver_cultivos.html')
 
 
-@app.route('/cultivos/<idPlanta>', methods=['DELETE'])
+@app.route('/cultivos/eliminar_cultivo', methods=['DELETE'])
 def eliminar_cultivo(idPlanta):
-    autenticacion.eliminar_cultivo(idPlanta)
-    return "OK", 200
+    return render_template('eliminar_cultivo.html')
 
 
 @app.route('/cultivo/<tipoCultivo>', methods=['GET'])
@@ -412,11 +440,14 @@ def load_user(email, passwd):
 
 def process_signup():
     if len(autenticacion.verificar_correo(request.form['email'])) > 0:
-        return render_template("signup.html", error="Ya existe un usuario con ese correo", correo=request.form['email'], username=request.form['usuario'], nombre=request.form['nombre'])
+        return render_template("signup.html", error="Ya existe un usuario con ese correo", correo=request.form['email'],
+                               username=request.form['usuario'], nombre=request.form['nombre'])
     if len(autenticacion.verificar_usuario(request.form['usuario'])) > 0:
-        return render_template("signup.html", error="Ya existe un usuario con ese nombre de usuario", correo=request.form['email'], username=request.form['usuario'], nombre=request.form['nombre'])
+        return render_template("signup.html", error="Ya existe un usuario con ese nombre de usuario",
+                               correo=request.form['email'], username=request.form['usuario'],
+                               nombre=request.form['nombre'])
     autenticacion.crear_usuario(
-        request.form['nombre'], request.form['email'], request.form['usuario'],  request.form['clave'])
+        request.form['nombre'], request.form['email'], request.form['usuario'], request.form['clave'])
     datos = autenticacion.verificar_correo(request.form['email'])
     session['usuario'] = datos[0]
     send_mail(request.form["email"])
@@ -440,7 +471,7 @@ def notificacion(casoid):
         sender='horticultura.virtual@gmail.com',
         recipients=[usuario[0][2]],
         body="Usted recibio una respuesta a su caso por parte de " +
-        especialista[0][1] + "."
+             especialista[0][1] + "."
     )
     return 'Mail sent'
 

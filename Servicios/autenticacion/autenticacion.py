@@ -70,7 +70,7 @@ def editar_cultivo(idPlanta, nombreCientifico, tipoCultivo, foto, descripcionCul
     modelo_cultivo.editar_cultivo(idPlanta, nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades)
 
 def listar_cultivos():
-    return modelo_cultivo.listar_cultivos()
+    return modelo_cultivo.mostrar_cultivos()
 
 def ver_cultivos():
     return modelo_cultivo.ver_cultivos()
