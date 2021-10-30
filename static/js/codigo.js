@@ -35,19 +35,21 @@ function comentar(idcaso, userid) {
 		}
 	});
 };
-
-function load() {
-	var file = document.getElementById('foto').files[0]
-
-	var reader = new FileReader()
-
-	reader.readAsDataURL(file);
-	reader.onload = function () {
-		var imgUrlBase64 = this.result
-		document.getElementById('show').value = imgUrlBase64
+function init() {
+	var inputFile = document.getElementById('foto');
+	inputFile.addEventListener('change', mostrarImagen, false);
+  }
+  
+  function mostrarImagen(event) {
+	var file = event.target.files[0];
+	var reader = new FileReader();
+	reader.onload = function(event) {
+	  var img = document.getElementById('img1');
+	  img.src= event.target.result;
 	}
-}
-
+	reader.readAsDataURL(file);
+  }
+window.addEventListener('load', init, false);
 let boton = document.getElementById("boton1");
 if (boton) {
 	boton.addEventListener("click", function (e) {
@@ -274,29 +276,31 @@ if (cerrarR) {
 	})
 }
 
-function cambiar_edit(id){
+function cambiar_edit(id) {
 	var modalP = document.getElementById(id);
 	var modalE = document.getElementById(id + "edit");
 	modalP.style.display = "none";
 	modalE.style.display = "block";
 }
 
-function cambiar_coment(id){
+function cambiar_coment(id) {
 	var modalP = document.getElementById(id);
 	var modalE = document.getElementById(id + "edit");
 	modalP.style.display = "block";
 	modalE.style.display = "none";
 }
 
-function editar_comentario(id, idcaso){
+function editar_comentario(id, idcaso) {
 	var comentario = document.getElementById("coment_edit");
 	var foto = document.getElementById("foto_edit");
 	$.ajax({
 		type: 'POST',
 		url: "/editar_coment",
-		data: { idcoment: id,
-				comentario: comentario.value,
-				foto: foto.value},
+		data: {
+			idcoment: id,
+			comentario: comentario.value,
+			foto: foto.value
+		},
 		success: function () {
 			window.location.href = "/vercaso/" + idcaso;
 		}
@@ -339,14 +343,14 @@ if (cerrarC) {
 	})
 }
 
-function habilitar_edit(id){
+function habilitar_edit(id) {
 	var modalP = document.getElementById(id);
 	var modalE = document.getElementById(id + "edit");
 	modalP.style.display = "none";
 	modalE.style.display = "block";
 }
 
-function cancelar_edit(id){
+function cancelar_edit(id) {
 	var modalP = document.getElementById(id);
 	var modalE = document.getElementById(id + "edit");
 	modalP.style.display = "block";
@@ -407,7 +411,7 @@ $(document).ready(function () {
 	var minutes = now.getMinutes();
 	var seconds = now.getSeconds();
 	var today = now.getFullYear() + "-" + (month) + "-" + (day) + "T" + (hours) + ":" + (minutes) + ":" + (seconds);
-	
+
 	$("#date").val(today);
 	fecha = today;
 });

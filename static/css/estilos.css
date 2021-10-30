@@ -276,6 +276,7 @@ footer .terminos{
     margin-bottom: 15px;
     object-fit: contain;
     max-width: 100%;
+    border-radius: 5px;
 }
 
 .float-left{
@@ -397,11 +398,26 @@ footer .terminos{
     display: flex;
     align-items: center;
     margin: auto;
+    border-radius: 5px;
+}
+
+.imagen-select{
+    max-width: 80%;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    border-radius: 5px;
+    overflow: auto;
 }
 .clearfix::after {
     content: "";
     clear: both;
     display: table;
+}
+
+.desc{
+    width: 100%;
 }
 
 .card-title{
@@ -699,6 +715,7 @@ footer .terminos{
     display: block;
     align-items: center;
     margin: auto;
+    border-radius: 5px;
 }
 
 .comentario-izq{
@@ -723,25 +740,31 @@ text-align:center;
 }
 
 .cultivo{
-text-align:center;
-width: 45%;
+width: 40%;
 border-radius: 5px;
 padding: 20px;
-margin: 5px;
+margin: 15px;
 }
 
 .cultivo2{
 text-decoration: none;
-margin: 10px;
+margin: 10px 10px 1px 0px;
 padding: 12px 20px;
 border-radius: 5px;
-color: white;
+color: rgb(0, 0, 0);
 background-color: #4CAF50;
 border: none;
 width: 100%;
 }
 
+.cultivo2:hover{
+    background-color: #45a049;
+}
+
 .imagen_cultivos{
 object-fit: contain;
 max-width: 100%;
+display:block;
+margin:auto;
+border-radius: 5px;
 }

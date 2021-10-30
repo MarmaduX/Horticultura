@@ -26,7 +26,7 @@
     </header>
     <section class="sector">
         <div class="container">
-            <form action="/caso/{{userid}}" method="post" name="ingresar_caso">
+            <form action="/caso/{{userid}}"  method="POST" enctype="multipart/form-data" name="ingresar_caso">
                 <div class="row">
                     <div class="col-25">
                         <label for="nombre">Nombre del cultivo:</label>
@@ -50,7 +50,8 @@
                             <option value="Frutales">Frutales</option>
                             <option value="Ornamentales">Ornamentales</option>
                             <option value="Raíces y tubérculos">Raíces y tubérculos</option>
-                            <option value="Cultivos para bebidas medicinales y aromáticas">Cultivos para bebidas medicinales y aromáticas</option>
+                            <option value="Cultivos para bebidas medicinales y aromáticas">Cultivos para bebidas
+                                medicinales y aromáticas</option>
                             <option value="Cultivos tropicales tradicionales">Cultivos tropicales tradicionales</option>
                             <option value="Pastos">Pastos</option>
                         </select>
@@ -61,23 +62,19 @@
                         <label for="foto">Captura de la planta:</label>
                     </div>
                     <div class="col-pers2">
-                        <input id="foto" name="foto" required type="file" onchange = "load ()">
+                        <input accept="image/*" id="foto" name="foto" required type="file">
                     </div>
                 </div>
-                <div class="oculta">
-                    <img src=""/>
-                </div>
-                <div class="oculta">
-                    <p>
-                        Codificación Photo64: <textarea cols = "60" rows = "15" id = "show" name = "show"> </textarea>
-                    </p>
+                <div class="row">
+                    <img  class="imagen-select" id="img1"/>
                 </div>
                 <div class="row">
                     <div class="col-25">
                         <label for="desc">Descripcion del problema:</label>
                     </div>
                     <div class="col-75">
-                        <textarea id="desc" class="desc" name="desc" rows="13" required placeholder="Ingrese descripcion..."></textarea>
+                        <textarea id="desc" class="desc" name="desc" rows="13" required
+                            placeholder="Ingrese descripcion..."></textarea>
                     </div>
                 </div>
                 <div class="oculta">
@@ -85,7 +82,8 @@
                         <label for="estado">Estado:</label>
                     </div>
                     <div class="col-75">
-                        <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50" value="En espera">
+                        <input id="estado" name="estado" required placeholder="Ingrese estado" type="text" size="50"
+                            value="En espera">
                     </div>
                 </div>
                 <div class="oculta">
@@ -93,7 +91,8 @@
                         <label for="evolucion">Evolucion del caso:</label>
                     </div>
                     <div class="col-75">
-                        <input id="evolucion" name="evolucion" placeholder="Evolucion del caso..." type="text" value="Primera Actualizacion" size="50">
+                        <input id="evolucion" name="evolucion" placeholder="Evolucion del caso..." type="text"
+                            value="Primera Actualizacion" size="50">
                     </div>
                 </div>
                 <div class="oculta">
@@ -101,7 +100,7 @@
                         <label for="date">Fecha de creacion:</label>
                     </div>
                     <div class="col-pers2">
-                        <input id="date" name="date" type="text" >
+                        <input id="date" name="date" type="text">
                     </div>
                 </div>
                 <div class="row">

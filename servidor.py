@@ -129,16 +129,15 @@ def login():
 @app.route('/caso/<idUsuario>', methods=['POST', "GET"])
 def crear_caso(idUsuario):
     if request.method == 'POST':
-        # datos_casos = request.get_json()
-        # if 'nombrePlanta' not in datos_casos:
-        #     return 'El nombre de la planta es requerido', 412
-        # if 'descripcionCaso' not in datos_casos:
-        #     return 'La descripcion del caso es necesaria', 412
-        # if 'foto' not in datos_casos:
-        #     return 'La foto del caso es necesaria', 412
-        # autenticacion.crear_caso(datos_casos['tipoCultivo'], datos_casos['nombrePlanta'], datos_casos['foto'], datos_casos['descripcionCaso'],
-        #                         datos_casos['estado'], datos_casos['evolucionCaso'], datos_casos['fechaActualizacion'], idUsuario)
-        return creacion_caso(request.form['nombre'], request.form['tipo'], request.form['show'], request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'], idUsuario)
+        now = datetime.now()
+        direccion = ""
+        f = request.files['foto']
+        direccion = "../Horticultura/static/imagenes/casosimg/"
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
+            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        f.save(os.path.join(direccion, filename))
+        direccion = "/static/imagenes/casosimg/" + filename
+        return creacion_caso(request.form['nombre'], request.form['tipo'], direccion, request.form['desc'], request.form['estado'], request.form['evolucion'], request.form['date'], idUsuario)
 
     return render_template("ingreso_caso.html", userid=idUsuario, nickname=session['usuario'][3], rol=session['usuario'][5])
 
@@ -258,7 +257,8 @@ def evolucion():
     f = request.files['foto']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + "-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
+            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     autenticacion.crear_evolucion(
@@ -281,12 +281,14 @@ def editar_evo(idevo):
     f = request.files['foto_edit']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day)+"-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
+            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     comentario = request.form["coment_edit"]
     autenticacion.cambiar_evolucion(idevo, comentario, direccion)
     return redirect(url_for('mostrar_caso', idCaso=request.form["idcaso"]))
+
 
 @app.route('/comentar', methods=["POST"])
 def comentar():
@@ -295,7 +297,8 @@ def comentar():
     f = request.files['foto']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day)+"-"+ str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
+            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     autenticacion.crear_comentario(
@@ -318,7 +321,8 @@ def editar_coment(idcoment):
     f = request.files['foto_edit']
     if secure_filename(f.filename) != '':
         direccion = "../Horticultura/static/imagenes/subidasBD/"
-        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day)+"-" + str(session["usuario"][0]) + secure_filename(f.filename)
+        filename = str(now.year)+"-"+str(now.month)+"-" + str(now.day) + \
+            "-" + str(session["usuario"][0]) + secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
         direccion = "/static/imagenes/subidasBD/" + filename
     comentario = request.form["coment_edit"]
@@ -349,6 +353,7 @@ def editar_cultivo(idPlanta):
                                  datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'], datos_cultivo['enfermedades'])
     return "OK", 200
 
+
 @app.route('/cultivos', methods=['GET'])
 @app.route('/')
 @app.route('/index')
@@ -365,10 +370,12 @@ def listar_cultivos():
         rol = ''
     return render_template('cultivos.html', logged=logged, nickname=nickname, userid=userid, rol=rol)
 
+
 @app.route('/cultivos/<idPlanta>', methods=['GET'])
 def mostrar_cultivo(idPlanta):
     lista = autenticacion.mostar_cultivo(idPlanta)
     return jsonify(lista), 200
+
 
 @app.route('/ver_cultivos', methods=['GET'])
 def ver_cultivos():
@@ -386,7 +393,6 @@ def eliminar_cultivo(idPlanta):
 def mostar_cultivos_filtrados(tipoCultivo):
     lista = autenticacion.mostar_cultivos_filtrados(tipoCultivo)
     return jsonify(lista), 200
-
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -416,7 +422,6 @@ def process_signup():
     session['usuario'] = datos[0]
     send_mail(request.form["email"])
     return redirect(url_for("listar_cultivos"))
-
 
 
 def creacion_caso(nombre, tipo, foto, desc, estado, evolucion, date, iduser):
