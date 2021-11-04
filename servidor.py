@@ -396,7 +396,7 @@ def crear_cultivo():
         autenticacion.crear_cultivo(request.form['nombre'], request.form['tipo'],direccion,
                                 request.form['desc'], request.form['plag'],
                                 request.form['enf'])
-        return redirect(url_for('ver_cultivos'))
+        # return redirect(url_for('ver_cultivos'))
     return render_template("crear_cultivo.html", nickname=session["usuario"][3], userid=session["usuario"][0], rol=2)
 
 
