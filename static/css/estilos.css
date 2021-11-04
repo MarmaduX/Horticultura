@@ -741,7 +741,7 @@ font-size: 32px;
 }
 
 .titulo3{
-front.size: 20px;
+font-size: 20px;
 margin: auto;
 width: 90%;
 text-align: center;
@@ -795,14 +795,15 @@ border-radius: 5px;
 
 .button2{
 text-decoration: none;
-margin: auto;
+margin: 5px;
 padding: 12px 20px;
 border-radius: 5px;
 color: rgb(0, 0, 0);
 background-color: #4CAF50;
 border: none;
 }
-.button2: hover{
+
+.button2:hover{
 background-color: #45a049;
 }
 

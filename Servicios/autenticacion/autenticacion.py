@@ -75,6 +75,9 @@ def listar_cultivos():
 def ver_cultivos():
     return modelo_cultivo.ver_cultivos()
 
+def ver_cultivo(nombre):
+    return modelo_cultivo.ver_cultivo(nombre)
+
 def mostar_cultivo(idPlanta):
     return modelo_cultivo.mostrar_cultivo(idPlanta)
 

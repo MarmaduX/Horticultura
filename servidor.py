@@ -383,13 +383,21 @@ def pasar_a_resuelto_un_caso():
     return 'OK', 200
 
 
-@app.route('/cultivos', methods=['POST'])
+@app.route('/cultivo', methods=['GET', 'POST'])
 def crear_cultivo():
-    datos_cultivo = request.get_json()
-    autenticacion.crear_cultivo(datos_cultivo['nombreCientifico'], datos_cultivo['tipoCultivo'], datos_cultivo['foto'],
-                                datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'],
-                                datos_cultivo['enfermedades'])
-    return render_template("cultivos.html")
+    if request.method == "POST":
+        if len(autenticacion.ver_cultivo(request.form["nombre"])):
+            return render_template("crear_cultivo.html", nickname=session["usuario"][3], userid=session["usuario"][0], rol=2)
+        f = request.files['foto']
+        direccion = "../Horticultura/static/imagenes/Cultivos/" + request.form["tipo"]
+        filename = secure_filename(f.filename)
+        f.save(os.path.join(direccion, filename))
+        direccion = "../Horticultura/static/imagenes/Cultivos/" + request.form["tipo"] + filename
+        autenticacion.crear_cultivo(request.form['nombre'], request.form['tipo'],direccion,
+                                request.form['desc'], request.form['plag'],
+                                request.form['enf'])
+        return redirect(url_for('ver_cultivos'))
+    return render_template("crear_cultivo.html", nickname=session["usuario"][3], userid=session["usuario"][0], rol=2)
 
 
 @app.route('/cultivos/<idPlanta>', methods=['PUT'])

@@ -3,7 +3,7 @@ from Datos.basededatos import BaseDeDatos
 
 def crear_cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades):
     crear_cultivo_sql = f"""
-        INSERT INTO Cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades)
+        INSERT INTO Cultivo(nombreCientifico, tipoCultivo, foto, descripcion, plagas, enfermedades)
         VALUES ('{nombreCientifico}', '{tipoCultivo}', '{foto}', '{descripcionCultivo}', '{plagas}', '{enfermedades}')
     """
     bd = BaseDeDatos()
@@ -11,7 +11,7 @@ def crear_cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plaga
 
 def editar_cultivo(idPlanta, nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades):
     editar_cultivo_sql = f"""
-        UPDATE Cultivo SET nombreCientifico='{nombreCientifico}', tipoCultivo='{tipoCultivo}', foto='{foto}', descripcionCultivo='{descripcionCultivo}', plagas='{plagas}', enfermedades='{enfermedades}'
+        UPDATE Cultivo SET nombreCientifico='{nombreCientifico}', tipoCultivo='{tipoCultivo}', foto='{foto}', descripcion='{descripcionCultivo}', plagas='{plagas}', enfermedades='{enfermedades}'
         WHERE idPlanta = '{idPlanta}'
     """
     bd = BaseDeDatos()
@@ -22,7 +22,18 @@ def ver_cultivos():
         SELECT * FROM Cultivo
     """
     bd = BaseDeDatos()
-    return bd.ejecutar_sql(ver_cultivos_sql)
+    devolver = []
+    devolver = bd.ejecutar_sql(ver_cultivos_sql)
+    return devolver
+
+def ver_cultivo(nombre):
+    ver_cultivo_sql = f"""
+        SELECT * FROM Cultivo WHERE nombreCientifico = '{nombre}'
+    """
+    bd = BaseDeDatos()
+    devolver = []
+    devolver = bd.ejecutar_sql(ver_cultivo_sql)
+    return devolver
 
 def mostrar_cultivo(idPlanta):
     mostrar_cultivo_sql = f"""

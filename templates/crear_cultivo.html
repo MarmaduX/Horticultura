@@ -1,59 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/imagenes/logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
+
 <body>
-<section class="sector">
-    <div class="container">
-        <form action="/cultivo/{{userid}}" method="post" name="crear_cultivo">
-            <div class="row">
-                <div class="col-25">
-                    <label for="nombre">Nombre del cultivo:</label>
+    <header>
+        <div>
+            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+        </div>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
+        <nav class="">
+            <a class="active" href="/cultivos">Cultivos</a>
+            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+            <a class="" href="/casos">Todos los casos</a>
+            <a class="" href="/logout">Salir ({{ nickname }}) </a>
+            <a class="" href="/usuario">Perfil</a>
+        </nav>
+    </header>
+    <section class="sector">
+        <div class="container">
+            <form action="/cultivo" method="post" name="crear_cultivo" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="nombre">Nombre de la planta:</label>
+                    </div>
+                    <div class="col-75">
+                        <input id="nombre" name="nombre" required placeholder="Ingrese nombre de la planta..."
+                            type="text" size="50" maxlength="50">
+                    </div>
                 </div>
-                <div class="col-75">
-                    <input id="nombre" name="nombre" required placeholder="Ingrese nombre del cultivo..."
-                           type="text" size="50">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="tipo">Tipo del cultivo:</label>
+                    </div>
+                    <div class="col-75">
+                        <select id="tipo" name="tipo" required>
+                            <option value="otro">Otro</option>
+                            <option value="cereales">Cereales</option>
+                            <option value="leguminosas">Leguminosas</option>
+                            <option value="oleaginosas">Oleaginosas</option>
+                            <option value="hortalizas">Hortalizas</option>
+                            <option value="frutales">Frutales</option>
+                            <option value="ornamentales">Ornamentales</option>
+                            <option value="tubérculos">Raíces y tubérculos</option>
+                            <option value="bebidas medicinales">Cultivos para bebidas
+                                medicinales y aromáticas
+                            </option>
+                            <option value="Cultivos tropicales tradicionales">Cultivos tropicales tradicionales</option>
+                            <option value="Pastos">Pastos</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-pers">
-                    <label for="foto">Imagen del cultivo:</label>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-pers">
+                        <label for="foto">Captura de la planta:</label>
+                    </div>
+                    <div class="col-pers2">
+                        <input accept="image/*" id="foto" name="foto" required type="file">
+                    </div>
                 </div>
-                <div class="col-pers2">
-                    <input id="foto" name="foto" required type="file" onchange="load ()">
+                <div class="row">
+                    <img class="imagen-select" id="img1" />
                 </div>
-            </div>
-            <div class="oculta">
-                <img src=""/>
-            </div>
-            <div class="oculta">
-                <p>
-                    Codificación Photo64: <textarea cols="60" rows="15" id="show" name="show"> </textarea>
-                </p>
-            </div>
-            <div class="row">
-                <button class="button-form" id="crear_submit" name="crear_submit" type="submit">Crear nuevo cultivo
-                </button>
-            </div>
-        </form>
-    </div>
-</section>
-<footer>
-    <div class="copyright">
-        <p>Copyright 2021</p>
-    </div>
-    <section>
-        <div style="display: flex">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="desc">Descripción del cultivo:</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="desc" class="desc" name="desc" rows="13" required maxlength="500"
+                            placeholder="Ingrese descripcion..."></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="plag">Plagas:</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="plag" class="desc" name="plag" rows="13"  maxlength="200"
+                            placeholder="Ingrese plagas..."></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="enf">Enfermedades:</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="enf" class="desc" name="enf" rows="13"  maxlength="200"
+                            placeholder="Ingrese enfermedades..."></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="button-form" id="crear_submit" name="crear_submit" type="submit">Crear</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
                 <span class="material-icons">
                     email
                 </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
         </div>
-    </section>
-    <div class="terminos">
-        <a href="#">Terminos y Condiciones</a>
-    </div>
-</footer>
+    </footer>
+    <script src="/static/js/codigo.js"></script>
 </body>
+
 </html>

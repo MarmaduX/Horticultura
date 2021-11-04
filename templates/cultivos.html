@@ -8,197 +8,197 @@
     <!-- Fuente del logo -->
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/imagenes/logo.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
-<header>
-    <div>
-        <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
-    </div>
-    <a class="titulo" href="/index">Horticultura Virtual</a>
-    <nav class="">
-        <a class="active" href="#">Cultivos</a>
-        {% if logged %}
-        <a class="" href="/casos/{{ userid }}">Mis Casos</a>
-        {% if rol == 1 %}
-        <a class="" href="/caso/{{ userid }}">Crear caso</a>
-        {% else %}
-        <a class="" href="/casos">Todos los casos</a>
-        {% endif %}
-        <a class="" href="/logout">Salir ({{ nickname }}) </a>
-        <a class="" href="/usuario">Perfil</a>
-        {%else%}
-        <a class="" href="/login">Ingresar</a>
-        <a class="" href="/signup">Registrarse</a>
-        {%endif%}
-    </nav>
-</header>
+    <header>
+        <div>
+            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+        </div>
+        <a class="titulo" href="/index">Horticultura Virtual</a>
+        <nav class="">
+            <a class="active" href="#">Cultivos</a>
+            {% if logged %}
+            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+            {% if rol == 1 %}
+            <a class="" href="/caso/{{ userid }}">Crear caso</a>
+            {% else %}
+            <a class="" href="/casos">Todos los casos</a>
+            {% endif %}
+            <a class="" href="/logout">Salir ({{ nickname }}) </a>
+            <a class="" href="/usuario">Perfil</a>
+            {%else%}
+            <a class="" href="/login">Ingresar</a>
+            <a class="" href="/signup">Registrarse</a>
+            {%endif%}
+        </nav>
+    </header>
 
-<section class="sector">
-    <br>
-    <h1 class="titulo2"> Conoce más acerca de los cultivos</h1>
-    <br>
-    <div class="titulocultivo">
-        <a href="/ver_cultivos">
-            <button class="button2">Ver cultivos
-            </button>
-        </a>
-    </div>
-    <br>
-    <div class=" float-left2 cultivo">
-        <a href="/cultivos/Cultivos para bebidas medicinales y aromáticas">
-            <button class="cultivo2">Cultivos para bebidas medicinales y
-                aromáticas
-            </button>
-        </a>
-        <a href="/cultivos/Cultivos para bebidas medicinales y aromáticas"> <img class="imagen_cultivos"
-                                                                                 alt="Estos son los cultivos mencionados"
-                                                                                 src="/static/imagenes/Cultivos/c. bebidas medicinales/cbma.jpg"/></a>
-    </div>
+    <section class="sector">
+        <br>
+        <h1 class="titulo2"> Conoce más acerca de los cultivos</h1>
+        <br>
+        <div class="titulocultivo">
+            <a href="/ver_cultivos">
+                <button class="button2">Ver todos los cultivos
+                </button>
+            </a>
+            <br>
+            <br>
+            {% if rol == 2 %}
+            <a href="/cultivo">
+                <button class="button2">Ingresar un cultivo
+                </button>
+            </a>
+            {% endif %}
+        </div>
 
-    <div class=" float-right2 cultivo">
-        <a href="/cultivos/Cereales">
-            <button class="cultivo2">Cereales
-            </button>
-        </a>
-        <a href="/cultivos/Cereales"> <img class="imagen_cultivos"
-                                           alt="Estos son cereales"
-                                           src="/static/imagenes/Cultivos/c. cereales/cereales.jpg"/></a>
-    </div>
+        <br>
+        <div class=" float-left2 cultivo">
+            <a href="/cultivos/Cultivos para bebidas medicinales y aromáticas">
+                <button class="cultivo2">Cultivos para bebidas medicinales y
+                    aromáticas
+                </button>
+            </a>
+            <a href="/cultivos/Cultivos para bebidas medicinales y aromáticas"> <img class="imagen_cultivos"
+                    alt="Estos son los cultivos mencionados"
+                    src="/static/imagenes/Cultivos/c. bebidas medicinales/cbma.jpg" /></a>
+        </div>
 
-    <div class="clearfix"></div>
+        <div class=" float-right2 cultivo">
+            <a href="/cultivos/Cereales">
+                <button class="cultivo2">Cereales
+                </button>
+            </a>
+            <a href="/cultivos/Cereales"> <img class="imagen_cultivos" alt="Estos son cereales"
+                    src="/static/imagenes/Cultivos/c. cereales/cereales.jpg" /></a>
+        </div>
 
-    <div class=" float-left2 cultivo">
-        <a href="/cultivos/Leguminosas">
-            <button class="cultivo2">Leguminosas
-            </button>
-        </a>
-        <a href="/cultivos/Leguminosas"> <img class="imagen_cultivos"
-                                              alt="Estos son leguminosas"
-                                              src="/static/imagenes/Cultivos/c. leguminosas/leguminosas.jpg"/></a>
-    </div>
+        <div class="clearfix"></div>
+
+        <div class=" float-left2 cultivo">
+            <a href="/cultivos/Leguminosas">
+                <button class="cultivo2">Leguminosas
+                </button>
+            </a>
+            <a href="/cultivos/Leguminosas"> <img class="imagen_cultivos" alt="Estos son leguminosas"
+                    src="/static/imagenes/Cultivos/c. leguminosas/leguminosas.jpg" /></a>
+        </div>
 
 
-    <div class=" float-right2 cultivo">
-        <a href="/cultivos/Oleaginosas">
-            <button class="cultivo2">Oleaginosas
-            </button>
-        </a>
-        <a href="/cultivos/Oleaginosas"> <img class="imagen_cultivos"
-                                              alt="Estos son cultivos oleaginosos"
-                                              src="/static/imagenes/Cultivos/c. oleaginosas/oleaginosas.jpg"/></a>
-    </div>
+        <div class=" float-right2 cultivo">
+            <a href="/cultivos/Oleaginosas">
+                <button class="cultivo2">Oleaginosas
+                </button>
+            </a>
+            <a href="/cultivos/Oleaginosas"> <img class="imagen_cultivos" alt="Estos son cultivos oleaginosos"
+                    src="/static/imagenes/Cultivos/c. oleaginosas/oleaginosas.jpg" /></a>
+        </div>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-    <div class=" float-left2 cultivo">
-        <a href="/cultivos/Hortalizas">
-            <button class="cultivo2">Hortalizas
-            </button>
-        </a>
-        <a href="/cultivos/Hortalizas"> <img class="imagen_cultivos"
-                                             alt="Estos son hortalizas"
-                                             src="/static/imagenes/Cultivos/c. hortalizas/hortalizas.jpg"/></a>
-    </div>
+        <div class=" float-left2 cultivo">
+            <a href="/cultivos/Hortalizas">
+                <button class="cultivo2">Hortalizas
+                </button>
+            </a>
+            <a href="/cultivos/Hortalizas"> <img class="imagen_cultivos" alt="Estos son hortalizas"
+                    src="/static/imagenes/Cultivos/c. hortalizas/hortalizas.jpg" /></a>
+        </div>
 
-    <div class=" float-right2 cultivo">
-        <a href="/cultivos/Cultivos frutales">
-            <button class="cultivo2">Cultivos frutales
-            </button>
-        </a>
-        <a href="/cultivos/Cultivos frutales"> <img class="imagen_cultivos"
-                                                    alt="Estos son cultivos frutales"
-                                                    src="/static/imagenes/Cultivos/c. frutales/cf.jpg"/></a>
-    </div>
+        <div class=" float-right2 cultivo">
+            <a href="/cultivos/Cultivos frutales">
+                <button class="cultivo2">Cultivos frutales
+                </button>
+            </a>
+            <a href="/cultivos/Cultivos frutales"> <img class="imagen_cultivos" alt="Estos son cultivos frutales"
+                    src="/static/imagenes/Cultivos/c. frutales/cf.jpg" /></a>
+        </div>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-    <div class=" float-left2 cultivo">
-        <a href="/cultivos/Cultivos ornamentales">
-            <button class="cultivo2">Cultivos ornamentales
-            </button>
-        </a>
-        <a href="/cultivos/Cultivos ornamentales"> <img class="imagen_cultivos"
-                                                        alt="Estos son cultivos ornamentales"
-                                                        src="/static/imagenes/Cultivos/c. ornamentales/co.jpg"/></a>
-    </div>
+        <div class=" float-left2 cultivo">
+            <a href="/cultivos/Cultivos ornamentales">
+                <button class="cultivo2">Cultivos ornamentales
+                </button>
+            </a>
+            <a href="/cultivos/Cultivos ornamentales"> <img class="imagen_cultivos"
+                    alt="Estos son cultivos ornamentales" src="/static/imagenes/Cultivos/c. ornamentales/co.jpg" /></a>
+        </div>
 
-    <div class=" float-right2 cultivo">
-        <a href="/cultivos/Pastos">
-            <button class="cultivo2">Pastos
-            </button>
-        </a>
-        <a href="/cultivos/Pastos"> <img class="imagen_cultivos"
-                                         alt="Esto es pasto"
-                                         src="/static/imagenes/Cultivos/c. pastos/pasturas.jpg"/></a>
-    </div>
+        <div class=" float-right2 cultivo">
+            <a href="/cultivos/Pastos">
+                <button class="cultivo2">Pastos
+                </button>
+            </a>
+            <a href="/cultivos/Pastos"> <img class="imagen_cultivos" alt="Esto es pasto"
+                    src="/static/imagenes/Cultivos/c. pastos/pasturas.jpg" /></a>
+        </div>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-    <div class=" float-left2 cultivo">
-        <a href="/cultivos/Cultivos alimentarios">
-            <button class="cultivo2">Cultivos alimentarios
-            </button>
-        </a>
-        <a href="/cultivos/Cultivos alimentarios"> <img class="imagen_cultivos"
-                                                        alt="Estos son cultivos alimentarios"
-                                                        src="/static/imagenes/Cultivos/c. alimentarios/ca.jpg"/></a>
-    </div>
+        <div class=" float-left2 cultivo">
+            <a href="/cultivos/Cultivos alimentarios">
+                <button class="cultivo2">Cultivos alimentarios
+                </button>
+            </a>
+            <a href="/cultivos/Cultivos alimentarios"> <img class="imagen_cultivos"
+                    alt="Estos son cultivos alimentarios" src="/static/imagenes/Cultivos/c. alimentarios/ca.jpg" /></a>
+        </div>
 
-    <div class=" float-right2 cultivo">
-        <a href="/cultivos/Cultivos para forraje">
-            <button class="cultivo2">Cultivos para forraje
-            </button>
-        </a>
-        <a href="/cultivos/Cultivos para forraje"> <img class="imagen_cultivos"
-                                                        alt="Estos son cultivos para forraje"
-                                                        src="/static/imagenes/Cultivos/c. forraje/cpf.jpg"/></a>
-    </div>
+        <div class=" float-right2 cultivo">
+            <a href="/cultivos/Cultivos para forraje">
+                <button class="cultivo2">Cultivos para forraje
+                </button>
+            </a>
+            <a href="/cultivos/Cultivos para forraje"> <img class="imagen_cultivos"
+                    alt="Estos son cultivos para forraje" src="/static/imagenes/Cultivos/c. forraje/cpf.jpg" /></a>
+        </div>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-    <div class=" float-left2 cultivo">
-        <a href="/cultivos/Cultivos textiles">
-            <button class="cultivo2">Cultivos textiles
-            </button>
-        </a>
-        <a href="/cultivos/Cultivos textiles"> <img class="imagen_cultivos"
-                                                    alt="Estos son cultivos textiles"
-                                                    src="/static/imagenes/Cultivos/c. textiles/ct.jpg"/></a>
-    </div>
+        <div class=" float-left2 cultivo">
+            <a href="/cultivos/Cultivos textiles">
+                <button class="cultivo2">Cultivos textiles
+                </button>
+            </a>
+            <a href="/cultivos/Cultivos textiles"> <img class="imagen_cultivos" alt="Estos son cultivos textiles"
+                    src="/static/imagenes/Cultivos/c. textiles/ct.jpg" /></a>
+        </div>
 
-    <div class=" float-right2 cultivo">
-        <a href="/cultivos/Cultivos industriales">
-            <button class="cultivo2">Cultivos industriales
-            </button>
-        </a>
-        <a href="/cultivos/Cultivos industriales"> <img class="imagen_cultivos"
-                                                        alt="Estos son cultivos industriales"
-                                                        src="/static/imagenes/Cultivos/c. industriales/ci.jpg"/></a>
-    </div>
+        <div class=" float-right2 cultivo">
+            <a href="/cultivos/Cultivos industriales">
+                <button class="cultivo2">Cultivos industriales
+                </button>
+            </a>
+            <a href="/cultivos/Cultivos industriales"> <img class="imagen_cultivos"
+                    alt="Estos son cultivos industriales" src="/static/imagenes/Cultivos/c. industriales/ci.jpg" /></a>
+        </div>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-</section>
-<!-- <p>
+    </section>
+    <!-- <p>
     <button id="crear_submit" name="crear_submit" type="submit>"/>
     <a href="Modificar_cultivo.html">Editar cultivos</a></button>
 </p> -->
-<footer>
-    <div class="copyright">
-        <p>Copyright 2021</p>
-    </div>
-    <section>
-        <div style="display: flex">
+    <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
                 <span class="material-icons">
                     email
                 </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
         </div>
-    </section>
-    <div class="terminos">
-        <a href="#">Terminos y Condiciones</a>
-    </div>
-</footer>
+    </footer>
 </body>
+
 </html>
