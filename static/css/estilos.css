@@ -534,6 +534,13 @@ footer .terminos{
     float: left;
 }
 
+.float-right3{
+    float: right;
+}
+.float-left3{
+    float: left;
+}
+
 
 @media screen and (max-width: 850px){
     .float-right2,.float-left2{
@@ -748,15 +755,34 @@ text-align: center;
 }
 
 .categoria1{
+margin: 20px;
+width: 90%;
+font-size: 20px;
+text-align: center;
+}
+
+.categoria2{
+font-size: 19px;
+width: 90%;
+text-align: center;
+}
+
+.categoria3{
+margin: auto;
+font-size: 20px;
+width: 95%;
+}
+
+.categoria4{
 margin: auto;
 font-size: 18px;
 width: 90%;
 }
 
-.categoria2{
-font-size: 17px;
-width: 90%;
-}
+.categoria5{
+text-align: center;
+width: 600 px;
+margin: auto;
 
 .cultivo{
 width: 40%;
