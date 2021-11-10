@@ -69,14 +69,11 @@ def crear_cultivo(nombreCientifico, tipoCultivo, foto, descripcionCultivo, plaga
 def editar_cultivo(idPlanta, nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades):
     modelo_cultivo.editar_cultivo(idPlanta, nombreCientifico, tipoCultivo, foto, descripcionCultivo, plagas, enfermedades)
 
-def listar_cultivos():
-    return modelo_cultivo.mostrar_cultivos()
+def ver_cultivos(key):
+    return modelo_cultivo.ver_cultivos(key)
 
-def ver_cultivos():
-    return modelo_cultivo.ver_cultivos()
-
-def ver_cultivo(nombre):
-    return modelo_cultivo.ver_cultivo(nombre)
+def ver_cultivos_paginado(page, key):
+    return modelo_cultivo.ver_cultivos_paginado(page, key)
 
 def mostar_cultivo(idPlanta):
     return modelo_cultivo.mostrar_cultivo(idPlanta)
@@ -84,8 +81,11 @@ def mostar_cultivo(idPlanta):
 def eliminar_cultivo(idPlanta):
     modelo_cultivo.eliminar_cultivo(idPlanta)
 
-def mostar_cultivos_filtrados(tipoCultivo):
-    return modelo_cultivo.mostrar_cultivos_filtrados(tipoCultivo)
+def mostrar_cultivos_filtrados(key, tipoCultivo):
+    return modelo_cultivo.mostrar_cultivos_por(tipoCultivo, key)
+
+def mostrar_cultivos_filtrados_paginado(page, key, tipoCultivo):
+    return modelo_cultivo.mostrar_cultivos_por_paginado(page, tipoCultivo, key)
 
 def crear_rol(tipoRol):
     modelo_rol.crear_rol(tipoRol)

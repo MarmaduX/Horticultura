@@ -392,7 +392,7 @@ def crear_cultivo():
         direccion = "../Horticultura/static/imagenes/Cultivos/" + request.form["tipo"]
         filename = secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
-        direccion = "../Horticultura/static/imagenes/Cultivos/" + request.form["tipo"] + filename
+        direccion = "../static/imagenes/Cultivos/" + request.form["tipo"] +"/"+ filename
         autenticacion.crear_cultivo(request.form['nombre'], request.form['tipo'],direccion,
                                 request.form['desc'], request.form['plag'],
                                 request.form['enf'])
@@ -435,7 +435,17 @@ def mostrar_cultivo(idPlanta):
 
 @app.route('/ver_cultivos', methods=['GET'])
 def ver_cultivos():
-    return render_template('ver_cultivos.html')
+    if 'usuario' in session:
+        logged = True
+        nickname = session['usuario'][3]
+        userid = session['usuario'][0]
+        rol = session['usuario'][5]
+    else:
+        logged = False
+        nickname = ''
+        userid = ''
+        rol = ''
+    return render_template('ver_cultivos.html', logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 
 @app.route('/cultivos/eliminar_cultivo', methods=['DELETE'])
@@ -444,14 +454,75 @@ def eliminar_cultivo(idPlanta):
 
 
 @app.route('/cultivos/lista', methods=['GET'])
-def mostar_cultivos(tipoCultivo):
-    lista = autenticacion.mostar_cultivos_filtrados(tipoCultivo)
-    return jsonify(lista), 200
+def mostar_cultivos():
+    if 'usuario' in session:
+        logged = True
+        nickname = session['usuario'][3]
+        userid = session['usuario'][0]
+        rol = session['usuario'][5]
+    else:
+        logged = False
+        nickname = ''
+        userid = ''
+        rol = ''
+    page = request.args.get('page')
+    if not page or int(page) == 0:
+        page = 1
+    if request.args.get('keyword') == None:
+        keyword = ""
+    else:
+        keyword = request.args.get('keyword')
+    lista = autenticacion.ver_cultivos(keyword)
+    cantidad = len(lista)
+    cantidad = math.ceil(cantidad / 10)
+    if int(page) > cantidad:
+        page = cantidad
+    page_range = range(int(page) - 2, int(page) + 3)
+    if int(page) + 3 > cantidad:
+        page_range = range(int(page) - 3, cantidad + 1)
+    if int(page) < 4:
+        if cantidad < 5:
+            page_range = range(1, cantidad + 1)
+        else:
+            page_range = range(1, cantidad + 1)
+    lista = autenticacion.ver_cultivos_paginado(int(page), keyword)
+    return render_template('mostrar_cultivos_filtrados.html', palabra=keyword, usuario=session["usuario"], cultivos=lista, page=int(page), prange=page_range, tipo="Cultivos", logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 @app.route('/cultivos/lista/<tipoCultivo>', methods=['GET'])
 def mostar_cultivos_filtrados(tipoCultivo):
-    lista = autenticacion.mostar_cultivos_filtrados(tipoCultivo)
-    return jsonify(lista), 200
+    if 'usuario' in session:
+        logged = True
+        nickname = session['usuario'][3]
+        userid = session['usuario'][0]
+        rol = session['usuario'][5]
+    else:
+        logged = False
+        nickname = ''
+        userid = ''
+        rol = ''
+    page = request.args.get('page')
+    if not page or int(page) == 0:
+        page = 1
+    if request.args.get('keyword') == None:
+        keyword = ""
+    else:
+        keyword = request.args.get('keyword')
+    lista = autenticacion.mostrar_cultivos_filtrados(keyword, tipoCultivo)
+    cantidad = len(lista)
+    cantidad = math.ceil(cantidad / 10)
+    if int(page) > cantidad:
+        page = cantidad
+    page_range = range(int(page) - 2, int(page) + 3)
+    if int(page) + 3 > cantidad:
+        page_range = range(int(page) - 3, cantidad + 1)
+    if int(page) < 4:
+        if cantidad < 5:
+            page_range = range(1, cantidad + 1)
+        else:
+            page_range = range(1, cantidad + 1)
+    lista = autenticacion.mostrar_cultivos_filtrados_paginado(int(page), keyword, tipoCultivo)
+    return render_template('mostrar_cultivos_filtrados.html',palabra=keyword, usuario=session["usuario"], cultivos=lista,
+                            page=int(page), prange=page_range, tipo=tipoCultivo, logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
