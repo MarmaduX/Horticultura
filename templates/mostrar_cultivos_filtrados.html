@@ -13,72 +13,82 @@
 </head>
 
 <body>
-<header>
-    <div>
-        <a href="/index"><img class="logo" src="/static/imagenes/logo.png"></a>
-    </div>
-    <a class="titulo" href="/index">Horticultura Virtual</a>
-    <nav>
-        <a class="" href="/index">Cultivos</a>
-        <a class="" href="/cultivos">Ver cultivos</a>
-        <a class="active" href="#">Mostrar cultivos por categoría</a>
-        <a class="" href="/logout">Salir ({{ usuario[3] }})</a>
-    </nav>
-</header>
-<section class="sector">
-    <div class="search">
-        <form action="/casos/tipo/{{tipo}}">
-            <div class="inputsr">
-                <div class="col-80">
-                    <input type="text" class="form-control" value="{{Nombre del cultivo}}" name="keyword"
-                           placeholder="Nombre del cultivo...">
-                </div>
-                <div class="col-20">
-                    <button class="btnsearch" type="submit"><span class="material-icons">
+    <header>
+        <div>
+            <a href="/cultivos"><img class="logo" src="/static/imagenes/logo.png"></a>
+        </div>
+        <a class="titulo" href="/cultivos">Horticultura Virtual</a>
+        <nav>
+            <a class="active" href="/cultivos">Cultivos</a>
+            {% if logged %}
+            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+            {% if rol == 1 %}
+            <a class="" href="/caso/{{ userid }}">Crear caso</a>
+            {% else %}
+            <a class="" href="/casos">Todos los casos</a>
+            {% endif %}
+            <a class="" href="/logout">Salir ({{ nickname }}) </a>
+            <a class="" href="/usuario">Perfil</a>
+            {%else%}
+            <a class="" href="/login">Ingresar</a>
+            <a class="" href="/signup">Registrarse</a>
+            {%endif%}
+        </nav>
+    </header>
+    <section class="sector">
+        <div class="search">
+            <form action="/casos/tipo/{{tipo}}">
+                <div class="inputsr">
+                    <div class="col-80">
+                        <input type="text" class="form-control" value="{{Nombre del cultivo}}" name="keyword"
+                            placeholder="Nombre del cultivo...">
+                    </div>
+                    <div class="col-20">
+                        <button class="btnsearch" type="submit"><span class="material-icons">
                                 search
                             </span></button>
+                    </div>
                 </div>
+            </form>
+            <div id="header">
+                <ul class="nav">
+                    <li>Mostrar cultivo por
+                        <ul class="lista">
+                            <li><a href="/casos/tipo/Cereales">Cereales</a></li>
+                            <li><a href="/casos/tipo/Leguminosas">Leguminosas</a></li>
+                            <li><a href="/casos/tipo/Oleaginosas">Oleaginosas</a></li>
+                            <li><a href="/casos/tipo/Hortalizas">Hortalizas</a></li>
+                            <li><a href="/casos/tipo/Frutales">Frutales</a></li>
+                            <li><a href="/casos/tipo/Ornamentales">Ornamentales</a></li>
+                            <li><a href="/casos/tipo/Raíces+y+tubérculos">Raíces y tubérculos</a></li>
+                            <li><a href="/casos/tipo/Cultivos+para+bebidas+medicinales+y+aromáticas">Cultivos para
+                                    bebidas medicinales y aromáticas</a></li>
+                            <li><a href="/casos/tipo/Cultivos+tropicales+tradicionales">Cultivos tropicales
+                                    tradicionales</a></li>
+                            <li><a href="/casos/tipo/Pastos">Pastos</a></li>
+                            <li><a href="/casos/tipo/Otro">Otro</a></li>
+                            <li><a href="/casos">Ninguno</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-        </form>
-        <div id="header">
-            <ul class="nav">
-                <li>Mostrar cultivo por
-                    <ul class="lista">
-                        <li><a href="/casos/tipo/Cereales">Cereales</a></li>
-                        <li><a href="/casos/tipo/Leguminosas">Leguminosas</a></li>
-                        <li><a href="/casos/tipo/Oleaginosas">Oleaginosas</a></li>
-                        <li><a href="/casos/tipo/Hortalizas">Hortalizas</a></li>
-                        <li><a href="/casos/tipo/Frutales">Frutales</a></li>
-                        <li><a href="/casos/tipo/Ornamentales">Ornamentales</a></li>
-                        <li><a href="/casos/tipo/Raíces+y+tubérculos">Raíces y tubérculos</a></li>
-                        <li><a href="/casos/tipo/Cultivos+para+bebidas+medicinales+y+aromáticas">Cultivos para
-                            bebidas medicinales y aromáticas</a></li>
-                        <li><a href="/casos/tipo/Cultivos+tropicales+tradicionales">Cultivos tropicales
-                            tradicionales</a></li>
-                        <li><a href="/casos/tipo/Pastos">Pastos</a></li>
-                        <li><a href="/casos/tipo/Otro">Otro</a></li>
-                        <li><a href="/casos">Ninguno</a></li>
-                    </ul>
-                </li>
-            </ul>
         </div>
-    </div>
-</section>
-<footer>
-    <div class="copyright">
-        <p>Copyright 2021</p>
-    </div>
-    <section>
-        <div style="display: flex">
+    </section>
+    <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
                 <span class="material-icons">
                     email
                 </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
         </div>
-    </section>
-    <div class="terminos">
-        <a href="#">Terminos y Condiciones</a>
-    </div>
-</footer>
+    </footer>
 
 </body>
 

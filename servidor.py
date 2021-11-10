@@ -396,7 +396,7 @@ def crear_cultivo():
         autenticacion.crear_cultivo(request.form['nombre'], request.form['tipo'],direccion,
                                 request.form['desc'], request.form['plag'],
                                 request.form['enf'])
-        # return redirect(url_for('ver_cultivos'))
+        return redirect(url_for('ver_cultivos'))
     return render_template("crear_cultivo.html", nickname=session["usuario"][3], userid=session["usuario"][0], rol=2)
 
 
@@ -412,7 +412,7 @@ def editar_cultivo(idPlanta):
 
 @app.route('/')
 @app.route('/index')
-@app.route('/cultivos', methods=['GET', "POST"])
+@app.route('/cultivos', methods=['GET'])
 def listar_cultivos():
     if 'usuario' in session:
         logged = True
@@ -443,7 +443,12 @@ def eliminar_cultivo(idPlanta):
     return render_template('eliminar_cultivo.html')
 
 
-@app.route('/cultivo/<tipoCultivo>', methods=['GET'])
+@app.route('/cultivos/lista', methods=['GET'])
+def mostar_cultivos(tipoCultivo):
+    lista = autenticacion.mostar_cultivos_filtrados(tipoCultivo)
+    return jsonify(lista), 200
+
+@app.route('/cultivos/lista/<tipoCultivo>', methods=['GET'])
 def mostar_cultivos_filtrados(tipoCultivo):
     lista = autenticacion.mostar_cultivos_filtrados(tipoCultivo)
     return jsonify(lista), 200

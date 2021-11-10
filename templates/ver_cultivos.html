@@ -16,18 +16,27 @@
 <body>
 <header>
     <div>
-        <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+        <a href="/cultivos"><img class="logo" src="/static/imagenes/logo.png"></a>
     </div>
-    <a class="titulo" href="/index">Horticultura Virtual</a>
-    <nav class="">
-        <a class="active" href="#">Inicio</a>
-        <a class="" href="">Ingresar</a>
+    <a class="titulo" href="/cultivos">Horticultura Virtual</a>
+    <nav>
+        <a class="active" href="/cultivos">Cultivos</a>
+        {% if logged %}
+        <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+        {% if rol == 1 %}
+        <a class="" href="/caso/{{ userid }}">Crear caso</a>
+        {% else %}
+        <a class="" href="/casos">Todos los casos</a>
+        {% endif %}
+        <a class="" href="/logout">Salir ({{ nickname }}) </a>
+        <a class="" href="/usuario">Perfil</a>
+        {%else%}
+        <a class="" href="/login">Ingresar</a>
         <a class="" href="/signup">Registrarse</a>
+        {%endif%}
     </nav>
 </header>
 <section class="sector">
-    <br>
-    <tittle>BIENVENIDOS A HORTICULTURA VIRTUAL</tittle>
     <br>
     <h2 class="titulo3"> CATÁLOGO DE CULTIVOS</h2>
     <br>
