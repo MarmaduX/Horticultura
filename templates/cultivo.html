@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Horticultura</title>
+    <link href="{{ url_for('static', filename='/css/estilos.css') }}" rel="stylesheet" type="text/css">
+    <!-- Fuente del logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/imagenes/logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body onload="set_date()">
+    <header>
+        <div>
+            <a href="/cultivos"><img class="logo" src="/static/imagenes/logo.png"></a>
+        </div>
+        <a class="titulo" href="/cultivos">Horticultura Virtual</a>
+        <nav>
+            {% if logged %}
+            <a class="" href="/cultivos">Cultivos</a>
+            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+            {% if rol == 1 %}
+            <a class="" href="/caso/{{ userid }}">Crear caso</a>
+            {% else %}
+            <a class="" href="/casos">Todos los casos</a>
+            {% endif %}
+            <a class="" href="/logout">Salir ({{ nickname }})</a>
+            <a class="" href="/usuario">Perfil</a>
+            {% else %}
+            <a class="" href="/cultivos">Cultivos</a>
+            <a class="active" href="#">Ingresar</a>
+            <a class="" href="/signup">Registrarse</a>
+            {% endif %}
+        </nav>
+    </header>
+    <section class="prueba-modal">
+        <div class="marco">
+            <h2 class="titulo-casos">{{cultivo[1]}}</h2>
+            <hr>
+            <br>
+            <div class="contenedor-right float-right">
+                <p class="flotante-left">Tipo de planta:</p><span class="info">{{cultivo[2]}}</span>
+                <br>
+                <br>
+                <p class="">Descripcion: <span class="info">{{cultivo[4]}}</span></p>
+            </div>
+            <div class="contenedor-left float-left">
+                <img id="imagen-caso" class="imagen-casos" src="{{cultivo[3]}}" />
+            </div>
+            <button id="boton1" class="alternador button">Ver Foto</button>
+            <div class="clearfix"></div>
+            <div class="abajo">
+                {% if rol == 2 %}
+                <form action="/modificar_caso/{{ idcaso }}" method="get">
+                    <button class="float-right2 button" type="submit">Editar
+                        cultivo</button>
+                </form>
+                <a onClick='addIcs();'></a>
+                <button class="button cta float-left2" type="submit">Eliminar cultivo</button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+    <br>
+    <section>
+        <div class="cuerpo">
+            <h2 class="titulo-casos">Posibles Paglas</h2>
+            {% if cultivo[5]=="" %}
+            <p>Aun no se han ingresado datos.</p>
+            {% else %}
+            <p class="">{{cultivo[5]}}</p>
+            {% endif %}
+        </div>
+        <br>
+        <div class="cuerpo">
+            <h2 class="titulo-casos">Enfermedades frecuentes</h2>
+            {% if cultivo[6]=="" %}
+            <p>Aun no se han ingresado datos.</p>
+            {% else %}
+            <p class="">{{cultivo[6]}}</p>
+            {% endif %}
+        </div>
+    </section>
+    <div class="modal-container">
+        <div class="modal modal-close">
+            <div class="modal-textos">
+                <div>
+                    <h2>¿Seguro que quieres eliminar este caso?</h2>
+                    <p>Se borrara permanentemente</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="abajo">
+                <button class="button float-right2" onclick="borrar_caso('', '')">Eliminar</button>
+                <button class="button float-left2 close">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="copyright">
+            <p>Copyright 2021</p>
+        </div>
+        <section>
+            <div style="display: flex">
+                <span class="material-icons">
+                    email
+                </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
+            </div>
+        </section>
+        <div class="terminos">
+            <a href="#">Terminos y Condiciones</a>
+        </div>
+    </footer>
+    <script src="/static/js/codigo.js"></script>
+</body>
+
+</html>

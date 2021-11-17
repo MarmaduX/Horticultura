@@ -429,8 +429,19 @@ def listar_cultivos():
 
 @app.route('/cultivos/<idPlanta>', methods=['GET'])
 def mostrar_cultivo(idPlanta):
+    if 'usuario' in session:
+        logged = True
+        nickname = session['usuario'][3]
+        userid = session['usuario'][0]
+        rol = session['usuario'][5]
+    else:
+        logged = False
+        nickname = ''
+        userid = ''
+        rol = ''
     lista = autenticacion.mostar_cultivo(idPlanta)
-    return jsonify(lista), 200
+    lista = lista[0]
+    return render_template("cultivo.html", cultivo = lista, nickname=nickname, userid=userid, rol=rol)
 
 
 @app.route('/ver_cultivos', methods=['GET'])
@@ -486,7 +497,7 @@ def mostar_cultivos():
         else:
             page_range = range(1, cantidad + 1)
     lista = autenticacion.ver_cultivos_paginado(int(page), keyword)
-    return render_template('mostrar_cultivos_filtrados.html', palabra=keyword, usuario=session["usuario"], cultivos=lista, page=int(page), prange=page_range, tipo="Cultivos", logged=logged, nickname=nickname, userid=userid, rol=rol)
+    return render_template('mostrar_cultivos_filtrados.html', palabra=keyword, cultivos=lista, page=int(page), prange=page_range, tipo="Cultivos", logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 @app.route('/cultivos/lista/<tipoCultivo>', methods=['GET'])
 def mostar_cultivos_filtrados(tipoCultivo):
@@ -521,7 +532,7 @@ def mostar_cultivos_filtrados(tipoCultivo):
         else:
             page_range = range(1, cantidad + 1)
     lista = autenticacion.mostrar_cultivos_filtrados_paginado(int(page), keyword, tipoCultivo)
-    return render_template('mostrar_cultivos_filtrados.html',palabra=keyword, usuario=session["usuario"], cultivos=lista,
+    return render_template('mostrar_cultivos_filtrados.html',palabra=keyword, cultivos=lista,
                             page=int(page), prange=page_range, tipo=tipoCultivo, logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 
