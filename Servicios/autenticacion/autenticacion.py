@@ -78,6 +78,9 @@ def ver_cultivos_paginado(page, key):
 def mostar_cultivo(idPlanta):
     return modelo_cultivo.mostrar_cultivo(idPlanta)
 
+def ver_cultivos_por_id(idPlanta):
+    return modelo_cultivo.ver_cultivos_por_id(idPlanta)
+
 def eliminar_cultivo(idPlanta):
     modelo_cultivo.eliminar_cultivo(idPlanta)
 

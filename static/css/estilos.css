@@ -270,6 +270,24 @@ footer .terminos{
     border:none;
 }
 
+.button3 {
+    margin: 10px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: #4CAF50;
+    border:none;
+    font-weight: bold;
+}
+.button4 {
+    margin: 10px;
+    padding: 12px 20px;
+    border-radius: 5px;
+    color: black;
+    background-color: #4CAF50;
+    border:none;
+}
+
 .button:hover{
     background-color: #45a049;
 }
@@ -741,11 +759,14 @@ text-align: center;
 
 .categoria2{
 font-size: 19px;
+font-weight: bold;
 width: 90%;
 text-align: center;
 }
 
 .categoria3{
+font-weight: bold;
+color: darkgreen;
 margin: auto;
 font-size: 20px;
 width: 95%;

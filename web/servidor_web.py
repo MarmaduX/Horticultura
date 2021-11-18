@@ -97,6 +97,16 @@ def cultivos():
             return redirect(url_for('cultivos'))
     return render_template('cultivos.html', error=error)
 
+@app.route ('/ver_cultivos_por_id', methods=['GET'])
+def cultivos(idPlanta):
+    error = None
+    if request.method == 'GET':
+        if not autenticacion.ver_cultivos_por_id(request.form['cultivos']):
+            error = 'No se pudo mostrar el cultivo'
+        else:
+            return redirect(url_for('cultivos'))
+    return render_template('cultivos.html', error=error)
+
 
 @app.route('/cultivos/eliminar_cultivo', methods=['DELETE'])
 def cultivos(idPlanta):

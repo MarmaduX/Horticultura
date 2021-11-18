@@ -463,7 +463,6 @@ def ver_cultivos():
 def eliminar_cultivo(idPlanta):
     return render_template('eliminar_cultivo.html')
 
-
 @app.route('/cultivos/lista', methods=['GET'])
 def mostar_cultivos():
     if 'usuario' in session:
@@ -535,6 +534,9 @@ def mostar_cultivos_filtrados(tipoCultivo):
     return render_template('mostrar_cultivos_filtrados.html',palabra=keyword, cultivos=lista,
                             page=int(page), prange=page_range, tipo=tipoCultivo, logged=logged, nickname=nickname, userid=userid, rol=rol)
 
+@app.route('/ver_cultivos_por_id', methods=['GET'])
+def ver_cultivos_por_id():
+    return render_template('ver_cultivos_por_id.html')
 
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
