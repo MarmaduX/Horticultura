@@ -19,7 +19,7 @@
         <a class="titulo" href="/cultivos">Horticultura Virtual</a>
         <nav>
             {% if logged %}
-            <a class="" href="/cultivos">Cultivos</a>
+            <a class="active" href="/cultivos">Cultivos</a>
             <a class="" href="/casos/{{ userid }}">Mis Casos</a>
             {% if rol == 1 %}
             <a class="" href="/caso/{{ userid }}">Crear caso</a>
@@ -29,8 +29,8 @@
             <a class="" href="/logout">Salir ({{ nickname }})</a>
             <a class="" href="/usuario">Perfil</a>
             {% else %}
-            <a class="" href="/cultivos">Cultivos</a>
-            <a class="active" href="#">Ingresar</a>
+            <a class="active" href="/cultivos">Cultivos</a>
+            <a class="" href="/login">Ingresar</a>
             <a class="" href="/signup">Registrarse</a>
             {% endif %}
         </nav>
@@ -66,8 +66,9 @@
     </section>
     <br>
     <section>
-        <div class="cuerpo">
+        <div class="cuerpo espacio">
             <h2 class="titulo-casos">Posibles Paglas</h2>
+            <br>
             {% if cultivo[5]=="" %}
             <p>Aun no se han ingresado datos.</p>
             {% else %}
@@ -75,8 +76,9 @@
             {% endif %}
         </div>
         <br>
-        <div class="cuerpo">
+        <div class="cuerpo espacio">
             <h2 class="titulo-casos">Enfermedades frecuentes</h2>
+            <br>
             {% if cultivo[6]=="" %}
             <p>Aun no se han ingresado datos.</p>
             {% else %}

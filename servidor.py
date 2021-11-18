@@ -441,7 +441,7 @@ def mostrar_cultivo(idPlanta):
         rol = ''
     lista = autenticacion.mostar_cultivo(idPlanta)
     lista = lista[0]
-    return render_template("cultivo.html", cultivo = lista, nickname=nickname, userid=userid, rol=rol)
+    return render_template("cultivo.html", logged=logged, cultivo = lista, nickname=nickname, userid=userid, rol=rol)
 
 
 @app.route('/ver_cultivos', methods=['GET'])

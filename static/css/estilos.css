@@ -837,3 +837,7 @@ margin: auto;
 width: 90%;
 text-align: center;
 }
+
+.espacio{
+    min-height:15vh;
+}
