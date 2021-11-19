@@ -53,15 +53,6 @@ def mostrar_cultivo(idPlanta):
     devolver = bd.ejecutar_sql(mostrar_cultivo_sql)
     return devolver
 
-def ver_cultivos_por_id(idPlanta):
-    ver_cultivos_por_id_sql = f"""
-SELECT * FROM Cultivo WHERE idPlanta='{idPlanta}'
-"""
-    bd = BaseDeDatos()
-    devolver = []
-    devolver = bd.ejecutar_sql(ver_cultivos_por_id_sql)
-    return devolver
-
 def eliminar_cultivo(idPlanta):
     eliminar_cultivo_sql = f"""
         DELETE FROM Cultivo WHERE idPlanta='{idPlanta}'

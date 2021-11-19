@@ -13,192 +13,238 @@
 </head>
 
 <body>
-    <header>
-        <div>
-            <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
-        </div>
-        <a class="titulo" href="/index">Horticultura Virtual</a>
-        <nav class="">
-            <a class="active" href="#">Cultivos</a>
-            {% if logged %}
-            <a class="" href="/casos/{{ userid }}">Mis Casos</a>
-            {% if rol == 1 %}
-            <a class="" href="/caso/{{ userid }}">Crear caso</a>
-            {% else %}
-            <a class="" href="/casos">Todos los casos</a>
-            {% endif %}
-            <a class="" href="/logout">Salir ({{ nickname }}) </a>
-            <a class="" href="/usuario">Perfil</a>
-            {%else%}
-            <a class="" href="/login">Ingresar</a>
-            <a class="" href="/signup">Registrarse</a>
-            {%endif%}
-        </nav>
-    </header>
+<header>
+    <div>
+        <a href="/index"><img class="logo" src="../static/imagenes/logo.png"></a>
+    </div>
+    <a class="titulo" href="/index">Horticultura Virtual</a>
+    <nav class="">
+        <a class="active" href="#">Cultivos</a>
+        {% if logged %}
+        <a class="" href="/casos/{{ userid }}">Mis Casos</a>
+        {% if rol == 1 %}
+        <a class="" href="/caso/{{ userid }}">Crear caso</a>
+        {% else %}
+        <a class="" href="/casos">Todos los casos</a>
+        {% endif %}
+        <a class="" href="/logout">Salir ({{ nickname }}) </a>
+        <a class="" href="/usuario">Perfil</a>
+        {%else%}
+        <a class="" href="/login">Ingresar</a>
+        <a class="" href="/signup">Registrarse</a>
+        {%endif%}
+    </nav>
+</header>
 
-    <section class="sector">
+<section class="sector">
+    <br>
+    <h1 class="titulo2"> Conoce más acerca de los cultivos</h1>
+    <br>
+    <div class="titulocultivo">
+        <a href="/ver_cultivos">
+            <button class="button2">Ver todos los cultivos
+            </button>
+        </a>
         <br>
-        <h1 class="titulo2"> Conoce más acerca de los cultivos</h1>
         <br>
-        <div class="titulocultivo">
-            <a href="/ver_cultivos">
-                <button class="button2">Ver todos los cultivos
-                </button>
-            </a>
-            <br>
-            <br>
-            {% if rol == 2 %}
-            <a href="/cultivo">
-                <button class="button2">Ingresar un cultivo
-                </button>
-            </a>
-            {% endif %}
-        </div>
+        {% if rol == 2 %}
+        <a href="/cultivo">
+            <button class="button2">Ingresar un cultivo
+            </button>
+        </a>
+        {% endif %}
+    </div>
 
-        <br>
-        <div class=" float-left2 cultivo">
-            <a href="/cultivos/lista/Cultivos para bebidas medicinales y aromáticas">
-                <button class="cultivo2">Cultivos para bebidas medicinales y
-                    aromáticas
-                </button>
-            </a>
-            <a href="/cultivos/lista/Cultivos para bebidas medicinales y aromáticas"> <img class="imagen_cultivos"
-                    alt="Estos son los cultivos mencionados"
-                    src="/static/imagenes/Cultivos/c. bebidas medicinales/cbma.jpg" /></a>
-        </div>
+    <br>
+    <div class=" float-left2 cultivo">
+        <a href="/cultivos/lista/Cultivos para bebidas medicinales y aromáticas">
+            <button class="cultivo2">Cultivos para bebidas medicinales y
+                aromáticas
+            </button>
+        </a>
+        <a href="/cultivos/lista/Cultivos para bebidas medicinales y aromáticas"> <img class="imagen_cultivos"
+                                                                                       alt="Estos son los cultivos mencionados"
+                                                                                       src="/static/imagenes/Cultivos/c. bebidas medicinales/cbma.jpg"/></a>
+        <p class="categoria2">
+            Son determinados tipos de plantas que son indispensables para la creación de
+            preparados medicinales u otros tipos como preparados aromatizantes.</p>
+    </div>
 
-        <div class=" float-right2 cultivo">
-            <a href="/cultivos/lista/Cereales">
-                <button class="cultivo2">Cereales
-                </button>
-            </a>
-            <a href="/cultivos/lista/Cereales"> <img class="imagen_cultivos" alt="Estos son cereales"
-                    src="/static/imagenes/Cultivos/c. cereales/cereales.jpg" /></a>
-        </div>
+    <div class=" float-right2 cultivo">
+        <a href="/cultivos/lista/Cereales">
+            <button class="cultivo2">Cereales
+            </button>
+        </a>
+        <a href="/cultivos/lista/Cereales"> <img class="imagen_cultivos" alt="Estos son cereales"
+                                                 src="/static/imagenes/Cultivos/c. cereales/cereales.jpg"/></a>
+        <p class="categoria2">
+            Los cereales son un producto manufacturado que se elabora con semillas, las cuales
+            generalmente están enriquecidas con vitaminas y otras sustancias nutritivas.
+            Este tipo de cultivos se recoge únicamente para obtener granos secos.</p>
+    </div>
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-        <div class=" float-left2 cultivo">
-            <a href="/cultivos/lista/Leguminosas">
-                <button class="cultivo2">Leguminosas
-                </button>
-            </a>
-            <a href="/cultivos/lista/Leguminosas"> <img class="imagen_cultivos" alt="Estos son leguminosas"
-                    src="/static/imagenes/Cultivos/c. leguminosas/leguminosas.jpg" /></a>
-        </div>
+    <div class=" float-left2 cultivo">
+        <a href="/cultivos/lista/Leguminosas">
+            <button class="cultivo2">Leguminosas
+            </button>
+        </a>
+        <a href="/cultivos/lista/Leguminosas"> <img class="imagen_cultivos" alt="Estos son leguminosas"
+                                                    src="/static/imagenes/Cultivos/c. leguminosas/leguminosas.jpg"/></a>
+        <p class="categoria2">Las leguminosas o también llamadas fabáceas, son una familia del orden de los fabales.
+            Este cultivo reúne
+            árboles, arbustos y hierbas perennes o anuales, fácilmente reconocibles por su fruto tipo legumbre y sus
+            hojas compuestas y estipuladas.</p>
+    </div>
 
 
-        <div class=" float-right2 cultivo">
-            <a href="/cultivos/lista/Oleaginosas">
-                <button class="cultivo2">Oleaginosas
-                </button>
-            </a>
-            <a href="/cultivos/lista/Oleaginosas"> <img class="imagen_cultivos" alt="Estos son cultivos oleaginosos"
-                    src="/static/imagenes/Cultivos/c. oleaginosas/oleaginosas.jpg" /></a>
-        </div>
+    <div class=" float-right2 cultivo">
+        <a href="/cultivos/lista/Oleaginosas">
+            <button class="cultivo2">Oleaginosas
+            </button>
+        </a>
+        <a href="/cultivos/lista/Oleaginosas"> <img class="imagen_cultivos" alt="Estos son cultivos oleaginosos"
+                                                    src="/static/imagenes/Cultivos/c. oleaginosas/oleaginosas.jpg"/></a>
+        <p class="categoria2">
+            Son los cultivos que incluyen plantas tanto anuales (llamadas
+            semillas oleaginosas) y perennes, cuyas semillas, frutas o mesocarpios y nueces son valoradas principalmente
+            por el aceite comestible que se puede extraer de ellas. En la imagen podemos ver una plantación de semillas
+            oleaginosas de mostaza.</p>
+    </div>
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-        <div class=" float-left2 cultivo">
-            <a href="/cultivos/lista/Hortalizas">
-                <button class="cultivo2">Hortalizas
-                </button>
-            </a>
-            <a href="/cultivos/lista/Hortalizas"> <img class="imagen_cultivos" alt="Estos son hortalizas"
-                    src="/static/imagenes/Cultivos/c. hortalizas/hortalizas.jpg" /></a>
-        </div>
+    <div class=" float-left2 cultivo">
+        <a href="/cultivos/lista/Hortalizas">
+            <button class="cultivo2">Hortalizas
+            </button>
+        </a>
+        <a href="/cultivos/lista/Hortalizas"> <img class="imagen_cultivos" alt="Estos son hortalizas"
+                                                   src="/static/imagenes/Cultivos/c. hortalizas/hortalizas.jpg"/></a>
+        <p class="categoria2">
+            Las hortalizas son un conjunto de plantas cultivadas generalmente en huertos o regadíos, que se consumen
+            como
+            alimento, ya sea de forma cruda o preparadas culinariamente, y que incluye las verduras y las legumbres.
+            Las
+            hortalizas no incluyen a las frutas ni a los cereales.</p>
+    </div>
 
-        <div class=" float-right2 cultivo">
-            <a href="/cultivos/lista/Frutales">
-                <button class="cultivo2">Frutales
-                </button>
-            </a>
-            <a href="/cultivos/lista/Frutales"> <img class="imagen_cultivos" alt="Estos son cultivos frutales"
-                    src="/static/imagenes/Cultivos/c. frutales/cf.jpg" /></a>
-        </div>
+    <div class=" float-right2 cultivo">
+        <a href="/cultivos/lista/Frutales">
+            <button class="cultivo2">Frutales
+            </button>
+        </a>
+        <a href="/cultivos/lista/Frutales"> <img class="imagen_cultivos" alt="Estos son cultivos frutales"
+                                                 src="/static/imagenes/Cultivos/c. frutales/cf.jpg"/></a>
+        <p class="categoria2">
+            Un árbol frutal es cualquier árbol productor de frutas, cuyas estructuras formadas por el
+            óvulo maduro de una flor, contiene una o más semillas. Esta designación incluye también a los árboles
+            que
+            producen núculas (nueces), los llamados frutos secos.</p>
+    </div>
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-        <div class=" float-left2 cultivo">
-            <a href="/cultivos/lista/Ornamentales">
-                <button class="cultivo2">Ornamentales
-                </button>
-            </a>
-            <a href="/cultivos/lista/Ornamentales"> <img class="imagen_cultivos"
-                    alt="Estos son cultivos ornamentales" src="/static/imagenes/Cultivos/c. ornamentales/co.jpg" /></a>
-        </div>
+    <div class=" float-left2 cultivo">
+        <a href="/cultivos/lista/Ornamentales">
+            <button class="cultivo2">Ornamentales
+            </button>
+        </a>
+        <a href="/cultivos/lista/Ornamentales"> <img class="imagen_cultivos"
+                                                     alt="Estos son cultivos ornamentales"
+                                                     src="/static/imagenes/Cultivos/c. ornamentales/co.jpg"/></a>
+        <p class="categoria2">
+            Son aquellas plantas que
+            se
+            cultivan y se
+            comercializan con fines decorativos y también son comercializadas por otras de sus características
+            estpéticas, ya sea
+            por
+            sus hojas,
+            flores, perfume, la peculiaridad de su follaje, frutos o tallos en jardines y diseños
+            paisajísticos,
+            como planta de interior o para flor cortada. Su cultivo, llamado floricultura, forma una
+            parte fundamental
+            de la
+            horticultura.</p>
+    </div>
 
-        <div class=" float-right2 cultivo">
-            <a href="/cultivos/lista/Pastos">
-                <button class="cultivo2">Pastos
-                </button>
-            </a>
-            <a href="/cultivos/lista/Pastos"> <img class="imagen_cultivos" alt="Esto es pasto"
-                    src="/static/imagenes/Cultivos/c. pastos/pasturas.jpg" /></a>
-        </div>
+    <div class=" float-right2 cultivo">
+        <a href="/cultivos/lista/Pastos">
+            <button class="cultivo2">Pastos
+            </button>
+        </a>
+        <a href="/cultivos/lista/Pastos"> <img class="imagen_cultivos" alt="Esto es pasto"
+                                               src="/static/imagenes/Cultivos/c. pastos/pasturas.jpg"/></a>
+        <p class="categoria2">
+            Las pasturas son cualquier cosa que sirve para el sustento de los animales, especialmente la hierba que el
+            ganado
+            come en el mismo terreno donde se cría.</p>
+    </div>
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-        <!-- <div class=" float-left2 cultivo">
-            <a href="/cultivos/lista/Cultivos alimentarios">
-                <button class="cultivo2">Cultivos alimentarios
-                </button>
-            </a>
-            <a href="/cultivos/lista/Cultivos alimentarios"> <img class="imagen_cultivos"
-                    alt="Estos son cultivos alimentarios" src="/static/imagenes/Cultivos/c. alimentarios/ca.jpg" /></a>
-        </div>
+    <!-- <div class=" float-left2 cultivo">
+        <a href="/cultivos/lista/Cultivos alimentarios">
+            <button class="cultivo2">Cultivos alimentarios
+            </button>
+        </a>
+        <a href="/cultivos/lista/Cultivos alimentarios"> <img class="imagen_cultivos"
+                alt="Estos son cultivos alimentarios" src="/static/imagenes/Cultivos/c. alimentarios/ca.jpg" /></a>
+    </div>
 
-        <div class=" float-right2 cultivo">
-            <a href="/cultivos/lista/Cultivos para forraje">
-                <button class="cultivo2">Cultivos para forraje
-                </button>
-            </a>
-            <a href="/cultivos/lista/Cultivos para forraje"> <img class="imagen_cultivos"
-                    alt="Estos son cultivos para forraje" src="/static/imagenes/Cultivos/c. forraje/cpf.jpg" /></a>
-        </div>
+    <div class=" float-right2 cultivo">
+        <a href="/cultivos/lista/Cultivos para forraje">
+            <button class="cultivo2">Cultivos para forraje
+            </button>
+        </a>
+        <a href="/cultivos/lista/Cultivos para forraje"> <img class="imagen_cultivos"
+                alt="Estos son cultivos para forraje" src="/static/imagenes/Cultivos/c. forraje/cpf.jpg" /></a>
+    </div>
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-        <div class=" float-left2 cultivo">
-            <a href="/cultivos/lista/Cultivos textiles">
-                <button class="cultivo2">Cultivos textiles
-                </button>
-            </a>
-            <a href="/cultivos/lista/Cultivos textiles"> <img class="imagen_cultivos" alt="Estos son cultivos textiles"
-                    src="/static/imagenes/Cultivos/c. textiles/ct.jpg" /></a>
-        </div>
+    <div class=" float-left2 cultivo">
+        <a href="/cultivos/lista/Cultivos textiles">
+            <button class="cultivo2">Cultivos textiles
+            </button>
+        </a>
+        <a href="/cultivos/lista/Cultivos textiles"> <img class="imagen_cultivos" alt="Estos son cultivos textiles"
+                src="/static/imagenes/Cultivos/c. textiles/ct.jpg" /></a>
+    </div>
 
-        <div class=" float-right2 cultivo">
-            <a href="/cultivos/lista/Cultivos industriales">
-                <button class="cultivo2">Cultivos industriales
-                </button>
-            </a>
-            <a href="/cultivos/lista/Cultivos industriales"> <img class="imagen_cultivos"
-                    alt="Estos son cultivos industriales" src="/static/imagenes/Cultivos/c. industriales/ci.jpg" /></a>
-        </div> -->
+    <div class=" float-right2 cultivo">
+        <a href="/cultivos/lista/Cultivos industriales">
+            <button class="cultivo2">Cultivos industriales
+            </button>
+        </a>
+        <a href="/cultivos/lista/Cultivos industriales"> <img class="imagen_cultivos"
+                alt="Estos son cultivos industriales" src="/static/imagenes/Cultivos/c. industriales/ci.jpg" /></a>
+    </div> -->
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-    </section>
-    <!-- <p>
-    <button id="crear_submit" name="crear_submit" type="submit>"/>
-    <a href="Modificar_cultivo.html">Editar cultivos</a></button>
+</section>
+<!-- <p>
+<button id="crear_submit" name="crear_submit" type="submit>"/>
+<a href="Modificar_cultivo.html">Editar cultivos</a></button>
 </p> -->
-    <footer>
-        <div class="copyright">
-            <p>Copyright 2021</p>
-        </div>
-        <section>
-            <div style="display: flex">
+<footer>
+    <div class="copyright">
+        <p>Copyright 2021</p>
+    </div>
+    <section>
+        <div style="display: flex">
                 <span class="material-icons">
                     email
                 </span><a class="ubi" href="mailto:horticultura@gmail.com">Email</a>
-            </div>
-        </section>
-        <div class="terminos">
-            <a href="#">Terminos y Condiciones</a>
         </div>
-    </footer>
+    </section>
+    <div class="terminos">
+        <a href="#">Terminos y Condiciones</a>
+    </div>
+</footer>
 </body>
 
 </html>

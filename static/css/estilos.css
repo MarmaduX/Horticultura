@@ -748,7 +748,7 @@ footer .terminos{
 
 .titulo2{
 text-align: center;
-font-size: 32px;
+font-size: 36px;
 }
 
 .titulo3{
@@ -812,6 +812,8 @@ color: rgb(0, 0, 0);
 background-color: #4CAF50;
 border: none;
 width: 100%;
+font-size: 20px;
+text-align: center;
 }
 
 .cultivo2:hover{
