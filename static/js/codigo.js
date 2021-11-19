@@ -16,6 +16,18 @@ function borrar_caso(idcaso, userid) {
 	});
 };
 
+function borrar_cultivo(idPlanta) {
+	$.ajax({
+		type: 'DELETE',
+		url: "/eliminar_cultivo",
+		data: { idPlanta: idPlanta },
+		dataType: "text",
+		success: function () {
+			window.location.href = "/cultivos/lista";
+		}
+	});
+};
+
 function comentar(idcaso, userid) {
 	var comentario = document.getElementById("coment");
 	var foto = "";

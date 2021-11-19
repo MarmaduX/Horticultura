@@ -53,11 +53,10 @@
             <div class="clearfix"></div>
             <div class="abajo">
                 {% if rol == 2 %}
-                <form action="/modificar_caso/{{ idcaso }}" method="get">
+                <form action="/cultivos/editar/{{ cultivo[0]}}" method="get">
                     <button class="float-right2 button" type="submit">Editar
                         cultivo</button>
                 </form>
-                <a onClick='addIcs();'></a>
                 <button class="button cta float-left2" type="submit">Eliminar cultivo</button>
                 {% endif %}
             </div>
@@ -96,7 +95,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="abajo">
-                <button class="button float-right2" onclick="borrar_caso('', '')">Eliminar</button>
+                <button class="button float-right2" onclick="borrar_cultivo('{{cultivo[0]}}')">Eliminar</button>
                 <button class="button float-left2 close">Cancelar</button>
             </div>
         </div>

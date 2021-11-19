@@ -400,13 +400,21 @@ def crear_cultivo():
     return render_template("crear_cultivo.html", nickname=session["usuario"][3], userid=session["usuario"][0], rol=2)
 
 
-@app.route('/cultivos/<idPlanta>', methods=['PUT'])
+@app.route('/cultivos/editar/<idPlanta>', methods=['GET',"POST"])
 def editar_cultivo(idPlanta):
-    datos_cultivo = request.get_json()
-    autenticacion.editar_cultivo(idPlanta, datos_cultivo['nombreCientifco'], datos_cultivo['tipoCultivo'],
-                                 datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'],
-                                 datos_cultivo['enfermedades'])
-    return "OK", 200
+    cultivo = autenticacion.mostar_cultivo(idPlanta)
+    cultivo = cultivo[0]
+    if request.method == "POST":
+        direccion = cultivo[3]
+        f = request.files['foto']
+        if secure_filename(f.filename) != '':
+            direccion = "../Horticultura/static/imagenes/Cultivos/" + request.form["tipo"]
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(direccion, filename))
+            direccion = "../static/imagenes/Cultivos/" + request.form["tipo"] +"/"+ filename
+        autenticacion.editar_cultivo(idPlanta, request.form['nombre'], request.form['tipo'], direccion, request.form['desc'], request.form['plagas'], request.form['enf'])
+        return redirect(url_for("mostrar_cultivo", idPlanta=idPlanta))
+    return render_template("editar_cultivo.html", cultivo = cultivo, usuario= session["usuario"])
 
 
 
@@ -459,9 +467,11 @@ def ver_cultivos():
     return render_template('ver_cultivos.html', logged=logged, nickname=nickname, userid=userid, rol=rol)
 
 
-@app.route('/cultivos/eliminar_cultivo', methods=['DELETE'])
-def eliminar_cultivo(idPlanta):
-    return render_template('eliminar_cultivo.html')
+@app.route('/eliminar_cultivo', methods=['DELETE'])
+def eliminar_cultivo():
+    idPlanta = request.form.get("idPlanta")
+    autenticacion.eliminar_cultivo(idPlanta)
+    return render_template("index.html")
 
 @app.route('/cultivos/lista', methods=['GET'])
 def mostar_cultivos():
@@ -533,10 +543,6 @@ def mostar_cultivos_filtrados(tipoCultivo):
     lista = autenticacion.mostrar_cultivos_filtrados_paginado(int(page), keyword, tipoCultivo)
     return render_template('mostrar_cultivos_filtrados.html',palabra=keyword, cultivos=lista,
                             page=int(page), prange=page_range, tipo=tipoCultivo, logged=logged, nickname=nickname, userid=userid, rol=rol)
-
-@app.route('/ver_cultivos_por_id', methods=['GET'])
-def ver_cultivos_por_id():
-    return render_template('ver_cultivos_por_id.html')
 
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():

@@ -114,7 +114,15 @@ label {
     width: 50%;
     box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
 }
-  
+
+.container2 {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin: auto;
+    width: 85%;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+}
 .col-25 {
     float: left;
     width: 30%;
