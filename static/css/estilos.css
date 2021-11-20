@@ -851,3 +851,9 @@ text-align: center;
 .espacio{
     min-height:15vh;
 }
+
+.fondo_texto{
+    background-color: #4CAF50;
+    width: 100%;
+    border-radius: 5px;
+}

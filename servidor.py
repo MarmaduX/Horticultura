@@ -402,7 +402,6 @@ def crear_cultivo():
 
 @app.route('/cultivos/editar/<idPlanta>', methods=['GET',"POST"])
 def editar_cultivo(idPlanta):
-<<<<<<< Updated upstream
     cultivo = autenticacion.mostar_cultivo(idPlanta)
     cultivo = cultivo[0]
     if request.method == "POST":
@@ -416,13 +415,6 @@ def editar_cultivo(idPlanta):
         autenticacion.editar_cultivo(idPlanta, request.form['nombre'], request.form['tipo'], direccion, request.form['desc'], request.form['plagas'], request.form['enf'])
         return redirect(url_for("mostrar_cultivo", idPlanta=idPlanta))
     return render_template("editar_cultivo.html", cultivo = cultivo, usuario= session["usuario"])
-=======
-    datos_cultivo = request.get_json()
-    autenticacion.modificar_cultivo(idPlanta, datos_cultivo['nombreCientifco'], datos_cultivo['tipoCultivo'],
-                                 datos_cultivo['foto'], datos_cultivo['descripcionCultivo'], datos_cultivo['plagas'],
-                                 datos_cultivo['enfermedades'])
-    return "OK", 200
->>>>>>> Stashed changes
 
 
 
@@ -552,13 +544,6 @@ def mostar_cultivos_filtrados(tipoCultivo):
     return render_template('mostrar_cultivos_filtrados.html',palabra=keyword, cultivos=lista,
                             page=int(page), prange=page_range, tipo=tipoCultivo, logged=logged, nickname=nickname, userid=userid, rol=rol)
 
-<<<<<<< Updated upstream
-=======
-@app.route('/cultivos/ver_cultivos_por_id', methods=['GET'])
-def ver_cultivos_por_id(tipoCultivo):
-    return render_template('ver_cultivos_por_id.html')
-
->>>>>>> Stashed changes
 @app.route('/logout', methods=['GET', 'POST'])
 def process_logout():
     session.pop('usuario', None)
