@@ -386,17 +386,15 @@ def pasar_a_resuelto_un_caso():
 @app.route('/cultivo', methods=['GET', 'POST'])
 def crear_cultivo():
     if request.method == "POST":
-        if len(autenticacion.ver_cultivo(request.form["nombre"])):
-            return render_template("crear_cultivo.html", nickname=session["usuario"][3], userid=session["usuario"][0], rol=2)
         f = request.files['foto']
         direccion = "../Horticultura/static/imagenes/Cultivos/" + request.form["tipo"]
         filename = secure_filename(f.filename)
         f.save(os.path.join(direccion, filename))
-        direccion = "../static/imagenes/Cultivos/" + request.form["tipo"] +"/"+ filename
+        direccion = "/static/imagenes/Cultivos/" + request.form["tipo"] +"/"+ filename
         autenticacion.crear_cultivo(request.form['nombre'], request.form['tipo'],direccion,
                                 request.form['desc'], request.form['plag'],
                                 request.form['enf'])
-        return redirect(url_for('ver_cultivos'))
+        return redirect(url_for('listar_cultivos'))
     return render_template("crear_cultivo.html", nickname=session["usuario"][3], userid=session["usuario"][0], rol=2)
 
 
@@ -411,8 +409,8 @@ def editar_cultivo(idPlanta):
             direccion = "../Horticultura/static/imagenes/Cultivos/" + request.form["tipo"]
             filename = secure_filename(f.filename)
             f.save(os.path.join(direccion, filename))
-            direccion = "../static/imagenes/Cultivos/" + request.form["tipo"] +"/"+ filename
-        autenticacion.editar_cultivo(idPlanta, request.form['nombre'], request.form['tipo'], direccion, request.form['desc'], request.form['plagas'], request.form['enf'])
+            direccion = "/static/imagenes/Cultivos/" + request.form["tipo"] +"/"+ filename
+        autenticacion.modificar_cultivo(idPlanta, request.form['nombre'], request.form['tipo'], direccion, request.form['desc'], request.form['plagas'], request.form['enf'])
         return redirect(url_for("mostrar_cultivo", idPlanta=idPlanta))
     return render_template("editar_cultivo.html", cultivo = cultivo, usuario= session["usuario"])
 
